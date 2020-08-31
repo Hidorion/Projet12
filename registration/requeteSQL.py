@@ -21,7 +21,7 @@ class create_registration():
 
     # save identification and password
     def new_registration(self, address, name, password):
-        requete_sql = """INSERT INTO registration(address, name, password) VALUES (%s, %s) """
+        requete_sql = """INSERT INTO registration(address, name, password) VALUES (%s, %s, %s) """
         self.cursor.execute(requete_sql, (address, name, password))
         self.connexion.commit()
 
