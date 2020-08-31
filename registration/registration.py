@@ -4,6 +4,7 @@
 from registration.requeteSQL import create_registration
 import hashlib
 from getpass import getpass
+from validate_email import validate_email
 
 
 def lenght_input(entry, mot, max = 16, min = 3) :
@@ -40,16 +41,21 @@ def check_pseudo():
 
 def check_address():
     SQL = create_registration()
-    address = input("address-email : ").lower()
-    # put the nickname in tuple to compare it to the table
+    address = input("adress-email : ").lower()
+    while validate_email(address) == False :
+        print("Saisissez une adresse valide")
+        address = input("adress-email : ").lower()
     address =(address,)
-    # check if the pseudo is already taken
     SQL.read_registration_address()
+    
     while address in SQL.address :
         # if yes, return to the start of the while
         print("Cette email est déjà prit")
-        address = input("addresse-email :").lower()
-        # address = (address,)
+        address = input("adresse-email :").lower()
+        while validate_email(address) == False :
+            print("Saisissez une adresse valide")
+            address = input("adress-email : ").lower()
+        address = (address,)
     return address 
 
 
