@@ -29,8 +29,8 @@ def check_pseudo():
     # put the nickname in tuple to compare it to the table
     pseudo =(pseudo,)
     # check if the pseudo is already taken
-    SQL.read_registration()
-    while pseudo in SQL.player :
+    SQL.read_registration_name()
+    while pseudo in SQL.name :
         # if yes, return to the start of the while
         print("Cette identifiant est déjà prit")
         pseudo = input("Pseudonyme ").lower()
@@ -38,14 +38,30 @@ def check_pseudo():
         pseudo = (pseudo,)
     return pseudo 
 
+def check_address():
+    SQL = create_registration()
+    address = input("address-email : ").lower()
+    # put the nickname in tuple to compare it to the table
+    address =(address,)
+    # check if the pseudo is already taken
+    SQL.read_registration_address()
+    while address in SQL.address :
+        # if yes, return to the start of the while
+        print("Cette email est déjà prit")
+        address = input("addresse-email :").lower()
+        # address = (address,)
+    return address 
+
+
 def user_input():
     SQL = create_registration()
     SQL.create_table()
+    address = check_address()
     pseudo = check_pseudo()
     mdp_encrypte = password()
 
     # save registration
-    SQL.new_registration(pseudo, mdp_encrypte)
+    SQL.new_registration(address, pseudo, mdp_encrypte)
     print("Votre inscription a bien été enregistrée")
 
 
