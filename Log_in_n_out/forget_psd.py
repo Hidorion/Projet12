@@ -12,6 +12,12 @@ def forget_psd():
     result = cursor.fetchone()
     if result: #A Si le user et le password sont bons
         user_password = getpass("Mot de passe : ") # On prend le password en xxxx
+        user_passwordcheck = getpass("Vérification de mot de passe : ") # On reprend le password en xxxx
+        if user_passwordcheck == user_password:
+            pass
+        else :
+            print("Vous n'avez entré 2 fois le même mot de passe")
+            forget_psd()
         user_password = user_password.encode() #On encode en UTF8
         user_password = (hashlib.sha1(user_password).hexdigest(),) #On le hash en hexa
         connexion = psycopg2.connect("dbname=Testprojet2 user=postgres password=group12")
