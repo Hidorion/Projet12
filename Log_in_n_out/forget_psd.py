@@ -28,3 +28,8 @@ def forget_psd():
         print("Nom d'utilisateur ou adresse e-mail incorrect")
         forget_psd()
 
+"""
+vérification mot de passe à revoir
+Gérer la longueur du mot de passe
+
+"""
