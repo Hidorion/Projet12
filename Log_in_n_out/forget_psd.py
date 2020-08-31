@@ -4,7 +4,7 @@ from getpass import getpass
 
 def forget_psd():
     user_name = (input("Nom d'utilisateur : "),) # On prend l'user
-    user_mail = (input("Adresse e-mail : "),) # On prend le password en xxxx
+    user_mail = (input("Adresse e-mail : "),) # On prend le mail
     connexion = psycopg2.connect("dbname=Testprojet2 user=postgres password=group12")
     cursor = connexion.cursor()
     cursor.execute(f'SELECT * FROM registration WHERE name = %s AND e_mail = %s', (user_name, user_mail))
