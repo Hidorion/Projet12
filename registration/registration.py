@@ -9,13 +9,13 @@ from validate_email import validate_email
 
 def lenght_input(entry, mot, max = 16, min = 3) :
         while len(entry) >= max or len(entry) <= min :
-            print(f"Choisissez un {mot} entre {min} et {max} caractères")
+            print(f"Choisissez un {mot} entre {min + 1} et {max} caractères")
             entry = input(f"{mot} : ").lower()
         return entry
 
 def password():
     mdp = input("Mot de passe : ")
-    mdp = (lenght_input(mdp, "Mot de passe", 32, 8))
+    mdp = (lenght_input(mdp, "Mot de passe", 32, 7))
     # Encode the string in UTF-8 encoding, necessary for this to hash the mdp
     mdp = mdp.encode()
     # Allows you to encode the mdp
