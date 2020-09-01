@@ -14,14 +14,19 @@ def lenght_input(entry, mot, max = 16, min = 3) :
         return entry
 
 def password():
-    mdp = input("Mot de passe : ")
+    mdp = getpass("Mot de passe : ")
     mdp = (lenght_input(mdp, "Mot de passe", 32, 7))
+    user_passwordcheck = getpass("Vérification de mot de passe : ") # On reprend le password en xxxx
+    if user_passwordcheck == mdp:
+        pass
+    else :
+        password()
     # Encode the string in UTF-8 encoding, necessary for this to hash the mdp
     mdp = mdp.encode()
     # Allows you to encode the mdp
     mdp_encrypte = hashlib.sha1(mdp).hexdigest()
     return mdp_encrypte
-
+    
 
 def check_pseudo():
     SQL = create_registration()
