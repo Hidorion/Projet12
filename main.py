@@ -13,7 +13,7 @@ pygame.init()
 pygame.display.set_caption("Projet 2")
 screen = pygame.display.set_mode(1080, 720)
 
-background = pygame.image.load()
+background = pygame.image.load("background/desert.jpg")
 
 
 if __name__ == "__main__":
