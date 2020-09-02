@@ -14,7 +14,7 @@ class Player :
         self.character_image_rect = self.character_image.get_rect()
         self.character_image_rect.x = math.ceil(screen.get_width() / 2)
         self.character_image_rect.y = screen.get_height() - self.character_image.get_height()
-        
+
         self.pressed = pressed
         self.health = 10
         self.velocity = 1
