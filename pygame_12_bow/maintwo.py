@@ -6,12 +6,12 @@ screen = pygame.display.set_mode((720, 480))
 clock = pygame.time.Clock()
 
 x, y, dx, dy = 360, 240, 0, 0
-player = pygame.image.load("miniarc.png")
+player = pygame.image.load("pygame_12_bow/miniarc.png")
 
 
 bullet_x, bullet_y = 360, 240
 speed = 20
-bullet = pygame.image.load("arrow.png")
+bullet = pygame.image.load("pygame_12_bow/arrow.png")
 
 
 

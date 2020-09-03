@@ -13,7 +13,7 @@ class Bow :
         """
             The bow that must move
         """
-        self.image = pygame.image.load("miniarc.png")
+        self.image = pygame.image.load("pygame_12_bow/miniarc.png")
         self.axe_x = 21
         self.axe_y = 216
         self.angle = 0
@@ -30,13 +30,13 @@ class Arrow :
         """
         self.axe_x=21
         self.axe_y=222
-        self.image=pygame.image.load("arrow.png")
+        self.image=pygame.image.load("pygame_12_bow/arrow.png")
     def Update(self):
         pass
 #SCREEN
 screen = pygame.display.set_mode((1400, 240))
 #WHAT TO SHOW
-background = pygame.image.load("background.png")
+background = pygame.image.load("pygame_12_bow/background.png")
 arrow = Arrow()
 arm = Bow()
 running = True
