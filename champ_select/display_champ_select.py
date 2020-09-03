@@ -13,11 +13,6 @@ def champ_select(screen, background) :
 
     screen.blit(background, (0,0))
 
-    # for event in pygame.event.get():
-
-    #     # if event.type == pygame.QUIT :
-    #     #     champ_select = False
-
     avatar.update(screen)
     pygame.display.flip()
             # elif event.type == pygame.KEYDOWN :
