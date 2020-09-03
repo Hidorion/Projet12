@@ -47,7 +47,7 @@ class Game:
         if self.validation_champ_select :
             screen.blit(self.champ_select.background_champ_select, (0,0))
             if self.selected_champ :
-                pygame.draw.rect(screen,(0,0,255),(self.list_image_avatar_x[self.avatar_choose], self.list_image_avatar_y[self.avatar_choose], self.champ_select.avatar1_image.get_width(), self.champ_select.avatar1_image.get_height()))
+                pygame.draw.rect(screen,(0,225,0),(self.list_image_avatar_x[self.avatar_choose], self.list_image_avatar_y[self.avatar_choose], self.champ_select.avatar1_image.get_width(), self.champ_select.avatar1_image.get_height()))
             self.champ_select.update(screen)
 
     def create_player(self, screen, index):
