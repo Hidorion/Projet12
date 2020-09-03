@@ -9,17 +9,20 @@ from registration.requeteSQL import create_registration
 from registration.registration import user_input
 from getpass import getpass
 from registration.connection import forget_psd
-from champ_select.display_champ_select import champ_select
 # from champ_select.load_character import Avatar
 
 
 
 pygame.init()
 pygame.display.set_caption("Projet 2")
-screen = pygame.display.set_mode((800, 600))
+x_screen = 700
+y_screen = 700
 
-background_forest = pygame.image.load("images/bg/desert.jpg")
-background_champ_select = pygame.image.load("images/bg/background_champ_select.png")
+screen = pygame.display.set_mode((x_screen, y_screen))
+
+
+
+
 clock = pygame.time.Clock()
 
 
@@ -28,23 +31,20 @@ game = Game(screen)
 
 running = True
 # displayer champ_select
-champ_select = True
+
 
 if __name__ == "__main__":
 
     
     while running :
-
-        # while champ_select :
-        #     champ_select(screen, background_champ_select )
-
-        screen.blit(background_forest, (0,0))
         
+        
+
+
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT :
                 running = False
-
 
             elif event.type == pygame.KEYDOWN :
                 game.pressed[event.key] = True
@@ -52,6 +52,16 @@ if __name__ == "__main__":
             elif event.type == pygame.KEYUP :
                 game.pressed[event.key] = False
 
+
+            elif event.type == pygame.MOUSEBUTTONDOWN and game.validation_champ_select == True :
+                for index, avatar in enumerate(game.champ_select.list_rect_avatar) :
+                    if avatar.collidepoint(event.pos) :
+                        game.selected_champ = True
+                        game.avatar_choose = index
+                        game.create_player(screen, index + 1)
+                if game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
+                    game.validation_champ_select = False
+                    game.play = True
             
         game.update(screen)
         # clock.tick(120)
