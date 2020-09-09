@@ -5,6 +5,7 @@ import psycopg2
 import hashlib
 from getpass import getpass
 from registration.registration import lenght_input
+from Log_in_n_out.log_in import check_logs
 
 # def lenght_input(entry, mot, max = 16, min = 3) :
 #         while len(entry) >= max or len(entry) <= min :
@@ -23,6 +24,7 @@ def forget_psd():
     result = cursor.fetchone()
     if result:
         get_new_pwd(user_name,user_mail)
+        check_logs()
     else : #A Sinon...
         print("Nom d'utilisateur ou adresse e-mail incorrect")
         forget_psd()
