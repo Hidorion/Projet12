@@ -4,6 +4,7 @@
 import math
 import pygame
 import pytmx
+from play.map_obstacles import Obstacle
 
 
 
@@ -17,8 +18,10 @@ class Map :
         # pareil pour la haute, nombre et taille des tuiles
         self.height = tm.height * tm.tileheight
         self.tmx_data = tm
+        # Création du groupe de sprite d'obstacle
+        self.group_obstacle = pygame.sprite.Group()
 
-    def render(self, surface):
+    def render(self, surface, cant_walk):
         #sauvegarder la commande
         save_command = self.tmx_data.get_tile_image_by_gid
         # parcourir les couche de la map
@@ -31,13 +34,16 @@ class Map :
                     # Recherche si le l'id correspond a une surface
                     tile = save_command(gid)
                     if tile :
+                        if cant_walk :
+                            self.group_obstacle.add(Obstacle(x * self.tmx_data.tilewidth, y * self.tmx_data.tileheight, tile))
+                        else :
                         # dessiner sur la surface toute les tuiles
-                        surface.blit(tile, (x * self.tmx_data.tilewidth, y * self.tmx_data.tileheight))
+                            surface.blit(tile, (x * self.tmx_data.tilewidth, y * self.tmx_data.tileheight))
     
     # creer la surface pour les tile
-    def make_map(self):
+    def make_map(self, cant_walk):
         temp_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
-        self.render(temp_surface)
+        self.render(temp_surface, cant_walk)
         return temp_surface
         
         

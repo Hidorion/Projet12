@@ -30,6 +30,10 @@ clock = pygame.time.Clock()
 
 
 game = Game(screen)
+
+game.map_sol = game.create_map("images/bg/mini_map_test.tmx", False)
+game.map_behind = game.create_map("images/bg/mini_map_test_behind.tmx", False)
+# game.obstacle = game.create_map("images/bg/mini_map_test_obstacle.tmx", True)
 # avatar = Avatar(screen)
 
 # displayer champ_select
@@ -75,7 +79,7 @@ if __name__ == "__main__":
                         if avatar.collidepoint(event.pos) :
                             game.selected_champ = True
                             game.avatar_choose = index
-                            game.create_player(screen, index + 1)
+                            # game.create_player(screen, index + 1)
 
                     if game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == False:
                         game.not_select = True
@@ -83,10 +87,10 @@ if __name__ == "__main__":
                         game.validation_champ_select = False
                         game.play = True
 
-                elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
-                    game.full_screen_map = True
-                    game.play = False
+                # elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
+                #     game.full_screen_map = True
+                #     game.play = False
             
         game.update(screen)
-        # clock.tick(120)
+        # clock.tick(10)
         pygame.display.flip()
