@@ -31,8 +31,8 @@ clock = pygame.time.Clock()
 
 game = Game(screen)
 
-game.map_sol = game.create_map("images/bg/mini_map_test.tmx", False)
-game.map_behind = game.create_map("images/bg/mini_map_test_behind.tmx", False)
+game.map_sol = game.create_map("images/bg/Foret.tmx", False)
+game.map_behind = game.create_map("images/bg/Foret_behind.tmx", False)
 # game.obstacle = game.create_map("images/bg/mini_map_test_obstacle.tmx", True)
 # avatar = Avatar(screen)
 

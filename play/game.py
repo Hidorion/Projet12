@@ -50,8 +50,6 @@ class Game:
 
         # self.list_avatar = ["avatar1", "avatar2", "avatar3", "avatar4", "avatar5", "avatar6", "avatar7", "avatar8"]
 
-
-
     def update(self, screen):
 
         # self.player.avatar = self.list_avatar[self.avatar_choose]
@@ -59,9 +57,9 @@ class Game:
             self.counter_move += 1
             if self.counter_move % 2 == 0:
                 self.movement(screen)
-            screen.blit(self.map_sol, (0,0))
-            screen.blit(self.player.image, self.player.rect) 
-            screen.blit(self.map_behind, (0,0))
+            screen.blit(self.map_sol, (self.player.map_x, self.player.map_y))
+            screen.blit(self.player.image, (400, 400)) 
+            screen.blit(self.map_behind, (self.player.map_x, self.player.map_y))
             # screen.blit(self.map.mini_map, self.map.mini_map_rect)
 
         # if self.full_screen_map :
