@@ -34,9 +34,11 @@ class Game:
         self.full_screen_map = False
         self.player = Player(screen, 1, self)
 
-        # Créer les deux surface
-        self.map_sol = ""
-        self.map_behind = ""
+        # Créer les surfaces des map
+        self.map_foret_sol = ""
+        self.map_foret_behind = ""
+        self.map_montagne_sol = ""
+        self.map_montagne_behind = ""
         
         self.counter_move = 0
 
@@ -57,9 +59,14 @@ class Game:
             self.counter_move += 1
             if self.counter_move % 2 == 0:
                 self.movement(screen)
-            screen.blit(self.map_sol, (self.player.map_x, self.player.map_y))
-            screen.blit(self.player.image, (400, 400)) 
-            screen.blit(self.map_behind, (self.player.map_x, self.player.map_y))
+            if self.player.map_y > 6400 :
+                screen.blit(self.map_montagne_sol, (self.player.map_x, self.player.map_y))
+                screen.blit(self.player.image, (400, 400)) 
+                screen.blit(self.map_montagne_behind, (self.player.map_x, self.player.map_y))
+            else:    
+                screen.blit(self.map_foret_sol, (self.player.map_x, self.player.map_y))
+                screen.blit(self.player.image, (400, 400)) 
+                screen.blit(self.map_foret_behind, (self.player.map_x, self.player.map_y))
             # screen.blit(self.map.mini_map, self.map.mini_map_rect)
 
         # if self.full_screen_map :

@@ -11,7 +11,6 @@ from registration.registration import sign_in
 from getpass import getpass
 from registration.connection import forget_psd
 from Log_in_n_out.log_in import check_logs
-
 # from champ_select.load_character import Avatar
 
 
@@ -31,8 +30,13 @@ clock = pygame.time.Clock()
 
 game = Game(screen)
 
-game.map_sol = game.create_map("images/bg/Foret.tmx", False)
-game.map_behind = game.create_map("images/bg/Foret_behind.tmx", False)
+
+game.map_foret_sol = game.create_map("images/bg/Foret.tmx", False)
+game.map_foret_behind = game.create_map("images/bg/Foret_behind.tmx", False)
+
+game.map_montagne_sol = game.create_map("images/bg/Montagne.tmx", False)
+game.map_montagne_behind = game.create_map("images/bg/Montagne_behind.tmx", False)
+
 # game.obstacle = game.create_map("images/bg/mini_map_test_obstacle.tmx", True)
 # avatar = Avatar(screen)
 
