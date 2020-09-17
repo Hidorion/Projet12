@@ -11,23 +11,23 @@ from registration.registration import sign_in
 from getpass import getpass
 from registration.connection import forget_psd
 from Log_in_n_out.log_in import check_logs
+from play import Variables as var
+from play.camera import Camera
 # from champ_select.load_character import Avatar
 
 
 
 pygame.init()
 pygame.display.set_caption("Projet 2")
-x_screen = 800
-y_screen = 800
 
-screen = pygame.display.set_mode((x_screen, y_screen))
+screen = pygame.display.set_mode((var.x_screen, var.y_screen))
 
 
 
 
 clock = pygame.time.Clock()
 
-
+cam = Camera(var.x_screen // 2, var.y_screen // 2)
 game = Game(screen)
 
 
@@ -94,7 +94,10 @@ if __name__ == "__main__":
                 # elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
                 #     game.full_screen_map = True
                 #     game.play = False
-            
+                                                
+        #cam.apply(game.map_rect)
+        #cam.apply(game.map_rect)    
         game.update(screen)
+        
         # clock.tick(10)
         pygame.display.flip()

@@ -7,6 +7,8 @@ import time
 from play.map import Map
 from play.player import Player
 from champ_select.champ_select import Avatar
+from play.camera import Camera
+from play import Variables as var
 
 
 class Game:
@@ -32,8 +34,8 @@ class Game:
         self.not_select = False
         # Met la mini map en full screen
         self.full_screen_map = False
-        self.player = Player(screen, 1, self)
-
+        self.player = Player(screen, 5, self)
+        self.camera = Camera(var.x_screen // 2, var.y_screen // 2)
         # Créer les surfaces des map
         self.map_foret_sol = ""
         self.map_foret_behind = ""
@@ -50,6 +52,7 @@ class Game:
         self.champ_select.avatar3_image_rect.y, self.champ_select.avatar4_image_rect.y, self.champ_select.avatar5_image_rect.y, 
         self.champ_select.avatar6_image_rect.y, self.champ_select.avatar7_image_rect.y, self.champ_select.avatar8_image_rect.y]
 
+        self.map_rect = ""
         # self.list_avatar = ["avatar1", "avatar2", "avatar3", "avatar4", "avatar5", "avatar6", "avatar7", "avatar8"]
 
     def update(self, screen):
@@ -59,6 +62,7 @@ class Game:
             self.counter_move += 1
             if self.counter_move % 2 == 0:
                 self.movement(screen)
+                self.camera.update(self.player.rect)
             if self.player.rect.y > 6400 :
                 self.player.map = self.player.map_montagne
                 self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind)
@@ -80,15 +84,16 @@ class Game:
         #     self.champ_select.update(screen)
 
     def blit_map (self, screen, map, behind) :
-        screen.blit(map, (self.player.map_x, self.player.map_y))
-        screen.blit(self.player.image, (400, 400)) 
-        screen.blit(behind, (self.player.map_x, self.player.map_y))
-
+        screen.blit(map, self.camera.apply_rect(self.map_rect)) #(self.player.map_x, self.player.map_y),
+        screen.blit(self.player.image, self.camera.apply(self.player.rect))
+        screen.blit(behind, self.camera.apply_rect(self.map_rect))
+        
+        
     def create_map(self, file, cant_walk):
 
         map = Map(file)
         map_img = map.make_map(cant_walk)
-        map_rect = map_img.get_rect()
+        self.map_rect = map_img.get_rect()
         return map_img
 
 

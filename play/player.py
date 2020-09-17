@@ -18,14 +18,14 @@ class Player (pygame.sprite.Sprite) :
         self.rect = self.image.get_rect()
         self.rect.x = 400
         self.rect.y = 400
-        self.rect = pygame.Rect(self.rect.x, self.rect.y, 32, 32)
+        # self.rect = pygame.Rect(self.rect.x, self.rect.y, 32, 32)
 
         self.map_x = 0
         self.map_y = 0
         
 
         self.health = 10
-        self.velocity = 1
+        self.velocity = 3
         self.move = 0
 
         self.map_foret = Map("images/bg/Foret_obstacle.tmx")
@@ -49,6 +49,7 @@ class Player (pygame.sprite.Sprite) :
         if pygame.sprite.spritecollideany(self, self.map.group_obstacle):
             self.map_x += self.velocity
             self.rect.x -= self.velocity
+
 
     def move_left(self, screen): 
         
@@ -77,7 +78,7 @@ class Player (pygame.sprite.Sprite) :
         self.image = pygame.transform.scale(self.image, (math.ceil(screen.get_height() / 25), math.ceil(screen.get_width() / 20)))
         if pygame.sprite.spritecollideany(self, self.map.group_obstacle):
             self.map_y += self.velocity
-            self.rect.y -= 1
+            self.rect.y -= self.velocity
 
     def change_image(self, not_move, move):
         # Pour chaque tour de boucle, move s'agrémente, a partir de 15 l'image change, et se remet normal au bout de 45 tour 
