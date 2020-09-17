@@ -59,14 +59,12 @@ class Game:
             self.counter_move += 1
             if self.counter_move % 2 == 0:
                 self.movement(screen)
-            if self.player.map_y > 6400 :
-                screen.blit(self.map_montagne_sol, (self.player.map_x, self.player.map_y))
-                screen.blit(self.player.image, (400, 400)) 
-                screen.blit(self.map_montagne_behind, (self.player.map_x, self.player.map_y))
+            if self.player.rect.y > 6400 :
+                self.player.map = self.player.map_montagne
+                self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind)
+                
             else:    
-                screen.blit(self.map_foret_sol, (self.player.map_x, self.player.map_y))
-                screen.blit(self.player.image, (400, 400)) 
-                screen.blit(self.map_foret_behind, (self.player.map_x, self.player.map_y))
+                self.blit_map(screen, self.map_foret_sol, self.map_foret_behind)
             # screen.blit(self.map.mini_map, self.map.mini_map_rect)
 
         # if self.full_screen_map :
@@ -80,6 +78,11 @@ class Game:
         #     if self.selected_champ :
         #         pygame.draw.rect(screen,(0,225,0),(self.list_image_avatar_x[self.avatar_choose], self.list_image_avatar_y[self.avatar_choose], self.champ_select.avatar1_image.get_width(), self.champ_select.avatar1_image.get_height()))
         #     self.champ_select.update(screen)
+
+    def blit_map (self, screen, map, behind) :
+        screen.blit(map, (self.player.map_x, self.player.map_y))
+        screen.blit(self.player.image, (400, 400)) 
+        screen.blit(behind, (self.player.map_x, self.player.map_y))
 
     def create_map(self, file, cant_walk):
 

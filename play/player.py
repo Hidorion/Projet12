@@ -31,12 +31,13 @@ class Player (pygame.sprite.Sprite) :
         self.map_foret = Map("images/bg/Foret_obstacle.tmx")
         self.map_img_foret = self.map_foret.make_map(True)
 
-        self.map_montage = Map("images/bg/Montage_obstacle.tmx")
-        self.map_img_montage = self.map_montagne.make_map(True)
+        self.map_montagne = Map("images/bg/Montagne_obstacle.tmx")
+        self.map_img_montagne = self.map_montagne.make_map(True)
 
         self.group_player = pygame.sprite.Group()
         self.group_player.add(self)
         
+        self.map = self.map_foret
 
         # Déplace la carte en fonction des touche pressé
     def move_right(self, screen):
@@ -60,7 +61,6 @@ class Player (pygame.sprite.Sprite) :
             self.rect.x += self.velocity
 
     def move_up(self, screen):
-        print(self.rect)
         self.map_y += self.velocity
         self.rect.y -= self.velocity
         self.change_image(f"images/ressources/{self.avatar}/character_up.png", f"images/ressources/{self.avatar}/character_up_move.png" )
