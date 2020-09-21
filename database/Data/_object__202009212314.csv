@@ -1,0 +1,61 @@
+"id","id_action","id_category","name","amount_min","amount_max"
+1,2,1,Hachette,1,1
+2,3,1,Pelle,1,1
+3,6,1,Pioche,1,1
+4,8,1,Serpe,1,1
+5,4,1,Torche,1,1
+6,9,1,Canne à pêche,1,1
+7,10,1,Concococteur,1,1
+8,5,1,Feu de camp,1,1
+9,7,1,Lit de fortune,1,1
+10,1,7,Bois,3,8
+11,1,7,Silex,3,8
+12,1,7,Liane,2,6
+13,1,7,Pierre,2,6
+14,1,7,Sève,1,4
+15,1,7,Laine,2,10
+16,1,7,Feuille,2,8
+17,1,7,Eau,1,10
+18,1,7,Jus de coco,1,3
+19,1,5,Noix de coco,1,1
+20,1,5,Melon,1,1
+21,1,5,Ananas,1,1
+22,1,5,Figue,1,3
+23,1,5,Banane,2,6
+24,1,4,Blé,10,20
+25,1,4,Maïs,1,4
+26,1,6,Carotte,1,3
+27,1,6,Pomme de terre,2,6
+28,1,6,Poireaux,1,1
+29,1,6,Avocat,1,2
+30,10,1,Récipient,1,2
+31,5,8,Ortie,2,6
+32,5,8,Champignon Blanc,2,5
+33,5,8,Champignon Marron,2,5
+34,5,8,Champignon Rouge,3,6
+35,5,8,Baie Rouge,6,10
+36,5,8,Baie Jaune,6,10
+37,5,8,Baie Noire,6,10
+38,5,8,Baie Bleue,6,10
+39,10,8,Fleur Bleue,2,4
+40,10,8,Fleur Rouge,2,4
+41,10,8,Fleur Jaune,2,4
+42,10,8,Fleur Rose,2,4
+43,10,8,Fleur Verte,2,4
+44,10,8,Fleur Noire,2,4
+45,10,8,Fleur Blanche,2,4
+46,10,8,Fleur Violette,2,4
+47,12,3,Graine de fleurs,1,1
+48,12,3,Graine de baies,1,1
+49,12,3,Graine d'orties,1,1
+50,12,3,Spore de champignons,1,1
+51,12,3,Grain de céréales,1,1
+52,12,3,Graine de cocotiers,1,1
+53,12,3,Pépin de melons,1,1
+54,12,3,Graine d'ananas,1,1
+55,12,3,Pépin de figues,1,1
+56,12,3,Graine de bananes,1,1
+57,12,3,Graine de carottes,1,1
+58,12,3,Graine de patates,1,1
+59,12,3,Graine de poireaux,1,1
+60,12,3,Noyau d'avocats,1,1
