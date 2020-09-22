@@ -77,18 +77,18 @@ class Game:
             self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
             self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
 
-            if self.player.rect.x < 19200 and self.player.rect.x > 12800 and self.player.rect.y < 12800 and self.player.rect.y > 6400 :
-                self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
-                if self.player.rect.y == 12400 :
-                    self.player.rect.x = 12400
-                    self.player.rect.y = 16000
-            elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 19200 and self.player.rect.y > 12800 :
-                self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
-                if self.player.rect.y == 12400 :
-                    self.player.rect.x = 12400
-                    self.player.rect.y = 16000
-            elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 19200 and self.player.rect.y > 12800 :
-                self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
+            # if self.player.rect.x < 19200 and self.player.rect.x > 12800 and self.player.rect.y < 12800 and self.player.rect.y > 6400 :
+            #     self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
+            #     if self.player.rect.y == 12400 :
+            #         self.player.rect.x = 12400
+            #         self.player.rect.y = 16000
+            # elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 19200 and self.player.rect.y > 12800 :
+            #     self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
+            #     if self.player.rect.y == 12400 :
+            #         self.player.rect.x = 12400
+            #         self.player.rect.y = 16000
+            # elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 19200 and self.player.rect.y > 12800 :
+            #     self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
 
             # elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 6400 and self.player.rect.y > 0 :
             #     self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
@@ -102,7 +102,7 @@ class Game:
     def blit_map (self, screen, map, behind, x, y) :
         self.map_rect.x = x
         self.map_rect.y = y
-        screen.blit(map, self.camera.apply_rect(self.map_rect)) #(self.player.map_x, self.player.map_y),
+        screen.blit(map, (self.camera.apply_rect(self.map_rect))) #(self.player.map_x, self.player.map_y),
         screen.blit(self.player.image, self.camera.apply(self.player.rect))
         screen.blit(behind, self.camera.apply_rect(self.map_rect))
         
