@@ -5,6 +5,7 @@ import hashlib
 import pygame
 import math
 import time
+import pytmx
 from play.game import Game
 from registration.requeteSQL import create_registration
 from registration.registration import sign_in
@@ -12,7 +13,8 @@ from getpass import getpass
 from registration.connection import forget_psd
 from Log_in_n_out.log_in import check_logs
 from play import Variables as var
-from play.camera import Camera
+from play.map_obstacles import Obstacle
+from play.map import Map
 # from champ_select.load_character import Avatar
 
 
@@ -27,15 +29,28 @@ screen = pygame.display.set_mode((var.x_screen, var.y_screen))
 
 clock = pygame.time.Clock()
 
-cam = Camera(var.x_screen // 2, var.y_screen // 2)
 game = Game(screen)
 
 
-game.map_foret_sol = game.create_map("images/bg/Foret.tmx", False)
-game.map_foret_behind = game.create_map("images/bg/Foret_behind.tmx", False)
+# game.map_foret_sol = pygame.image.load("images/Bg/Foret.png")
+game.map_foret_sol = game.create_map("images/bg/Foret.tmx")
+Map("images/Bg/Foret_obstacle.tmx", game.player).obstacle(12800, 6400)
+game.map_foret_behind = game.create_map("images/bg/Foret_behind.tmx")
 
-game.map_montagne_sol = game.create_map("images/bg/Montagne.tmx", False)
-game.map_montagne_behind = game.create_map("images/bg/Montagne_behind.tmx", False)
+game.map_montagne_sol = game.create_map("images/bg/Montagne.tmx")
+Map("images/Bg/Montagne_obstacle.tmx", game.player).obstacle(6400, 0)
+game.map_montagne_behind = game.create_map("images/bg/Montagne_behind.tmx")
+
+game.map_marecage_sol = game.create_map("images/bg/Marecage.tmx")
+game.map_marecage_behind = game.create_map("images/bg/Marecage_behind.tmx")
+
+game.map_cratere_sol = game.create_map("images/bg/Cratere.tmx")
+game.map_cratere_behind = game.create_map("images/bg/Cratere_behind.tmx")
+
+game.map_desert_sol = game.create_map("images/bg/Desert.tmx")
+game.map_desert_behind = game.create_map("images/bg/Desert_behind.tmx")
+
+
 
 # game.obstacle = game.create_map("images/bg/mini_map_test_obstacle.tmx", True)
 # avatar = Avatar(screen)
@@ -95,8 +110,7 @@ if __name__ == "__main__":
                 #     game.full_screen_map = True
                 #     game.play = False
                                                 
-        #cam.apply(game.map_rect)
-        #cam.apply(game.map_rect)    
+ 
         game.update(screen)
         
         # clock.tick(10)
