@@ -105,7 +105,7 @@ class Game:
         elif self.pressed.get(pygame.K_DOWN) == False and self.last_movement == "down" :
             self.player.character_image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_down.png")
             self.player.character_image = pygame.transform.scale(self.player.character_image, (math.ceil(screen.get_height() / 25), math.ceil(screen.get_width() / 20)))
- 
+
 
     # Déplace la carte en fonction des touche pressé
     def move_right(self, screen):
