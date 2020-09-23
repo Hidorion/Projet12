@@ -356,6 +356,7 @@ COPY public.category (id, name, id_parent) FROM stdin;
 --
 
 COPY public.connection (id, email, pseudo, password) FROM stdin;
+1	onsenfout@gmail.com	Kosovo	Hachette
 \.
 
 
