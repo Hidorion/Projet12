@@ -730,8 +730,8 @@ COPY public.category (id, name, id_parent) FROM stdin;
 -- Data for Name: connection; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.connection (id, email, pseudo, password) FROM stdin;
-1	onsenfout@gmail.com	'Kosovo'	'Hachette'
+COPY public.connection (id, pseudo, password, e_mail) FROM stdin;
+2	Kosovo	Hachette	onsenfout@gmail.com
 \.
 
 

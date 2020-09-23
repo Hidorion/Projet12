@@ -55,9 +55,9 @@ def get_new_pwd(name,address):
 ​
 """
 
-def check_logs(inputs_list):
-    user_name = inputs_list[0] #(input("Nom d'utilisateur : "),) # On prend l'user
-    user_password = inputs_list[1] #getpass("Mot de passe : ") # On prend le password en xxxx
+def check_logs(inputs_tuple):
+    user_name = inputs_tuple[0] #(input("Nom d'utilisateur : "),) # On prend l'user
+    user_password = inputs_tuple[1] #getpass("Mot de passe : ") # On prend le password en xxxx
     #user_password = user_password.encode() #On encode en UTF8
     #user_password = (hashlib.sha1(user_password).hexdigest(),) #On le hash en hexa
     connexion = psycopg2.connect("dbname=postgres user=postgres password=12")
