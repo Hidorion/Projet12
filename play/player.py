@@ -17,8 +17,8 @@ class Player (pygame.sprite.Sprite) :
         self.image = pygame.image.load(f"images/ressources/{self.avatar}/character_up.png")
         self.image = pygame.transform.scale(self.image, (32 , 32))
         self.rect = self.image.get_rect()
-        self.rect.x = 13000
-        self.rect.y = 7000
+        self.rect.x = 8000
+        self.rect.y = 9000
         # self.rect = pygame.Rect(self.rect.x, self.rect.y, 32, 32)
 
         self.map_x = 0

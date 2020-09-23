@@ -28,7 +28,7 @@ class Game:
         # Index de l'avatar choisit
         self.avatar_choose = 0
         # Permet de print la map et le personnage
-        self.play = True
+        self.play = False
         # Si la touche valider est pressé mais aucun avatar choisit
         self.not_select = False
         # Met la mini map en full screen

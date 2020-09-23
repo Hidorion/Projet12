@@ -1,11 +1,14 @@
 # coding: utf-8
 
-#import
+#import module
 import hashlib
 import pygame
 import math
 import time
 import pytmx
+import threading
+
+#import fichier
 from play.game import Game
 from registration.requeteSQL import create_registration
 from registration.registration import sign_in
@@ -15,7 +18,7 @@ from Log_in_n_out.log_in import check_logs
 from play import Variables as var
 from play.map_obstacles import Obstacle
 from play.map import Map
-# from champ_select.load_character import Avatar
+from play.loading_game import start_loading
 
 
 
@@ -25,30 +28,16 @@ pygame.display.set_caption("Projet 2")
 screen = pygame.display.set_mode((var.x_screen, var.y_screen))
 
 
-
+map_loading = pygame.image.load("images/Bg/chargement.png")
 
 clock = pygame.time.Clock()
 
 game = Game(screen)
 
 
+
 # game.map_foret_sol = pygame.image.load("images/Bg/Foret.png")
-game.map_foret_sol = game.create_map("images/bg/Foret.tmx")
-Map("images/Bg/Foret_obstacle.tmx", game.player).obstacle(12800, 6400)
-game.map_foret_behind = game.create_map("images/bg/Foret_behind.tmx")
 
-game.map_montagne_sol = game.create_map("images/bg/Montagne.tmx")
-Map("images/Bg/Montagne_obstacle.tmx", game.player).obstacle(6400, 0)
-game.map_montagne_behind = game.create_map("images/bg/Montagne_behind.tmx")
-
-game.map_marecage_sol = game.create_map("images/bg/Marecage.tmx")
-game.map_marecage_behind = game.create_map("images/bg/Marecage_behind.tmx")
-
-game.map_cratere_sol = game.create_map("images/bg/Cratere.tmx")
-game.map_cratere_behind = game.create_map("images/bg/Cratere_behind.tmx")
-
-game.map_desert_sol = game.create_map("images/bg/Desert.tmx")
-game.map_desert_behind = game.create_map("images/bg/Desert_behind.tmx")
 
 
 
@@ -69,10 +58,11 @@ if __name__ == "__main__":
     # else:
     #     sign_in()
     running = True
-    
     while running :
         
-        
+        if game.play == False :                     
+            start_loading(screen, game, map_loading)
+            game.play = True
 
 
         for event in pygame.event.get():
@@ -109,8 +99,12 @@ if __name__ == "__main__":
                 # elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
                 #     game.full_screen_map = True
                 #     game.play = False
-                                                
- 
+
+        
+       
+
+
+
         game.update(screen)
         
         # clock.tick(10)
