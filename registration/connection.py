@@ -4,8 +4,6 @@
 import psycopg2
 import hashlib
 from getpass import getpass
-from registration import lenght_input
-
 
 # def lenght_input(entry, mot, max = 16, min = 3) :
 #         while len(entry) >= max or len(entry) <= min :
@@ -67,7 +65,7 @@ def check_logs(inputs_tuple):
     result = cursor.fetchone()
     print(result)
     if result: #A Si le user et le password sont bons
-        print("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEES")
+        return True
     else : #A Sinon..."é&"
-        print("Nooooooooooooooooooooooooooooooooooooooooooooooooooo")
+        return False
 

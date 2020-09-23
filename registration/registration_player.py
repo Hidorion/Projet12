@@ -1,9 +1,11 @@
 # coding: utf-8
 
 #import
-from requeteSQL import create_registration
 import hashlib
 from getpass import getpass
+
+
+from registration.requeteSQL import create_registration
 from validate_email import validate_email
 
 import pygame

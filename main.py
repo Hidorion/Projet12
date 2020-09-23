@@ -11,14 +11,15 @@ import threading
 #import fichier
 from play.game import Game
 from registration.requeteSQL import create_registration
-from registration.registration import sign_in
+# from registration.registration import sign_in
 from getpass import getpass
 from registration.connection import forget_psd
-from Log_in_n_out.log_in import check_logs
+# from Log_in_n_out.log_in import check_logs
 from play import Variables as var
 from play.map_obstacles import Obstacle
 from play.map import Map
 from play.loading_game import start_loading
+from registration.connection_form import run_game
 
 
 
@@ -60,6 +61,7 @@ if __name__ == "__main__":
     running = True
     while running :
         
+        run_game()
         if game.play == False :                     
             start_loading(screen, game, map_loading)
             game.play = True
