@@ -5,7 +5,6 @@ import psycopg2
 import hashlib
 from getpass import getpass
 from registration.registration import lenght_input
-from Log_in_n_out.log_in import check_logs
 
 # def lenght_input(entry, mot, max = 16, min = 3) :
 #         while len(entry) >= max or len(entry) <= min :
@@ -24,7 +23,6 @@ def forget_psd():
     result = cursor.fetchone()
     if result:
         get_new_pwd(user_name,user_mail)
-        check_logs()
     else : #A Sinon...
         print("Nom d'utilisateur ou adresse e-mail incorrect")
         forget_psd()
@@ -55,3 +53,22 @@ def get_new_pwd(name,address):
     Gérer la longueur du mot de passe : Fait
 ​
 """
+
+def check_logs():
+    user_name = (input("Nom d'utilisateur : "),) # On prend l'user
+    user_password = getpass("Mot de passe : ") # On prend le password en xxxx
+    user_password = user_password.encode() #On encode en UTF8
+    user_password = (hashlib.sha1(user_password).hexdigest(),) #On le hash en hexa
+    connexion = psycopg2.connect("dbname=Testprojet2 user=postgres password=group12")
+    cursor = connexion.cursor()
+    cursor.execute(f'SELECT * FROM user_infos WHERE name = %s AND password = %s', (user_name, user_password))
+    connexion.commit()
+    result = cursor.fetchone()
+    print(result)
+    if result: #A Si le user et le password sont bons
+        print("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEES")
+    else : #A Sinon...
+        print("Nooooooooooooooooooooooooooooooooooooooooooooooooooo")
+
+
+check_logs()
