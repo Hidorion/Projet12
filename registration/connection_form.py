@@ -4,6 +4,9 @@
 import pygame_textinput
 import pygame
 
+from connection import check_logs
+from registration import sign_up 
+
 # Code
 
 data = {}
@@ -185,14 +188,18 @@ def run_game():
                     inputs_list.append(email.input_string)
                     inputs_list.append(sign_up_password.input_string)
                     inputs_list.append(password_confirm.input_string)
-                    print(inputs_list)
+                    inputs_tuple = tuple(inputs_list)
+                    sign_up(inputs_tuple, screen, 3, 3)
+
+                    
 
                 elif sign_in_button_rect.collidepoint(event.pos):
                     inputs_list = []
                     inputs_list.append(sign_in_username.input_string)
                     inputs_list.append(sign_in_password.input_string)
-                    print(inputs_list)
-
+                    inputs_tuple = tuple(inputs_list)
+                    print(inputs_tuple)
+                    check_logs(inputs_tuple)
                 else:
                     f = Fields()
                     update_text = False
@@ -260,8 +267,6 @@ def run_game():
         # Refresh screen
         pygame.display.update()
         clock.tick(30)
-
-
 
 
 run_game()
