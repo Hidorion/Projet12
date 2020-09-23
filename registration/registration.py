@@ -1,11 +1,11 @@
 # coding: utf-8
 
 #import
-from registration.requeteSQL import create_registration
+from requeteSQL import create_registration
 import hashlib
 from getpass import getpass
 from validate_email import validate_email
-from Log_in_n_out.log_in import check_logs
+#from connection import check_logs
 
 def lenght_input(entry, mot, max = 16, min = 3) :
         while len(entry) >= max or len(entry) <= min :

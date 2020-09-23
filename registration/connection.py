@@ -4,7 +4,8 @@
 import psycopg2
 import hashlib
 from getpass import getpass
-from registration.registration import lenght_input
+from registration import lenght_input
+
 
 # def lenght_input(entry, mot, max = 16, min = 3) :
 #         while len(entry) >= max or len(entry) <= min :
@@ -54,14 +55,14 @@ def get_new_pwd(name,address):
 ​
 """
 
-def check_logs():
-    user_name = (input("Nom d'utilisateur : "),) # On prend l'user
-    user_password = getpass("Mot de passe : ") # On prend le password en xxxx
-    user_password = user_password.encode() #On encode en UTF8
-    user_password = (hashlib.sha1(user_password).hexdigest(),) #On le hash en hexa
-    connexion = psycopg2.connect("dbname=Testprojet2 user=postgres password=group12")
+def check_logs(inputs_list):
+    user_name = inputs_list[0] #(input("Nom d'utilisateur : "),) # On prend l'user
+    user_password = inputs_list[1] #getpass("Mot de passe : ") # On prend le password en xxxx
+    #user_password = user_password.encode() #On encode en UTF8
+    #user_password = (hashlib.sha1(user_password).hexdigest(),) #On le hash en hexa
+    connexion = psycopg2.connect("dbname=postgres user=postgres password=12")
     cursor = connexion.cursor()
-    cursor.execute(f'SELECT * FROM user_infos WHERE name = %s AND password = %s', (user_name, user_password))
+    cursor.execute(f'SELECT * FROM connection WHERE pseudo = %s AND password = %s', (user_name, user_password))
     connexion.commit()
     result = cursor.fetchone()
     print(result)
@@ -70,5 +71,3 @@ def check_logs():
     else : #A Sinon..."é&"
         print("Nooooooooooooooooooooooooooooooooooooooooooooooooooo")
 
-
-check_logs()
