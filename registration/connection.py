@@ -67,7 +67,7 @@ def check_logs():
     print(result)
     if result: #A Si le user et le password sont bons
         print("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEES")
-    else : #A Sinon...
+    else : #A Sinon..."é&"
         print("Nooooooooooooooooooooooooooooooooooooooooooooooooooo")
 
 
