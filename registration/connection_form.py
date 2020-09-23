@@ -105,14 +105,14 @@ def run_game():
     sign_in_password_rect = pygame.Rect(750, 370, 250, 35)
     sign_in_password_title = sign_in_password.font_object.render("Password:", True, (0, 0, 0))
 
-    sign_up_button_pict = pygame.image.load('pics/sign_up.png')
+    sign_up_button_pict = pygame.image.load('registration/pics/sign_up.png')
     sign_up_button_pict = pygame.transform.scale(sign_up_button_pict, (100, 30))
     sign_up_button_rect = sign_up_button_pict.get_rect()
     sign_up_button_rect.x = 370
     sign_up_button_rect.y = 560
     
 
-    sign_in_button_pict = pygame.image.load('pics/sign_in.png')
+    sign_in_button_pict = pygame.image.load('registration/pics/sign_in.png')
     sign_in_button_pict = pygame.transform.scale(sign_in_button_pict, (100, 30))
     sign_in_button_rect = sign_in_button_pict.get_rect()
     sign_in_button_rect.x = 820
@@ -208,7 +208,7 @@ def run_game():
 
 
         # Main menu
-        banner = pygame.image.load('pics/game_banner_named.png')
+        banner = pygame.image.load('registration/pics/game_banner_named.png')
         banner = pygame.transform.scale(banner, (1200, 720))
         banner_rect = banner.get_rect()
 
