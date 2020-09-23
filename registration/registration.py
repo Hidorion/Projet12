@@ -5,7 +5,7 @@ from registration.requeteSQL import create_registration
 import hashlib
 from getpass import getpass
 from validate_email import validate_email
-
+from Log_in_n_out.log_in import check_logs
 
 def lenght_input(entry, mot, max = 16, min = 3) :
         while len(entry) >= max or len(entry) <= min :
@@ -64,7 +64,7 @@ def check_address():
     return address 
 
 
-def user_input():
+def sign_in():
     SQL = create_registration()
     SQL.create_table()
     address = check_address()
@@ -74,5 +74,6 @@ def user_input():
     # save registration
     SQL.new_registration(address, pseudo, mdp_encrypte)
     print("Votre inscription a bien été enregistrée")
+    check_logs()
 
 
