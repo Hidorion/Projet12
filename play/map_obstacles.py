@@ -4,8 +4,8 @@ import pygame
 
 class Obstacle(pygame.sprite.Sprite) :
 
-    def __init__(self, x, y, image):
+    def __init__(self, x, y, width, height):
 
         pygame.sprite.Sprite.__init__(self)
-        self.image = image
-        self.rect = pygame.Rect(x + 10, y, 20, 20)
+        # self.image = image
+        self.rect = pygame.Rect(x, y, width, height)

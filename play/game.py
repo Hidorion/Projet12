@@ -7,13 +7,14 @@ import time
 from play.map import Map
 from play.player import Player
 from champ_select.champ_select import Avatar
+from play.camera import Camera
+from play import Variables as var
 
 
 class Game:
 
     def __init__(self, screen) :
-        
-        # self.player = Player(screen)
+
         self.champ_select = Avatar(screen)
         # Permet de définir la dernière direction du personnage
         self.last_movement = "up"
@@ -27,16 +28,28 @@ class Game:
         # Index de l'avatar choisit
         self.avatar_choose = 0
         # Permet de print la map et le personnage
-        self.play = True
+        self.play = False
         # Si la touche valider est pressé mais aucun avatar choisit
         self.not_select = False
         # Met la mini map en full screen
         self.full_screen_map = False
-        self.player = Player(screen, 1, self)
+        self.player = Player(screen, 5, self)
+        self.camera = Camera(6400, 6400)
+        # Créer les surfaces des map
+        self.map_foret_sol = ""
+        self.map_foret_behind = ""
 
-        # Créer les deux surface
-        self.map_sol = ""
-        self.map_behind = ""
+        self.map_montagne_sol = ""
+        self.map_montagne_behind = ""
+
+        self.map_marecage_sol = ""
+        self.map_marecage_behind = ""
+
+        self.map_cratere_sol = ""
+        self.map_cratere_behind = ""
+
+        self.map_desert_sol = ""
+        self.map_desert_behind = ""
         
         self.counter_move = 0
 
@@ -48,37 +61,57 @@ class Game:
         self.champ_select.avatar3_image_rect.y, self.champ_select.avatar4_image_rect.y, self.champ_select.avatar5_image_rect.y, 
         self.champ_select.avatar6_image_rect.y, self.champ_select.avatar7_image_rect.y, self.champ_select.avatar8_image_rect.y]
 
+        self.map_rect = ""
         # self.list_avatar = ["avatar1", "avatar2", "avatar3", "avatar4", "avatar5", "avatar6", "avatar7", "avatar8"]
 
     def update(self, screen):
 
-        # self.player.avatar = self.list_avatar[self.avatar_choose]
         if self.play and self.full_screen_map == False:
-            self.counter_move += 1
-            if self.counter_move % 2 == 0:
-                self.movement(screen)
-            screen.blit(self.map_sol, (self.player.map_x, self.player.map_y))
-            screen.blit(self.player.image, (400, 400)) 
-            screen.blit(self.map_behind, (self.player.map_x, self.player.map_y))
-            # screen.blit(self.map.mini_map, self.map.mini_map_rect)
+           
+            self.movement(screen)
+            self.camera.update(self.player.rect)
 
-        # if self.full_screen_map :
-        #     screen.blit(self.map.mini_map_full, self.map.mini_map_full_rect)
-        #     # pygame.draw.rect(screen,(225, 0,0),(self.map.tm_rect.x, self.map.tm_rect.y, 10, 10))   
+            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
+            self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
+            self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
+            self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
+            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
 
-        # if self.validation_champ_select :
-        #     screen.blit(self.champ_select.background_champ_select, (0,0))
-        #     if self.not_select == True and self.selected_champ == False:
-        #         self.message_champ_select(screen)
-        #     if self.selected_champ :
-        #         pygame.draw.rect(screen,(0,225,0),(self.list_image_avatar_x[self.avatar_choose], self.list_image_avatar_y[self.avatar_choose], self.champ_select.avatar1_image.get_width(), self.champ_select.avatar1_image.get_height()))
-        #     self.champ_select.update(screen)
+            # if self.player.rect.x < 19200 and self.player.rect.x > 12800 and self.player.rect.y < 12800 and self.player.rect.y > 6400 :
+            #     self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
+            #     if self.player.rect.y == 12400 :
+            #         self.player.rect.x = 12400
+            #         self.player.rect.y = 16000
+            # elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 19200 and self.player.rect.y > 12800 :
+            #     self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
+            #     if self.player.rect.y == 12400 :
+            #         self.player.rect.x = 12400
+            #         self.player.rect.y = 16000
+            # elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 19200 and self.player.rect.y > 12800 :
+            #     self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
 
-    def create_map(self, file, cant_walk):
+            # elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 6400 and self.player.rect.y > 0 :
+            #     self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
 
-        map = Map(file)
-        map_img = map.make_map(cant_walk)
-        map_rect = map_img.get_rect()
+            # elif self.player.rect.x < 6400 and self.player.rect.x > 0 and self.player.rect.y < 12800 and self.player.rect.y > 6400 :
+            #     self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+
+
+
+
+    def blit_map (self, screen, map, behind, x, y) :
+        self.map_rect.x = x
+        self.map_rect.y = y
+        screen.blit(map, (self.camera.apply_rect(self.map_rect))) #(self.player.map_x, self.player.map_y),
+        screen.blit(self.player.image, self.camera.apply(self.player.rect))
+        screen.blit(behind, self.camera.apply_rect(self.map_rect))
+        
+        
+    def create_map(self, file):
+
+        map = Map(file, self.player)
+        map_img = map.make_map()
+        self.map_rect = map_img.get_rect()
         return map_img
 
 
@@ -105,41 +138,41 @@ class Game:
         # Met dans la position arrêt le personnage
         if self.pressed.get(pygame.K_RIGHT) == False and self.last_movement == "right" :
             self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_right.png")
-            self.player.image = pygame.transform.scale(self.player.image, (math.ceil(screen.get_height() / 25), math.ceil(screen.get_width() / 20)))
+            self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
         elif self.pressed.get(pygame.K_LEFT) == False and self.last_movement == "left" :
             self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_left.png")
-            self.player.image = pygame.transform.scale(self.player.image, (math.ceil(screen.get_height() / 25), math.ceil(screen.get_width() / 20)))
+            self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
         elif self.pressed.get(pygame.K_UP) == False and self.last_movement == "up" :
             self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_up.png")
-            self.player.image = pygame.transform.scale(self.player.image, (math.ceil(screen.get_height() / 25), math.ceil(screen.get_width() / 20)))
+            self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
         elif self.pressed.get(pygame.K_DOWN) == False and self.last_movement == "down" :
             self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_down.png")
-            self.player.image = pygame.transform.scale(self.player.image, (math.ceil(screen.get_height() / 25), math.ceil(screen.get_width() / 20)))
+            self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
 
     # # Déplace la carte en fonction des touche pressé
     # def move_right(self, screen):
     #     self.player.rect.x += self.player.velocity
     #     self.change_image(f"images/ressources/{self.player.avatar}/character_right.png", f"images/ressources/{self.player.avatar}/character_right_move.png" )
-    #     self.player.image = pygame.transform.scale(self.player.image, (math.ceil(screen.get_height() / 25), math.ceil(screen.get_width() / 20)))
+    #     self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
     # def move_left(self, screen):
     #     self.player.rect.x -= self.player.velocity
     #     self.change_image(f"images/ressources/{self.player.avatar}/character_left.png", f"images/ressources/{self.player.avatar}/character_left_move.png" )
-    #     self.player.image = pygame.transform.scale(self.player.image, (math.ceil(screen.get_height() / 25), math.ceil(screen.get_width() / 20)))
+    #     self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
     # def move_up(self, screen):
     #     self.player.rect.y -= self.player.velocity
     #     self.change_image(f"images/ressources/{self.player.avatar}/character_up.png", f"images/ressources/{self.player.avatar}/character_up_move.png" )
-    #     self.player.image = pygame.transform.scale(self.player.image, (math.ceil(screen.get_height() / 25), math.ceil(screen.get_width() / 20)))
+    #     self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
     # def move_down(self, screen):
     #     self.player.rect.y += self.player.velocity
     #     self.change_image(f"images/ressources/{self.player.avatar}/character_down.png", f"images/ressources/{self.player.avatar}/character_down_move.png" )
-    #     self.player.image = pygame.transform.scale(self.player.image, (math.ceil(screen.get_height() / 25), math.ceil(screen.get_width() / 20)))
+    #     self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
     
     # def change_image(self, not_move, move):

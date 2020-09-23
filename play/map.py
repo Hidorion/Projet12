@@ -10,23 +10,23 @@ from play.map_obstacles import Obstacle
 
 class Map :
 
-    def __init__(self, file):
+    def __init__(self, file, player):
 
+        self.player = player
         tm = pytmx.load_pygame(file, pixelalpha=True)
         # defini la largeur de la map, le nombre de tuile, et la taille des tuiles
         self.width = tm.width * tm.tilewidth
         # pareil pour la haute, nombre et taille des tuiles
         self.height = tm.height * tm.tileheight
-        self.tmx_data = tm
-        # Création du groupe de sprite d'obstacle
-        self.group_obstacle = pygame.sprite.Group()
+        self.tmxdata = tm
 
-    def render(self, surface, cant_walk):
+    def render(self, surface):
         #sauvegarder la commande
-        save_command = self.tmx_data.get_tile_image_by_gid
+        save_command = self.tmxdata.get_tile_image_by_gid
         # parcourir les couche de la map
         # Pour chaque calque visible
-        for layer in self.tmx_data.visible_layers :
+        for layer in self.tmxdata.visible_layers :
+            
             # Vérifier si le layer contient que des tuiles et pas des objets
             if isinstance(layer, pytmx.TiledTileLayer): 
                 # pour chaque x, y et id de chaque image
@@ -34,17 +34,20 @@ class Map :
                     # Recherche si le l'id correspond a une surface
                     tile = save_command(gid)
                     if tile :
-                        if cant_walk :
-                            self.group_obstacle.add(Obstacle(x * self.tmx_data.tilewidth, y * self.tmx_data.tileheight, tile))
-                        else :
-                        # dessiner sur la surface toute les tuiles
-                            surface.blit(tile, (x * self.tmx_data.tilewidth, y * self.tmx_data.tileheight))
+                    # dessiner sur la surface toute les tuiles
+                        surface.blit(tile, (x * self.tmxdata.tilewidth, y * self.tmxdata.tileheight))
     
     # creer la surface pour les tile
-    def make_map(self, cant_walk):
+    def make_map(self):
         temp_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
-        self.render(temp_surface, cant_walk)
+        self.render(temp_surface)
         return temp_surface
+
+    def obstacle(self, position_x, position_y) :
+        for tile in self.tmxdata:
+            # pour chaque tuile qui a le nom de "wall"
+            if tile.name == "wall":
+                self.player.group_obstacle.add(Obstacle(tile.x + position_x, tile.y + position_y, tile.width, tile.height))
         
         
         
