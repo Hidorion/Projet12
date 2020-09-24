@@ -18,13 +18,14 @@ class Game:
 
         self.sql = create_registration()
         self.champ_select = Avatar(screen)
+        self.pseudo = ""
         # Permet de définir la dernière direction du personnage
         self.last_movement = "up"
         #Calcul le nombre de tour pour changer l'image du personnage
         self.move = 0
         self.pressed = {}
         # Si le champ_select est affiché
-        self.validation_champ_select = False
+        self.validation_champ_select = True
         # Si un avatar est selectionné
         self.selected_champ = False
         # Index de l'avatar choisit
@@ -89,7 +90,7 @@ class Game:
 
 
     def instance_player (self, screen):
-        result = self.sql.read_table_player("kagari")
+        result = self.sql.read_table_player(self.pseudo)
         self.player = Player(screen, self, result[0][0], result[0][1], result[0][2])
 
     def blit_map (self, screen, map, behind, x, y) :

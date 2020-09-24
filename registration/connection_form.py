@@ -200,7 +200,9 @@ def run_game():
                     inputs_list.append(sign_in_username.input_string)
                     inputs_list.append(sign_in_password.input_string)
                     inputs_tuple = tuple(inputs_list)
-                    check_logs(inputs_tuple)
+                    if check_logs(inputs_tuple) :
+                        running = False
+                        return False, inputs_list[0]
                     
                 else:
                     f = Fields()

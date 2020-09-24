@@ -37,6 +37,7 @@ class Loading_bar(threading.Thread):
 
             pygame.display.update()
         pygame.mixer.music.stop()
+        
 
     def print_advice(self, message) :
 
@@ -54,7 +55,7 @@ class Loading_map(threading.Thread):
     """
     Premet de charger les map
     """
-    def __init__(self, game) :
+    def __init__(self, game, screen) :
         # Initialiser le constructeur de la super class threading
         threading.Thread.__init__(self)
         # barre blanche
@@ -78,11 +79,13 @@ class Loading_map(threading.Thread):
         self.game.map_desert_sol = self.game.create_map("images/bg/Desert.tmx")
         # Map("images/Bg/Desert_obstacle.tmx", self.game.player).obstacle(0, 6400)
         self.game.map_desert_behind = self.game.create_map("images/bg/Desert_behind.tmx")
+        self.game.play = True
+        
 
 def start_loading(screen, game, map_loading) :
 
     loading_bar = Loading_bar(screen, map_loading)
-    loading_map = Loading_map(game)
+    loading_map = Loading_map(game, screen)
     loading_bar.start()
     loading_map.start()
     loading_bar.join()
