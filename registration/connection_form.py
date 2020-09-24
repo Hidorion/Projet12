@@ -198,8 +198,8 @@ def run_game():
 
                 elif sign_in_button_rect.collidepoint(event.pos):
                     inputs_list = []
-                    inputs_list.append(sign_in_username.input_string)
-                    inputs_list.append(sign_in_password.input_string)
+                    inputs_list.append(sign_in_username.input_string.lower())
+                    inputs_list.append(sign_in_password.input_string.lower())
                     inputs_tuple = tuple(inputs_list)
                     if check_logs(inputs_tuple) :
                         running = False
