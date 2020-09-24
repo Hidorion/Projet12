@@ -30,6 +30,7 @@ def password(information):
     
 
 def check_pseudo(information, screen, x, y):
+    SQL = create_registration()
     pseudo = information[0]
     # put the nickname in tuple to compare it to the table
     # check if the pseudo is already taken
@@ -57,7 +58,6 @@ def check_email(information, screen, x, y):
     #     #     
     #     #     email = information[1]
     #     email = (email,)
-    print("Saisissez une adresse valide")
     return email 
 
 
