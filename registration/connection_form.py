@@ -1,11 +1,11 @@
 # coding: utf-8
 
 # Imports
-from registration import pygame_textinput
+import pygame_textinput
 import pygame
 
-from registration.connection import check_logs
-from registration.registration_player import sign_up 
+from connection import check_logs
+from registration_player import sign_up 
 
 # Code
 
@@ -189,7 +189,7 @@ def run_game():
                     inputs_list.append(sign_up_password.input_string)
                     inputs_list.append(password_confirm.input_string)
                     inputs_tuple = tuple(inputs_list)
-                    # sign_up(inputs_tuple, screen, 3, 3)
+                    sign_up(inputs_tuple, screen, 3, 3)
                     running = False
                     
 
@@ -270,6 +270,6 @@ def run_game():
         pygame.display.update()
         clock.tick(30)
 
-
+#run_game()
 
 

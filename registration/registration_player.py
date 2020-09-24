@@ -2,14 +2,16 @@
 
 #import
 import hashlib
+import psycopg2
 from getpass import getpass
 
 
-from registration.requeteSQL import create_registration
+from requeteSQL import create_registration
 from validate_email import validate_email
 
 import pygame
 #from connection import check_logs
+
 
 def lenght_input(entry, mot, max = 16, min = 3) :
         while len(entry) >= max or len(entry) <= min :
@@ -31,11 +33,12 @@ def password(information):
     return mdp
 
 def check_pseudo(information, screen, x, y):
+    SQL = create_registration()
     pseudo = information[0]
     # put the nickname in tuple to compare it to the table
     # check if the pseudo is already taken
-    SQL.read_connection_pseudo()
-    if pseudo in SQL.pseudo :
+    SQL.read_registration_name()
+    if pseudo in SQL.name :
         print("message(screen, ""Cette identifiant est déjà prit"", x, y)")
         information[0] = ''
         pseudo = (pseudo,)
@@ -43,12 +46,12 @@ def check_pseudo(information, screen, x, y):
         return pseudo 
 
 def check_email(information, screen, x, y):
-    
+    SQL = create_registration()
     email = information[1]
     # while validate_email(email) == False :
     #     #message(screen, "Saisissez une adresse valide", x, y)
     #     email = information[1]
-    SQL.read_connection_e_mail()
+    SQL.read_registration_email()
     
     # while email in SQL.email :
     #     # if yes, return to the start of the while
@@ -63,13 +66,14 @@ def check_email(information, screen, x, y):
 
 
 def sign_up(information, screen, x, y): #Inscription
+    SQL = create_registration()
     email = check_email(information, screen, x, y)
     pseudo = check_pseudo(information, screen, x, y)
     mdp_encrypte = password(information)
 
     # save registration
-    SQL.new_connection(email, pseudo, mdp_encrypte)
-    #message(screen, "Votre inscription a bien été enregistrée", x, y)
+    SQL.new_registration(email, pseudo, mdp_encrypte)
+    print('message(screen, "Votre inscription a bien été enregistrée", x, y)')
 
 
 # def message(self, screen, #message, x, y):
