@@ -21,34 +21,34 @@ def password(information):
     mdp = information[2]
     mdp2 = information[3] # On reprend le password en xxxx
     if mdp != mdp2:
-        password(information)
-    # Encode the string in UTF-8 encoding, necessary for this to hash the mdp
+        print("message(screen, ""Vos mots de passe ne correspondent pas"", x, y)")
+        #password(information)
+    # Encode the string in UTF-8 encoding, necessary for this to hash the pwd
     # mdp = mdp.encode()
-    # Allows you to encode the mdp
+    # # Allows you to encode the pwd
     # mdp_encrypte = hashlib.sha1(mdp).hexdigest()
+    # return mdp_encrypte
     return mdp
-    
 
 def check_pseudo(information, screen, x, y):
-    SQL = create_registration()
     pseudo = information[0]
     # put the nickname in tuple to compare it to the table
     # check if the pseudo is already taken
-    SQL.read_registration_name()
-    # while pseudo in SQL.name :
-    #     # if yes, return to the start of the while
-    #     #message(screen, "Cette identifiant est déjà prit", x, y)
-    #     pseudo = information[0]
-    #     pseudo = (pseudo,)
-    return pseudo 
+    SQL.read_connection_pseudo()
+    if pseudo in SQL.pseudo :
+        print("message(screen, ""Cette identifiant est déjà prit"", x, y)")
+        information[0] = ''
+        pseudo = (pseudo,)
+    else :
+        return pseudo 
 
 def check_email(information, screen, x, y):
-    SQL = create_registration()
+    
     email = information[1]
     # while validate_email(email) == False :
     #     #message(screen, "Saisissez une adresse valide", x, y)
     #     email = information[1]
-    SQL.read_registration_email()
+    SQL.read_connection_e_mail()
     
     # while email in SQL.email :
     #     # if yes, return to the start of the while
@@ -62,15 +62,13 @@ def check_email(information, screen, x, y):
     return email 
 
 
-def sign_up(information, screen, x, y):
-    SQL = create_registration()
-    SQL.create_table()
+def sign_up(information, screen, x, y): #Inscription
     email = check_email(information, screen, x, y)
     pseudo = check_pseudo(information, screen, x, y)
     mdp_encrypte = password(information)
 
     # save registration
-    SQL.new_registration(email, pseudo, mdp_encrypte)
+    SQL.new_connection(email, pseudo, mdp_encrypte)
     #message(screen, "Votre inscription a bien été enregistrée", x, y)
 
 
