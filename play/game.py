@@ -9,12 +9,14 @@ from play.player import Player
 from champ_select.champ_select import Avatar
 from play.camera import Camera
 from play import Variables as var
+from registration.requeteSQL import create_registration
 
 
 class Game:
 
     def __init__(self, screen) :
 
+        self.sql = create_registration()
         self.champ_select = Avatar(screen)
         # Permet de définir la dernière direction du personnage
         self.last_movement = "up"
@@ -33,7 +35,7 @@ class Game:
         self.not_select = False
         # Met la mini map en full screen
         self.full_screen_map = False
-        self.player = Player(screen, 5, self)
+        self.player = ""
         self.camera = Camera(6400, 6400)
         # Créer les surfaces des map
         self.map_foret_sol = ""
@@ -77,8 +79,18 @@ class Game:
             self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
             self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
 
+        if self.validation_champ_select :
+            screen.blit(self.champ_select.background_champ_select, (0,0))
+            if self.not_select == True and self.selected_champ == False:
+                self.message_champ_select(screen, "Selectionnez un avatar pour valider")
+            if self.selected_champ :
+                pygame.draw.rect(screen,(0,225,0),(self.list_image_avatar_x[self.avatar_choose], self.list_image_avatar_y[self.avatar_choose], self.champ_select.avatar1_image.get_width(), self.champ_select.avatar1_image.get_height()))
+            self.champ_select.update(screen)
 
 
+    def instance_player (self, screen):
+        result = self.sql.read_table_player("kagari")
+        self.player = Player(screen, self, result[0][0], result[0][1], result[0][2])
 
     def blit_map (self, screen, map, behind, x, y) :
         self.map_rect.x = x
@@ -136,12 +148,12 @@ class Game:
 
 
 
-    def message_champ_select(self, screen):
+    def message_champ_select(self, screen, message):
         font = pygame.font.SysFont("Gabriola", math.ceil(screen.get_width() / 40 + screen.get_height() / 40))
-        text = font.render("Selectionnez un avatar pour valider", 1, (255,255,255))
+        text = font.render(message, 1, (255,255,255))
         text_rect = text.get_rect()
-        text_rect.x = math.ceil(screen.get_width() /2 - math.ceil(screen.get_width() / 3.5))
-        text_rect.y = math.ceil(screen.get_height()/2 - (math.ceil((screen.get_width() / 40 + screen.get_height() / 40) / 2)))
+        text_rect.x = math.ceil(screen.get_width() /2 - len(message) * 7)
+        text_rect.y = math.ceil(screen.get_height()/2 )
         screen.blit(text,text_rect)
 
         

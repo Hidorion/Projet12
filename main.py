@@ -30,6 +30,7 @@ screen = pygame.display.set_mode((var.x_screen, var.y_screen))
 
 
 map_loading = pygame.image.load("images/Bg/chargement.png")
+map_loading = pygame.transform.scale(map_loading, (var.x_screen, var.y_screen))
 
 clock = pygame.time.Clock()
 
@@ -61,10 +62,10 @@ if __name__ == "__main__":
     running = True
     while running :
         
-        run_game()
-        if game.play == False :                     
-            start_loading(screen, game, map_loading)
-            game.play = True
+        
+        if game.play == False and game.validation_champ_select  == False:
+            run_game()
+            game.validation_champ_select  = True
 
 
         for event in pygame.event.get():
@@ -94,10 +95,11 @@ if __name__ == "__main__":
 
                     if game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == False:
                         game.not_select = True
-                    elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
+                    elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :                    
+                        start_loading(screen, game, map_loading)
                         game.validation_champ_select = False
                         game.play = True
-
+                        game.instance_player(screen)
                 # elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
                 #     game.full_screen_map = True
                 #     game.play = False
