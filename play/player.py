@@ -10,15 +10,15 @@ from play.rect_character import Rect_character
 
 class Player (pygame.sprite.Sprite) :
 
-    def __init__(self, screen, index, game):
+    def __init__(self, screen, game, avatar, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.game = game
-        self.avatar = f'avatar{index}'
+        self.avatar = avatar
         self.image = pygame.image.load(f"images/ressources/{self.avatar}/character_up.png")
         self.image = pygame.transform.scale(self.image, (32 , 32))
         self.rect = self.image.get_rect()
-        self.rect.x = 8000
-        self.rect.y = 9000
+        self.rect.x = x
+        self.rect.y = y
         # self.rect = pygame.Rect(self.rect.x, self.rect.y, 32, 32)
 
         self.map_x = 0

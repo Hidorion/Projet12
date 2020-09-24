@@ -191,6 +191,7 @@ def run_game():
                     inputs_tuple = tuple(inputs_list)
                     # sign_up(inputs_tuple, screen, 3, 3)
                     running = False
+                    
 
                     
 
@@ -199,11 +200,11 @@ def run_game():
                     inputs_list.append(sign_in_username.input_string)
                     inputs_list.append(sign_in_password.input_string)
                     inputs_tuple = tuple(inputs_list)
-                    # check_logs(inputs_tuple)
+                    check_logs(inputs_tuple)
                     
                 else:
                     f = Fields()
-                    update_text = False
+                    # update_text = False
                 
 
 
