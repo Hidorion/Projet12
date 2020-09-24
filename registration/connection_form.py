@@ -1,11 +1,11 @@
 # coding: utf-8
 
 # Imports
-import pygame_textinput
+import registration.pygame_textinput
 import pygame
 
-from connection import check_logs
-from registration_player import sign_up 
+from registration.connection import check_logs
+from registration.registration_player import sign_up 
 
 # Code
 
@@ -14,7 +14,7 @@ data = {}
 data = { 
     "username" : {
             "init" : {
-                "object" : pygame_textinput.TextInput,
+                "object" : registration.pygame_textinput.TextInput,
                 "settings" : ("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35),
                 "rect" : (300, 300, 250, 35), 
                 "title" : ("Username:", True, (0, 0, 0))
@@ -25,7 +25,7 @@ data = {
     },
     "email" : {
             "init" : {
-                "object" : pygame_textinput.TextInput,
+                "object" : registration.pygame_textinput.TextInput,
                 "settings" : ("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35),
                 "rect" : (300, 350, 250, 35),
                 "title" : ("Email:", True, (0, 0, 0))
@@ -36,7 +36,7 @@ data = {
     }, 
     "password" : {
             "init" : {
-                "object" : pygame_textinput.TextInput,
+                "object" : registration.pygame_textinput.TextInput,
                 "settings" : ("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True),
                 "rect" : (300, 400, 250, 35), 
                 "title" : ("Password:", True, (0, 0, 0))
@@ -47,7 +47,7 @@ data = {
     },
     "password_confirm" : {
             "init" : {
-                "object" : pygame_textinput.TextInput,
+                "object" : registration.pygame_textinput.TextInput,
                 "settings" : ("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True),
                 "rect" : (300, 450, 250, 35),
                 "title" : ("Password confirm:", True, (0, 0, 0))
@@ -84,27 +84,27 @@ def run_game():
 
 
     # Create TextInput-object 
-    sign_up_username = pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
+    sign_up_username = registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
     sign_up_username_rect = pygame.Rect(300, 300, 250, 35)
     sign_up_username_title = sign_up_username.font_object.render("Username:", True, (0, 0, 0))
 
-    email = pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
+    email = registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
     email_rect = pygame.Rect(300, 370, 250, 35)
     email_title = email.font_object.render("Email:", True, (0, 0, 0))
 
-    sign_up_password = pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
+    sign_up_password = registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
     sign_up_password_rect = pygame.Rect(300, 440, 250, 35)
     sign_up_password_title = sign_up_password.font_object.render("Password:", True, (0, 0, 0))
 
-    password_confirm = pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
+    password_confirm = registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
     password_confirm_rect = pygame.Rect(300, 510, 250, 35)
     password_confirm_title = password_confirm.font_object.render("Confirm password:", True, (0, 0, 0))
 
-    sign_in_username = pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
+    sign_in_username = registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
     sign_in_username_rect = pygame.Rect(750, 300, 250, 35)
     sign_in_username_title = sign_in_username.font_object.render("Username:", True, (0, 0, 0))
 
-    sign_in_password = pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
+    sign_in_password = registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
     sign_in_password_rect = pygame.Rect(750, 370, 250, 35)
     sign_in_password_title = sign_in_password.font_object.render("Password:", True, (0, 0, 0))
 
@@ -184,13 +184,14 @@ def run_game():
 
                 elif sign_up_button_rect.collidepoint(event.pos):
                     inputs_list = []
-                    inputs_list.append(sign_up_username.input_string)
-                    inputs_list.append(email.input_string)
-                    inputs_list.append(sign_up_password.input_string)
-                    inputs_list.append(password_confirm.input_string)
+                    inputs_list.append(sign_up_username.input_string.lower())
+                    inputs_list.append(email.input_string.lower())
+                    inputs_list.append(sign_up_password.input_string.lower())
+                    inputs_list.append(password_confirm.input_string.lower())
                     inputs_tuple = tuple(inputs_list)
-                    sign_up(inputs_tuple, screen, 3, 3)
-                    running = False
+                    if sign_up(inputs_tuple, screen, 3, 3) :
+                        running = False
+                        return True, inputs_list[0]
                     
 
                     
@@ -272,6 +273,6 @@ def run_game():
         pygame.display.update()
         clock.tick(30)
 
-run_game()
+#run_game()
 
 

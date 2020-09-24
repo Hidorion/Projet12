@@ -6,7 +6,7 @@ import psycopg2
 from getpass import getpass
 
 
-from requeteSQL import create_registration
+from registration.requeteSQL import create_registration
 from validate_email import validate_email
 
 import pygame
@@ -40,22 +40,27 @@ def check_pseudo(information, screen, x, y):
     # put the nickname in tuple to compare it to the table
     # check if the pseudo is already taken
     SQL.read_registration_name()
+    
     if pseudo in SQL.name :
         print("message(screen, ""Cette identifiant est déjà prit"", x, y)")
         pseudo = ''
         #pseudo = (pseudo,)
-    else :
-        return pseudo 
+    return pseudo 
 
 def check_email(information, screen, x, y):
     SQL = create_registration()
-    email = information[1]
+    email = (information[1],)
     # while validate_email(email) == False :
     #     #message(screen, "Saisissez une adresse valide", x, y)
     #     email = information[1]
     SQL.read_registration_email()
-    
-    # while email in SQL.email :
+    print("SQL.email")
+    print("pseudo")
+    if email in SQL.email :
+        print("message(screen, ""Cette email est déjà utilisée"", x, y)")
+        email = ''
+        #pseudo = (pseudo,)
+        # while email in SQL.email :
     #     # if yes, return to the start of the while
     #     #message(screen, "Cette email est déjà prit", x, y)
     #     email = information[1].lower()
@@ -71,10 +76,11 @@ def sign_up(information, screen, x, y): #Inscription
     email = check_email(information, screen, x, y)
     pseudo = check_pseudo(information, screen, x, y)
     mdp_encrypte = password(information)
-
-    # save registration
-    SQL.new_registration(email, pseudo, mdp_encrypte)
-    print('message(screen, "Votre inscription a bien été enregistrée", x, y)')
+    if pseudo != '' and email != '':
+        # save registration
+        #SQL.new_registration(email, pseudo, mdp_encrypte)
+        print('message(screen, "Votre inscription a bien été enregistrée", x, y)')
+        return True
 
 
 # def message(self, screen, #message, x, y):

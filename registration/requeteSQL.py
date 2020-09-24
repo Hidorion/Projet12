@@ -34,7 +34,7 @@ class create_registration():
     def read_registration_email(self):
         requete_sql = """SELECT e_mail FROM connection"""
         self.cursor.execute(requete_sql)
-        self.address = self.cursor.fetchall()
+        self.email = self.cursor.fetchall()
 
     def read_table_player(self, pseudo):
         requete_sql =f"""SELECT player.avatar, player.position_x, player.position_y FROM player 
