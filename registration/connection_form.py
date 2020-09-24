@@ -270,6 +270,6 @@ def run_game():
         pygame.display.update()
         clock.tick(30)
 
-#run_game()
+run_game()
 
 

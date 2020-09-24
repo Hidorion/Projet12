@@ -34,14 +34,14 @@ def password(information):
 
 def check_pseudo(information, screen, x, y):
     SQL = create_registration()
-    pseudo = information[0]
+    pseudo = (information[0],)
     # put the nickname in tuple to compare it to the table
     # check if the pseudo is already taken
     SQL.read_registration_name()
     if pseudo in SQL.name :
         print("message(screen, ""Cette identifiant est déjà prit"", x, y)")
-        information[0] = ''
-        pseudo = (pseudo,)
+        pseudo = ''
+        #pseudo = (pseudo,)
     else :
         return pseudo 
 
