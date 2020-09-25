@@ -67,6 +67,7 @@ if __name__ == "__main__":
         if game.play == False and game.validation_champ_select == False:
             start_loading(screen, game, map_loading)
             game.instance_player(screen)
+            game.play = True
 
         for event in pygame.event.get():
 
