@@ -50,7 +50,7 @@ def get_new_pwd(name,address):
 """
     vérification mot de passe à revoir : Fait
     Gérer la longueur du mot de passe : Fait
-​
+
 """
 
 def check_logs(inputs_tuple):
@@ -63,9 +63,11 @@ def check_logs(inputs_tuple):
     cursor.execute(f'SELECT * FROM connection WHERE pseudo = %s AND password = %s', (user_name, user_password))
     connexion.commit()
     result = cursor.fetchone()
-    print(result)
     if result: #A Si le user et le password sont bons
         return True
+        print("ok")
     else : #A Sinon..."é&"
         return False
+
+
 

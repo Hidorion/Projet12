@@ -10,9 +10,9 @@ from play.map_obstacles import Obstacle
 
 class Map :
 
-    def __init__(self, file, player):
+    def __init__(self, file, game):
 
-        self.player = player
+        self.game = game
         tm = pytmx.load_pygame(file, pixelalpha=True)
         # defini la largeur de la map, le nombre de tuile, et la taille des tuiles
         self.width = tm.width * tm.tilewidth
@@ -47,7 +47,7 @@ class Map :
         for tile in self.tmxdata:
             # pour chaque tuile qui a le nom de "wall"
             if tile.name == "wall":
-                self.player.group_obstacle.add(Obstacle(tile.x + position_x, tile.y + position_y, tile.width, tile.height))
+                self.game.group_obstacle.add(Obstacle(tile.x + position_x, tile.y + position_y, tile.width, tile.height))
         
         
         

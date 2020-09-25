@@ -27,7 +27,7 @@ class Loading_bar(threading.Thread):
             self.screen.blit(self.map, (0,0)) 
             pygame.draw.rect(self.screen, (0, 0, 0), [175, 675, 850, 10]) 
             pygame.draw.rect(self.screen, (255,255,255), [175, 675, self.bar_loading, 10]) 
-            self.bar_loading += 1
+            self.bar_loading += 2
             if self.bar_loading < 250 :
                 self.print_advice("Dormez dans votre lit de camp pour sauvegarder votre progression")
             elif self.bar_loading > 250 and self.bar_loading < 500 :
@@ -63,11 +63,11 @@ class Loading_map(threading.Thread):
 
     def run(self) :
         self.game.map_foret_sol = self.game.create_map("images/bg/Foret.tmx")
-        # Map("images/Bg/Foret_obstacle.tmx", self.game.player).obstacle(12800, 6400)
+        Map("images/Bg/Foret_obstacle.tmx", self.game.player).obstacle(12800, 6400)
         self.game.map_foret_behind = self.game.create_map("images/bg/Foret_behind.tmx")
 
         self.game.map_montagne_sol = self.game.create_map("images/bg/Montagne.tmx")
-        # Map("images/Bg/Montagne_obstacle.tmx", self.game.player).obstacle(6400, 0)
+        Map("images/Bg/Montagne_obstacle.tmx", self.game.player).obstacle(6400, 0)
         self.game.map_montagne_behind = self.game.create_map("images/bg/Montagne_behind.tmx")
 
         self.game.map_marecage_sol = self.game.create_map("images/bg/Marecage.tmx")
@@ -77,7 +77,11 @@ class Loading_map(threading.Thread):
         self.game.map_cratere_behind = self.game.create_map("images/bg/Cratere_behind.tmx")
 
         self.game.map_desert_sol = self.game.create_map("images/bg/Desert.tmx")
+        Map("images/Bg/Desert_obstacle.tmx", self.game.player).obstacle(0, 6400)
+
+
         # Map("images/Bg/Desert_obstacle.tmx", self.game.player).obstacle(0, 6400)
+
         self.game.map_desert_behind = self.game.create_map("images/bg/Desert_behind.tmx")
         self.game.play = True
         

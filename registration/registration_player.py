@@ -13,13 +13,17 @@ import pygame
 #from connection import check_logs
 
 
+
 def lenght_input(entry, mot, max = 16, min = 3) : #Allows to control the lenght of text typed
         while len(entry) >= max or len(entry) <= min :
             print(f"Choisissez un {mot} entre {min + 1} et {max} caractères")
             entry = input(f"{mot} : ").lower()
         return entry
 
+
+
 def password(information): #check if password matches
+
     mdp = information[2]
     mdp2 = information[3] # On reprend le password en xxxx
     if mdp != mdp2:
@@ -48,6 +52,7 @@ def check_pseudo(information, screen, x, y): #Check if pseudo already exists
     if pseudo in SQL.name :
         print("message(screen, ""Cette identifiant est déjà prit"", x, y)")
         pseudo = None
+
         #pseudo = (pseudo,)
     return pseudo 
 
@@ -78,6 +83,7 @@ def check_email(information, screen, x, y):
     #     #     
     #     #     email = information[1]
     #     email = (email,)
+    return email 
 
 
 
