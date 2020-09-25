@@ -1,0 +1,5 @@
+# Python modules
+
+-pygame
+-validate_email
+-pytmx
