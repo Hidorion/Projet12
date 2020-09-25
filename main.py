@@ -99,7 +99,6 @@ if __name__ == "__main__":
                         game.not_select = True
                     elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
                         game.validation_champ_select = False
-                        game.play = True
 
                 # elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
                 #     game.full_screen_map = True

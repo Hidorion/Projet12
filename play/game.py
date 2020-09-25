@@ -32,7 +32,7 @@ class Game:
 
         self.pressed = {}
         # Si le champ_select est affiché
-        self.validation_champ_select = True
+        self.validation_champ_select = False
         # Si un avatar est selectionné
         self.selected_champ = False
         # Permet de print la map et le personnage
