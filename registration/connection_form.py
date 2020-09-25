@@ -186,8 +186,8 @@ def run_game():
                     inputs_list = []
                     inputs_list.append(sign_up_username.input_string.lower())
                     inputs_list.append(email.input_string.lower())
-                    inputs_list.append(sign_up_password.input_string.lower())
-                    inputs_list.append(password_confirm.input_string.lower())
+                    inputs_list.append(sign_up_password.input_string)
+                    inputs_list.append(password_confirm.input_string)
                     inputs_tuple = tuple(inputs_list)
                     if sign_up(inputs_tuple, screen, 3, 3) :
                         running = False
@@ -199,7 +199,7 @@ def run_game():
                 elif sign_in_button_rect.collidepoint(event.pos):
                     inputs_list = []
                     inputs_list.append(sign_in_username.input_string.lower())
-                    inputs_list.append(sign_in_password.input_string.lower())
+                    inputs_list.append(sign_in_password.input_string)
                     inputs_tuple = tuple(inputs_list)
                     if check_logs(inputs_tuple) :
                         running = False
