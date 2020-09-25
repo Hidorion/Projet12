@@ -11,14 +11,15 @@ import threading
 #import fichier
 from play.game import Game
 from registration.requeteSQL import create_registration
-from registration.registration import sign_in
+# from registration.registration import sign_in
 from getpass import getpass
 from registration.connection import forget_psd
-from Log_in_n_out.log_in import check_logs
+# from Log_in_n_out.log_in import check_logs
 from play import Variables as var
 from play.map_obstacles import Obstacle
 from play.map import Map
 from play.loading_game import start_loading
+from registration.connection_form import run_game
 
 
 
@@ -29,6 +30,7 @@ screen = pygame.display.set_mode((var.x_screen, var.y_screen))
 
 
 map_loading = pygame.image.load("images/Bg/chargement.png")
+map_loading = pygame.transform.scale(map_loading, (var.x_screen, var.y_screen))
 
 clock = pygame.time.Clock()
 
@@ -48,7 +50,6 @@ game = Game(screen)
 
 
 if __name__ == "__main__":
-<<<<<<< Updated upstream
     # Checkplayer = int(input("Que voulez vous faire ? : \n(1 Inscription - 2 Connexion - 3 Mot de passe oublié) "))
     # if Checkplayer == 1:
     #     sign_in()
@@ -58,21 +59,14 @@ if __name__ == "__main__":
     #     forget_psd()
     # else:
     #     sign_in()
-    running = True
-    while running :
-        
-        if game.play == False :                     
-=======
-
+    
     game.validation_champ_select, game.pseudo = run_game()
     running = True
     while running :
         
-        if game.play == False and game.validation_champ_select == False :
->>>>>>> Stashed changes
+        if game.play == False and game.validation_champ_select == False:
             start_loading(screen, game, map_loading)
-            game.play = True
-
+            game.instance_player(screen)
 
         for event in pygame.event.get():
 
@@ -104,17 +98,15 @@ if __name__ == "__main__":
                         game.not_select = True
                     elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
                         game.validation_champ_select = False
-<<<<<<< Updated upstream
                         game.play = True
 
                 # elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
                 #     game.full_screen_map = True
                 #     game.play = False
-=======
->>>>>>> Stashed changes
+
 
         
-       
+
 
 
 

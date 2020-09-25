@@ -9,19 +9,19 @@ from play.player import Player
 from champ_select.champ_select import Avatar
 from play.camera import Camera
 from play import Variables as var
+from registration.requeteSQL import create_registration
 
 
 class Game:
 
     def __init__(self, screen) :
 
-<<<<<<< Updated upstream
-        self.champ_select = Avatar(screen)
+        self.pseudo = ""
         # Permet de définir la dernière direction du personnage
         self.last_movement = "up"
         #Calcul le nombre de tour pour changer l'image du personnage
         self.move = 0
-=======
+
         # Instance
         self.sql = create_registration()
         self.champ_select = Avatar(screen)
@@ -29,10 +29,10 @@ class Game:
         self.camera = Camera(6400, 6400)
 
         #Booleen
->>>>>>> Stashed changes
+
         self.pressed = {}
         # Si le champ_select est affiché
-        self.validation_champ_select = False
+        self.validation_champ_select = True
         # Si un avatar est selectionné
         self.selected_champ = False
         # Permet de print la map et le personnage
@@ -41,21 +41,15 @@ class Game:
         self.not_select = False
         # Met la mini map en full screen
         self.full_screen_map = False
-<<<<<<< Updated upstream
-        self.player = Player(screen, 5, self)
-        self.camera = Camera(6400, 6400)
-=======
+
+
         # Permet de blit ou non l'interface du player à chaque changement
         self.interface = True 
 
-        self.pseudo = ""
-        # Permet de définir la dernière direction du personnage
-        self.last_movement = "up"
-        #Calcul le nombre de tour pour changer l'image du personnage
-        self.move = 0
+    
         # Index de l'avatar choisit
         self.avatar_choose = 0
->>>>>>> Stashed changes
+
         # Créer les surfaces des map
         self.map_foret_sol = ""
         self.map_foret_behind = ""
@@ -90,7 +84,7 @@ class Game:
     def update(self, screen):
 
         if self.play and self.full_screen_map == False:
-           
+        
             self.movement(screen)
             self.camera.update(self.player.rect)
             self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
@@ -100,31 +94,15 @@ class Game:
             self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
             self.player.interface_player(screen)
 
-            # if self.player.rect.x < 19200 and self.player.rect.x > 12800 and self.player.rect.y < 12800 and self.player.rect.y > 6400 :
-            #     self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
-            #     if self.player.rect.y == 12400 :
-            #         self.player.rect.x = 12400
-            #         self.player.rect.y = 16000
-            # elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 19200 and self.player.rect.y > 12800 :
-            #     self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
-            #     if self.player.rect.y == 12400 :
-            #         self.player.rect.x = 12400
-            #         self.player.rect.y = 16000
-            # elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 19200 and self.player.rect.y > 12800 :
-            #     self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
-
-            # elif self.player.rect.x < 12800 and self.player.rect.x > 6400 and self.player.rect.y < 6400 and self.player.rect.y > 0 :
-            #     self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
-
-            # elif self.player.rect.x < 6400 and self.player.rect.x > 0 and self.player.rect.y < 12800 and self.player.rect.y > 6400 :
-            #     self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+        if self.validation_champ_select :
+            screen.blit(self.champ_select.background_champ_select, (0,0))
+            if self.not_select == True and self.selected_champ == False:
+                self.message_champ_select(screen, "Selectionnez un avatar pour valider")
+            if self.selected_champ :
+                pygame.draw.rect(screen,(0,225,0),(self.list_image_avatar_x[self.avatar_choose], self.list_image_avatar_y[self.avatar_choose], self.champ_select.avatar1_image.get_width(), self.champ_select.avatar1_image.get_height()))
+            self.champ_select.update(screen)
 
 
-
-<<<<<<< Updated upstream
-=======
- 
->>>>>>> Stashed changes
 
     def blit_map (self, screen, map, behind, x, y, ) :
         self.map_rect.x = x
@@ -180,44 +158,14 @@ class Game:
             self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
 
-    # # Déplace la carte en fonction des touche pressé
-    # def move_right(self, screen):
-    #     self.player.rect.x += self.player.velocity
-    #     self.change_image(f"images/ressources/{self.player.avatar}/character_right.png", f"images/ressources/{self.player.avatar}/character_right_move.png" )
-    #     self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
-    # def move_left(self, screen):
-    #     self.player.rect.x -= self.player.velocity
-    #     self.change_image(f"images/ressources/{self.player.avatar}/character_left.png", f"images/ressources/{self.player.avatar}/character_left_move.png" )
-    #     self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
-    # def move_up(self, screen):
-    #     self.player.rect.y -= self.player.velocity
-    #     self.change_image(f"images/ressources/{self.player.avatar}/character_up.png", f"images/ressources/{self.player.avatar}/character_up_move.png" )
-    #     self.player.image = pygame.transform.scale(self.player.image, (32, 32))
-
-    # def move_down(self, screen):
-    #     self.player.rect.y += self.player.velocity
-    #     self.change_image(f"images/ressources/{self.player.avatar}/character_down.png", f"images/ressources/{self.player.avatar}/character_down_move.png" )
-    #     self.player.image = pygame.transform.scale(self.player.image, (32, 32))
-
-    
-    # def change_image(self, not_move, move):
-    #     # Pour chaque tour de boucle, move s'agrémente, a partir de 15 l'image change, et se remet normal au bout de 45 tour 
-    #     self.move += 1
-    #     if (self.move >= 0 and self.move <= 15) or self.move >= 45 : 
-    #         self.player.image = pygame.image.load(not_move)
-    #     else : 
-    #         self.player.image = pygame.image.load(move)
-    #     if self.move == 60 :
-    #         self.move = 0 
-
-    def message_champ_select(self, screen):
+    def message_champ_select(self, screen, message):
         font = pygame.font.SysFont("Gabriola", math.ceil(screen.get_width() / 40 + screen.get_height() / 40))
-        text = font.render("Selectionnez un avatar pour valider", 1, (255,255,255))
+        text = font.render(message, 1, (255,255,255))
         text_rect = text.get_rect()
-        text_rect.x = math.ceil(screen.get_width() /2 - math.ceil(screen.get_width() / 3.5))
-        text_rect.y = math.ceil(screen.get_height()/2 - (math.ceil((screen.get_width() / 40 + screen.get_height() / 40) / 2)))
+        text_rect.x = math.ceil(screen.get_width() /2 - len(message) * 7)
+        text_rect.y = math.ceil(screen.get_height()/2 )
         screen.blit(text,text_rect)
 
     def instance_player (self, screen):

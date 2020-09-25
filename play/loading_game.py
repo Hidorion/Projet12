@@ -19,22 +19,15 @@ class Loading_bar(threading.Thread):
         self.screen = screen
         self.bar_loading = 0
         self.map = map
-        self.rectangle = pygame.Rect(175, 615, 850, 50)
 
     def run(self) :
         pygame.mixer.music.load("images/musique/wait.mp3")
         pygame.mixer.music.play()
         while self.bar_loading < 850 :
             self.screen.blit(self.map, (0,0)) 
-<<<<<<< Updated upstream
-            pygame.draw.rect(self.screen, (0, 0, 0), [175, 650, 850, 10]) 
-            pygame.draw.rect(self.screen, (255,255,255), [175, 650, self.bar_loading, 10]) 
-            self.bar_loading += 1
-=======
             pygame.draw.rect(self.screen, (0, 0, 0), [175, 675, 850, 10]) 
             pygame.draw.rect(self.screen, (255,255,255), [175, 675, self.bar_loading, 10]) 
             self.bar_loading += 2
->>>>>>> Stashed changes
             if self.bar_loading < 250 :
                 self.print_advice("Dormez dans votre lit de camp pour sauvegarder votre progression")
             elif self.bar_loading > 250 and self.bar_loading < 500 :
@@ -44,6 +37,7 @@ class Loading_bar(threading.Thread):
 
             pygame.display.update()
         pygame.mixer.music.stop()
+        
 
     def print_advice(self, message) :
 
@@ -51,7 +45,7 @@ class Loading_bar(threading.Thread):
         text = font.render(message, 1, (255,255,255))
         text_rect = text.get_rect()
         text_rect.x = math.ceil(self.screen.get_width() /2 - len(message) * 5.5)
-        text_rect.y = 615
+        text_rect.y = 645
         self.screen.blit(text,text_rect)
     
 
@@ -61,28 +55,19 @@ class Loading_map(threading.Thread):
     """
     Premet de charger les map
     """
-    def __init__(self, game) :
+    def __init__(self, game, screen) :
         # Initialiser le constructeur de la super class threading
         threading.Thread.__init__(self)
         # barre blanche
         self.game = game
-        self.bar_loading = 0
 
     def run(self) :
         self.game.map_foret_sol = self.game.create_map("images/bg/Foret.tmx")
-<<<<<<< Updated upstream
         Map("images/Bg/Foret_obstacle.tmx", self.game.player).obstacle(12800, 6400)
         self.game.map_foret_behind = self.game.create_map("images/bg/Foret_behind.tmx")
 
         self.game.map_montagne_sol = self.game.create_map("images/bg/Montagne.tmx")
         Map("images/Bg/Montagne_obstacle.tmx", self.game.player).obstacle(6400, 0)
-=======
-        Map("images/Bg/Foret_obstacle.tmx", self.game).obstacle(12800, 6400)
-        self.game.map_foret_behind = self.game.create_map("images/bg/Foret_behind.tmx")
-
-        self.game.map_montagne_sol = self.game.create_map("images/bg/Montagne.tmx")
-        Map("images/Bg/Montagne_obstacle.tmx", self.game).obstacle(6400, 0)
->>>>>>> Stashed changes
         self.game.map_montagne_behind = self.game.create_map("images/bg/Montagne_behind.tmx")
 
         self.game.map_marecage_sol = self.game.create_map("images/bg/Marecage.tmx")
@@ -92,17 +77,19 @@ class Loading_map(threading.Thread):
         self.game.map_cratere_behind = self.game.create_map("images/bg/Cratere_behind.tmx")
 
         self.game.map_desert_sol = self.game.create_map("images/bg/Desert.tmx")
-<<<<<<< Updated upstream
         Map("images/Bg/Desert_obstacle.tmx", self.game.player).obstacle(0, 6400)
-=======
-        Map("images/Bg/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
->>>>>>> Stashed changes
+
+
+        # Map("images/Bg/Desert_obstacle.tmx", self.game.player).obstacle(0, 6400)
+
         self.game.map_desert_behind = self.game.create_map("images/bg/Desert_behind.tmx")
+        self.game.play = True
+        
 
 def start_loading(screen, game, map_loading) :
 
     loading_bar = Loading_bar(screen, map_loading)
-    loading_map = Loading_map(game)
+    loading_map = Loading_map(game, screen)
     loading_bar.start()
     loading_map.start()
     loading_bar.join()

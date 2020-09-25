@@ -1,7 +1,7 @@
 # coding: utf-8
 
 x_screen = 1200
-y_screen = 700
+y_screen = 720
 
 #self.screen.blit(self.map_img, self.camera.apply_rect(self.map_rect))
 
