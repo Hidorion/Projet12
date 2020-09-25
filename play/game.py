@@ -70,7 +70,7 @@ class Game:
     def update(self, screen):
 
         if self.play and self.full_screen_map == False:
-           
+        
             self.movement(screen)
             self.camera.update(self.player.rect)
 
