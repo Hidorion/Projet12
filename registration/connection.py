@@ -54,4 +54,25 @@ def get_new_pwd(name,address):
     vérification mot de passe à revoir : Fait
     Gérer la longueur du mot de passe : Fait
 ​
+<<<<<<< Updated upstream
 """
+=======
+"""
+
+def check_logs(inputs_tuple):
+    user_name = inputs_tuple[0] #(input("Nom d'utilisateur : "),) # On prend l'user
+    user_password = inputs_tuple[1] #getpass("Mot de passe : ") # On prend le password en xxxx
+    #user_password = user_password.encode() #On encode en UTF8
+    #user_password = (hashlib.sha1(user_password).hexdigest(),) #On le hash en hexa
+    connexion = psycopg2.connect("dbname=Projet12 user=postgres password=group12")
+    cursor = connexion.cursor()
+    cursor.execute(f'SELECT * FROM connection WHERE pseudo = %s AND password = %s', (user_name, user_password))
+    connexion.commit()
+    result = cursor.fetchone()
+    if result: #A Si le user et le password sont bons
+        return True
+        print("ok")
+    else : #A Sinon..."é&"
+        return False
+
+>>>>>>> Stashed changes

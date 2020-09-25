@@ -5,8 +5,8 @@ from play import Variables as var
 class Camera:
     def __init__(self, width, height):
         self.camera = pyg.Rect(0, 0, width, height)
-        self.width = width
-        self.height = height
+        self.width = 1000
+        self.height = 600
 
     def apply(self, entity):
         return entity.move(self.camera.topleft)

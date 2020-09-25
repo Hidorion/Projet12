@@ -15,26 +15,47 @@ class Game:
 
     def __init__(self, screen) :
 
+<<<<<<< Updated upstream
         self.champ_select = Avatar(screen)
         # Permet de définir la dernière direction du personnage
         self.last_movement = "up"
         #Calcul le nombre de tour pour changer l'image du personnage
         self.move = 0
+=======
+        # Instance
+        self.sql = create_registration()
+        self.champ_select = Avatar(screen)
+        self.player = ""
+        self.camera = Camera(6400, 6400)
+
+        #Booleen
+>>>>>>> Stashed changes
         self.pressed = {}
         # Si le champ_select est affiché
         self.validation_champ_select = False
         # Si un avatar est selectionné
         self.selected_champ = False
-        # Index de l'avatar choisit
-        self.avatar_choose = 0
         # Permet de print la map et le personnage
         self.play = False
         # Si la touche valider est pressé mais aucun avatar choisit
         self.not_select = False
         # Met la mini map en full screen
         self.full_screen_map = False
+<<<<<<< Updated upstream
         self.player = Player(screen, 5, self)
         self.camera = Camera(6400, 6400)
+=======
+        # Permet de blit ou non l'interface du player à chaque changement
+        self.interface = True 
+
+        self.pseudo = ""
+        # Permet de définir la dernière direction du personnage
+        self.last_movement = "up"
+        #Calcul le nombre de tour pour changer l'image du personnage
+        self.move = 0
+        # Index de l'avatar choisit
+        self.avatar_choose = 0
+>>>>>>> Stashed changes
         # Créer les surfaces des map
         self.map_foret_sol = ""
         self.map_foret_behind = ""
@@ -50,6 +71,8 @@ class Game:
 
         self.map_desert_sol = ""
         self.map_desert_behind = ""
+
+        self.group_obstacle = pygame.sprite.Group()
         
         self.counter_move = 0
 
@@ -70,12 +93,12 @@ class Game:
            
             self.movement(screen)
             self.camera.update(self.player.rect)
-
             self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
             self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
             self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
             self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
             self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+            self.player.interface_player(screen)
 
             # if self.player.rect.x < 19200 and self.player.rect.x > 12800 and self.player.rect.y < 12800 and self.player.rect.y > 6400 :
             #     self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
@@ -98,8 +121,12 @@ class Game:
 
 
 
+<<<<<<< Updated upstream
+=======
+ 
+>>>>>>> Stashed changes
 
-    def blit_map (self, screen, map, behind, x, y) :
+    def blit_map (self, screen, map, behind, x, y, ) :
         self.map_rect.x = x
         self.map_rect.y = y
         screen.blit(map, (self.camera.apply_rect(self.map_rect))) #(self.player.map_x, self.player.map_y),
@@ -193,5 +220,18 @@ class Game:
         text_rect.y = math.ceil(screen.get_height()/2 - (math.ceil((screen.get_width() / 40 + screen.get_height() / 40) / 2)))
         screen.blit(text,text_rect)
 
-        
+    def instance_player (self, screen):
+        id_connection = self.sql.id_connection(self.pseudo)
+        result = self.sql.read_table_player(self.pseudo)
+        if result == [] :
+            self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 9000, 9000, 100, 100, 100])
+        result = self.sql.read_table_player(self.pseudo)
+        print(result)
+        self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5])
+        self.player.group_obstacle = self.group_obstacle
+
+    def update_player(self):
+        id_connection = self.sql.id_connection(self.pseudo)
+        self.sql.update_table_player(self.player.rect.x, self.player.rect.y, self.player.stamina, 
+        self.player.food, self.player.hydratation, id_connection[0])
         
