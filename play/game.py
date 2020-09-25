@@ -157,14 +157,7 @@ class Game:
             self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_down.png")
             self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
-<<<<<<< Updated upstream
-
-
-
     def message_champ_select(self, screen, message):
-=======
-    def message_champ_select(self, screen):
->>>>>>> Stashed changes
         font = pygame.font.SysFont("Gabriola", math.ceil(screen.get_width() / 40 + screen.get_height() / 40))
         text = font.render(message, 1, (255,255,255))
         text_rect = text.get_rect()

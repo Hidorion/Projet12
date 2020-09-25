@@ -220,8 +220,8 @@ def run_game():
         # Main menu background
         banner = pygame.image.load('registration/pics/game_banner_named.png')
         banner = pygame.transform.scale(banner, (1200, 720))
-        banner_rect = banner.get_rect()
-
+        # banner_rect = banner.get_rect()
+        screen.blit(banner, (0, 0))
         # Create and show sign up rect, all text fields in there
         sign_up_rect = pygame.Rect(250, 250, 350, 350)
         pygame.draw.rect(screen, (0, 0, 0), sign_up_rect, 1)
@@ -243,7 +243,7 @@ def run_game():
 
         # Blit everywhere on the screen surface
         # Blit the background
-        screen.blit(banner, (0, 0))
+        
 
         # Blit sign up surface onto the screen    
         screen.blit(sign_up_username.get_surface(), (300, 300))

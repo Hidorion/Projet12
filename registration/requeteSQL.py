@@ -6,8 +6,8 @@ import psycopg2
 class create_registration():
 
     def __init__(self):
-        #self.connexion = psycopg2.connect("dbname=Projet12 user=postgres password=group12")
-        self.connexion = psycopg2.connect("dbname=postgres user=postgres password=12")
+        self.connexion = psycopg2.connect("dbname=Projet12 user=postgres password=group12")
+        # self.connexion = psycopg2.connect("dbname=postgres user=postgres password=12")
         self.cursor = self.connexion.cursor()
         self.name = []
         self.email = []
@@ -40,7 +40,6 @@ class create_registration():
 
     def read_table_player(self, pseudo):
         requete_sql =f"""SELECT player.avatar, player.position_x, player.position_y, player.stamina, player.food, player.hydratation FROM player 
-        self.email = self.cursor.fetchall()
         INNER JOIN connection ON player.id_connection = connection.id
         WHERE connection.pseudo = '{pseudo}'"""
         self.cursor.execute(requete_sql)
