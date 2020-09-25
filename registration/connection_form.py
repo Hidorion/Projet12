@@ -78,7 +78,7 @@ def run_game():
     # Initialize pygame and set up screen
     pygame.init()
     pygame.font.init()
-    pygame.display.set_caption("Connection Form")
+    pygame.display.set_caption("New Horizon: Island")
     screen = pygame.display.set_mode((1200, 720))
     clock = pygame.time.Clock()
 
@@ -225,17 +225,17 @@ def run_game():
         # Create and show sign up rect, all text fields in there
         sign_up_rect = pygame.Rect(250, 250, 350, 350)
         pygame.draw.rect(screen, (0, 0, 0), sign_up_rect, 1)
-        #sign_in_rect.font_object.render("Connection:", True, (0, 0, 0))
-
-        # Create and show sign in rect, all text fields in there
-        sign_in_rect = pygame.Rect(700, 250, 350, 200)
-        pygame.draw.rect(screen, (0, 0, 0), sign_in_rect, 1)
-
+        #sign_up_rect.font_object.render("Connection:", True, (0, 0, 0))
+        
         # Show sign in text fields rect
         pygame.draw.rect(screen, (0, 0, 0), sign_up_username_rect, 1)
         pygame.draw.rect(screen, (0, 0, 0), email_rect, 1)
         pygame.draw.rect(screen, (0, 0, 0), sign_up_password_rect, 1)
         pygame.draw.rect(screen, (0, 0, 0), password_confirm_rect, 1)
+
+        # Create and show sign in rect, all text fields in there
+        sign_in_rect = pygame.Rect(700, 250, 350, 200)
+        pygame.draw.rect(screen, (0, 0, 0), sign_in_rect, 1)
 
         # Show sign up text fields rect
         pygame.draw.rect(screen, (0, 0, 0), sign_in_username_rect, 1)
