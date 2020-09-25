@@ -75,7 +75,7 @@ class Fields:
 #field_init()
 
 def run_game():
-    # Initialize and set up screen
+    # Initialize pygame and set up screen
     pygame.init()
     pygame.font.init()
     pygame.display.set_caption("Connection Form")
@@ -83,7 +83,7 @@ def run_game():
     clock = pygame.time.Clock()
 
 
-    # Create TextInput-object 
+    # Create TextInput-object with a rect and title 
     sign_up_username = registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
     sign_up_username_rect = pygame.Rect(300, 300, 250, 35)
     sign_up_username_title = sign_up_username.font_object.render("Username:", True, (0, 0, 0))
@@ -108,13 +108,14 @@ def run_game():
     sign_in_password_rect = pygame.Rect(750, 370, 250, 35)
     sign_in_password_title = sign_in_password.font_object.render("Password:", True, (0, 0, 0))
 
+    # Create form buttons
+    # Sign up button
     sign_up_button_pict = pygame.image.load('registration/pics/sign_up.png')
     sign_up_button_pict = pygame.transform.scale(sign_up_button_pict, (100, 30))
     sign_up_button_rect = sign_up_button_pict.get_rect()
     sign_up_button_rect.x = 370
     sign_up_button_rect.y = 560
-    
-
+    # Sign up button
     sign_in_button_pict = pygame.image.load('registration/pics/sign_in.png')
     sign_in_button_pict = pygame.transform.scale(sign_in_button_pict, (100, 30))
     sign_in_button_rect = sign_in_button_pict.get_rect()
@@ -130,20 +131,19 @@ def run_game():
     #             key.font_object.render(data[key]["init"]["title"])
 
 
-
+    # Bool var to make main loop running and set flag to text input fields
     running = True
     update_text = False
-
-
-    # Set status to each text input field
-
 
     # Start main loop
     f = Fields()
     while running:
         # Start event loop
         events = pygame.event.get()
+
+        # List to set text input flag to False
         list_model = [f.sign_up_username, f.email, f.sign_up_password, f.password_confirm, f.sign_in_username, f.sign_in_password]
+        # List of every text fields
         list_var = [sign_up_username, email, sign_up_password, password_confirm, sign_in_username, sign_in_password]
         
         for event in events:
@@ -151,7 +151,9 @@ def run_game():
                 running = False
                 pygame.quit()
 
+            # Test condition if a rect has been clicked
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                # collisions on sign up text fields
                 if sign_up_username_rect.collidepoint(event.pos):
                     f = Fields()
                     f.sign_up_username = True
@@ -172,6 +174,7 @@ def run_game():
                     f.password_confirm = True
                     update_text = True
 
+                # collisions on sign up text fields
                 elif sign_in_username_rect.collidepoint(event.pos):
                     f = Fields()
                     f.sign_in_username = True
@@ -182,6 +185,7 @@ def run_game():
                     f.sign_in_password = True
                     update_text = True
 
+                # collisions on validation buttons
                 elif sign_up_button_rect.collidepoint(event.pos):
                     inputs_list = []
                     inputs_list.append(sign_up_username.input_string.lower())
@@ -193,9 +197,6 @@ def run_game():
                         running = False
                         return True, inputs_list[0]
                     
-
-                    
-
                 elif sign_in_button_rect.collidepoint(event.pos):
                     inputs_list = []
                     inputs_list.append(sign_in_username.input_string.lower())
@@ -204,38 +205,33 @@ def run_game():
                     if check_logs(inputs_tuple) :
                         running = False
                         return False, inputs_list[0]
-                    
+                
+                # Mouse click outside all rect
                 else:
                     f = Fields()
                     # update_text = False
                 
-
-
-
         # Feed it with events every frame 
         if update_text:
             for num, model in enumerate(list_model):
                 if model :
                     list_var[num].update(events)
 
-
-        # Main menu
+        # Main menu background
         banner = pygame.image.load('registration/pics/game_banner_named.png')
         banner = pygame.transform.scale(banner, (1200, 720))
         banner_rect = banner.get_rect()
 
-        screen.blit(banner, (0, 0))
-
-        # Create and show connection rect, all text fields in there
-        connection_rect = pygame.Rect(250, 250, 350, 350)
-        pygame.draw.rect(screen, (0, 0, 0), connection_rect, 1)
-        #connection_rect.font_object.render("Connection:", True, (0, 0, 0))
+        # Create and show sign up rect, all text fields in there
+        sign_up_rect = pygame.Rect(250, 250, 350, 350)
+        pygame.draw.rect(screen, (0, 0, 0), sign_up_rect, 1)
+        #sign_in_rect.font_object.render("Connection:", True, (0, 0, 0))
 
         # Create and show sign in rect, all text fields in there
         sign_in_rect = pygame.Rect(700, 250, 350, 200)
         pygame.draw.rect(screen, (0, 0, 0), sign_in_rect, 1)
 
-        # Show connection text fields rect
+        # Show sign in text fields rect
         pygame.draw.rect(screen, (0, 0, 0), sign_up_username_rect, 1)
         pygame.draw.rect(screen, (0, 0, 0), email_rect, 1)
         pygame.draw.rect(screen, (0, 0, 0), sign_up_password_rect, 1)
@@ -245,7 +241,11 @@ def run_game():
         pygame.draw.rect(screen, (0, 0, 0), sign_in_username_rect, 1)
         pygame.draw.rect(screen, (0, 0, 0), sign_in_password_rect, 1)
 
-        # Blit connection surface onto the screen    
+        # Blit everywhere on the screen surface
+        # Blit the background
+        screen.blit(banner, (0, 0))
+
+        # Blit sign up surface onto the screen    
         screen.blit(sign_up_username.get_surface(), (300, 300))
         screen.blit(sign_up_username_title, (sign_up_username_rect.x, sign_up_username_rect.y - 25))
 
@@ -258,15 +258,15 @@ def run_game():
         screen.blit(password_confirm.get_surface(), (300, 510))
         screen.blit(password_confirm_title, (password_confirm_rect.x, password_confirm_rect.y - 25))
 
-        # Blit connection surface onto the screen    
+        # Blit sign in surface onto the screen    
         screen.blit(sign_in_username.get_surface(), (750, 300))
         screen.blit(sign_in_username_title, (sign_in_username_rect.x, sign_in_username_rect.y - 25))
 
         screen.blit(sign_in_password.get_surface(), (750, 370))
         screen.blit(sign_in_password_title, (sign_in_password_rect.x, sign_in_password_rect.y - 25))
 
+        # Blit form buttons
         screen.blit(sign_up_button_pict, sign_up_button_rect)
-
         screen.blit(sign_in_button_pict, (sign_in_button_rect))
 
         # Refresh screen
