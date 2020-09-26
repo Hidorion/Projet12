@@ -31,10 +31,10 @@ def password(information): #check if password matches
         mdp_encrypte = None
         return mdp_encrypte#password(information)
     # Encode the string in UTF-8 encoding, necessary for this to hash the pwd
-    mdp = mdp.encode()
-    # # Allows you to encode the pwd
-    mdp_encrypte = hashlib.sha1(mdp).hexdigest()
-    return mdp_encrypte
+    # mdp = mdp.encode()
+    # # # Allows you to encode the pwd
+    # mdp_encrypte = hashlib.sha1(mdp).hexdigest()
+    return mdp
     #return mdp
 
 def check_pseudo(information, screen, x, y): #Check if pseudo already exists

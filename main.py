@@ -50,16 +50,6 @@ game = Game(screen)
 
 
 if __name__ == "__main__":
-    # Checkplayer = int(input("Que voulez vous faire ? : \n(1 Inscription - 2 Connexion - 3 Mot de passe oublié) "))
-    # if Checkplayer == 1:
-    #     sign_in()
-    # elif Checkplayer == 2:
-    #     check_logs()
-    # elif Checkplayer == 3:
-    #     forget_psd()
-    # else:
-    #     sign_in()
-    
     game.validation_champ_select, game.pseudo = run_game()
     running = True
     while running :
