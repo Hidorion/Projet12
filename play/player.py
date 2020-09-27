@@ -6,6 +6,7 @@ import pygame
 
 from play.map import Map
 from play.rect_character import Rect_character
+from play.inventory import Inventory
 
 
 
@@ -35,6 +36,8 @@ class Player (pygame.sprite.Sprite) :
         self.move = 0
 
         self.rect_character = Rect_character(self.rect.x, self.rect.y)
+
+        self.inventory = Inventory(screen)
 
 
         # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
@@ -105,8 +108,6 @@ class Player (pygame.sprite.Sprite) :
         stamina = pygame.image.load("images/ressources/interface/stamina.png")
         hydratation = pygame.image.load("images/ressources/interface/hydratation.png")
         support_map =pygame.image.load("images/ressources/interface/support_map.png")
-        bag_image = pygame.image.load("images/ressources/interface/bag.png")
-        bag_rect = bag_image.get_rect()
         
         # x, y, largeur, hauteur
         pygame.draw.rect(screen, (51, 51, 51), [0,  math.ceil(screen.get_height() - screen.get_height() / 6.54), 
@@ -115,7 +116,7 @@ class Player (pygame.sprite.Sprite) :
         screen.blit(stamina, (10, screen.get_height() - 67))
         screen.blit(hydratation, (10, screen.get_height() - 30))
         screen.blit(support_map, (995, 510))
-        screen.blit(bag_image, (1060, 390))
+        screen.blit(self.inventory.image, self.inventory.rect)
         pygame.draw.rect(screen, (230,81,25), [food.get_height() + 20, screen.get_height() - 95, self.food * 8 ,8])
         pygame.draw.rect(screen, (239,184,41), [stamina.get_height() + 20, screen.get_height() - 57, self.stamina * 8 ,8])
         pygame.draw.rect(screen, (67,93,255), [hydratation.get_height() + 20, screen.get_height() - 20, self.hydratation * 8 ,8])

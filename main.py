@@ -50,16 +50,6 @@ game = Game(screen)
 
 
 if __name__ == "__main__":
-    # Checkplayer = int(input("Que voulez vous faire ? : \n(1 Inscription - 2 Connexion - 3 Mot de passe oublié) "))
-    # if Checkplayer == 1:
-    #     sign_in()
-    # elif Checkplayer == 2:
-    #     check_logs()
-    # elif Checkplayer == 3:
-    #     forget_psd()
-    # else:
-    #     sign_in()
-    
     game.validation_champ_select, game.pseudo = run_game()
     running = True
     while running :
@@ -78,9 +68,9 @@ if __name__ == "__main__":
             elif event.type == pygame.KEYDOWN :
                 game.pressed[event.key] = True
 
-                if event.key == pygame.K_ESCAPE and game.full_screen_map == True :
-                    game.full_screen_map = False
-                    game.play = True
+                if event.key == pygame.K_ESCAPE  :
+                    if game.inventory :
+                        game.inventory = False
 
             elif event.type == pygame.KEYUP :
                 game.pressed[event.key] = False
@@ -99,7 +89,9 @@ if __name__ == "__main__":
                         game.not_select = True
                     elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
                         game.validation_champ_select = False
-                        game.play = True
+                elif game.play :
+                    if game.player.inventory.rect.collidepoint(event.pos) :
+                        game.inventory = True
 
                 # elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
                 #     game.full_screen_map = True

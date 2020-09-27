@@ -32,7 +32,7 @@ class Game:
 
         self.pressed = {}
         # Si le champ_select est affiché
-        self.validation_champ_select = True
+        self.validation_champ_select = False
         # Si un avatar est selectionné
         self.selected_champ = False
         # Permet de print la map et le personnage
@@ -41,7 +41,8 @@ class Game:
         self.not_select = False
         # Met la mini map en full screen
         self.full_screen_map = False
-
+        # Permet d'ouvrir l'inventaire ou non
+        self.inventory = False
 
         # Permet de blit ou non l'interface du player à chaque changement
         self.interface = True 
@@ -88,11 +89,13 @@ class Game:
             self.movement(screen)
             self.camera.update(self.player.rect)
             self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
-            self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
-            self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
-            self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
-            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+            # self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
+            # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
+            # self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
+            # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
             self.player.interface_player(screen)
+            if self.inventory :
+                self.player.inventory.print_inventory(screen)
 
         if self.validation_champ_select :
             screen.blit(self.champ_select.background_champ_select, (0,0))
@@ -126,45 +129,32 @@ class Game:
         if self.pressed.get(pygame.K_RIGHT):# and self.map.tm_rect.x + self.player.velocity < self.map.tm.get_width():
             self.player.move_right(screen)
             self.last_movement = "right"
+            
 
         elif self.pressed.get(pygame.K_LEFT) :# and self.map.tm_rect.x > - 3200 :
             self.player.move_left(screen)
             self.last_movement = "left"
+            
 
         elif self.pressed.get(pygame.K_UP) : #and self.map.tm_rect.y > - 3200 :
             self.player.move_up(screen)
             self.last_movement = "up"
+            
 
         elif self.pressed.get(pygame.K_DOWN): # and self.map.tm_rect.y + self.player.velocity < self.map.tm.get_height():
             self.player.move_down(screen)
             self.last_movement = "down"
-
-
-        # Met dans la position arrêt le personnage
-        if self.pressed.get(pygame.K_RIGHT) == False and self.last_movement == "right" :
-            self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_right.png")
+            
+        list_key = [[pygame.K_RIGHT, "right"], [pygame.K_LEFT, "left"], [pygame.K_UP, "up"], [pygame.K_DOWN, "down"]]
+        for key in list_key :
+            self.update_image(key[0], key[1])
+        
+    def update_image(self, key, direction) :
+        if self.pressed.get(key) == False and self.last_movement == direction :
+            self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_{direction}.png")
             self.player.image = pygame.transform.scale(self.player.image, (32, 32))
-
-        elif self.pressed.get(pygame.K_LEFT) == False and self.last_movement == "left" :
-            self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_left.png")
-            self.player.image = pygame.transform.scale(self.player.image, (32, 32))
-
-        elif self.pressed.get(pygame.K_UP) == False and self.last_movement == "up" :
-            self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_up.png")
-            self.player.image = pygame.transform.scale(self.player.image, (32, 32))
-
-        elif self.pressed.get(pygame.K_DOWN) == False and self.last_movement == "down" :
-            self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_down.png")
-            self.player.image = pygame.transform.scale(self.player.image, (32, 32))
-
-<<<<<<< Updated upstream
-
-
 
     def message_champ_select(self, screen, message):
-=======
-    def message_champ_select(self, screen):
->>>>>>> Stashed changes
         font = pygame.font.SysFont("Gabriola", math.ceil(screen.get_width() / 40 + screen.get_height() / 40))
         text = font.render(message, 1, (255,255,255))
         text_rect = text.get_rect()
@@ -176,7 +166,7 @@ class Game:
         id_connection = self.sql.id_connection(self.pseudo)
         result = self.sql.read_table_player(self.pseudo)
         if result == [] :
-            self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 9000, 9000, 100, 100, 100])
+            self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 13000, 9000, 100, 100, 100])
         result = self.sql.read_table_player(self.pseudo)
         print(result)
         self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5])
