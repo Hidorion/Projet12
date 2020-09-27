@@ -31,10 +31,10 @@ def password(information): #check if password matches
         mdp_encrypte = None
         return mdp_encrypte#password(information)
     # Encode the string in UTF-8 encoding, necessary for this to hash the pwd
-    mdp = mdp.encode()
-    # # Allows you to encode the pwd
-    mdp_encrypte = hashlib.sha1(mdp).hexdigest()
-    return mdp_encrypte
+    # mdp = mdp.encode()
+    # # # Allows you to encode the pwd
+    # mdp_encrypte = hashlib.sha1(mdp).hexdigest()
+    return mdp
     #return mdp
 
 def check_pseudo(information, screen, x, y): #Check if pseudo already exists
@@ -68,7 +68,7 @@ def check_email(information, screen, x, y):
     else :
         print("message(screen, ""Saisissez une adresse valide"", x, y)")    
         email = None
-    return email 
+        return email 
     # while validate_email(email) == False :
     #     #message(screen, "Saisissez une adresse valide", x, y)
     #     email = information[1]
@@ -94,7 +94,7 @@ def sign_up(information, screen, x, y): #Inscription
     mdp_encrypte = password(information)
     if pseudo != None and email != None and mdp_encrypte != None:
         # save registration
-        #SQL.new_registration(email, pseudo, mdp_encrypte)
+        SQL.new_registration(email, pseudo, mdp_encrypte)
         print(pseudo,email,mdp_encrypte)
         print('message(screen, "Votre inscription a bien été enregistrée", x, y)')
         return True
