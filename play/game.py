@@ -88,11 +88,11 @@ class Game:
         
             self.movement(screen)
             self.camera.update(self.player.rect)
-            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
+            # self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
             # self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
             # self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
-            # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 0)
             self.player.interface_player(screen)
             if self.inventory :
                 self.player.inventory.print_inventory(screen)
@@ -144,6 +144,13 @@ class Game:
         elif self.pressed.get(pygame.K_DOWN): # and self.map.tm_rect.y + self.player.velocity < self.map.tm.get_height():
             self.player.move_down(screen)
             self.last_movement = "down"
+
+        if self.pressed.get(pygame.K_i) and self.inventory == True:
+            self.inventory = False
+        elif self.pressed.get(pygame.K_i) and self.inventory == False:
+            self.inventory = True
+
+        
             
         list_key = [[pygame.K_RIGHT, "right"], [pygame.K_LEFT, "left"], [pygame.K_UP, "up"], [pygame.K_DOWN, "down"]]
         for key in list_key :

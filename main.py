@@ -57,6 +57,7 @@ if __name__ == "__main__":
         if game.play == False and game.validation_champ_select == False:
             start_loading(screen, game, map_loading)
             game.instance_player(screen)
+            game.player.inventory.add_list_object("kagari")
             game.play = True
 
         for event in pygame.event.get():
@@ -77,7 +78,7 @@ if __name__ == "__main__":
                 
 
 
-            elif event.type == pygame.MOUSEBUTTONDOWN :
+            if event.type == pygame.MOUSEBUTTONDOWN :
                 if game.validation_champ_select :
                     for index, avatar in enumerate(game.champ_select.list_rect_avatar) :
                         if avatar.collidepoint(event.pos) :
@@ -89,6 +90,10 @@ if __name__ == "__main__":
                         game.not_select = True
                     elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
                         game.validation_champ_select = False
+                elif game.inventory :
+                    for obj in game.player.inventory.list_object : 
+                        if obj.rect.collidepoint(event.pos) :
+                            game.player.inventory.last_obj = obj.image
                 elif game.play :
                     if game.player.inventory.rect.collidepoint(event.pos) :
                         game.inventory = True

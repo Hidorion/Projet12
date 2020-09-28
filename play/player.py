@@ -110,17 +110,23 @@ class Player (pygame.sprite.Sprite) :
         support_map =pygame.image.load("images/ressources/interface/support_map.png")
         
         # x, y, largeur, hauteur
+        # Dessiner le rectangle noir derrière les barres de vie
         pygame.draw.rect(screen, (51, 51, 51), [0,  math.ceil(screen.get_height() - screen.get_height() / 6.54), 
         math.ceil(screen.get_width() / 1.38), math.ceil(screen.get_height() / 5.3)]) 
         screen.blit(food, (10, screen.get_height() - 105))
         screen.blit(stamina, (10, screen.get_height() - 67))
         screen.blit(hydratation, (10, screen.get_height() - 30))
+        # blit le dessous de la map
         screen.blit(support_map, (995, 510))
+        #Dessiner le sac de l'inventaire
         screen.blit(self.inventory.image, self.inventory.rect)
+        # dessiner les trois barres de vies
         pygame.draw.rect(screen, (230,81,25), [food.get_height() + 20, screen.get_height() - 95, self.food * 8 ,8])
         pygame.draw.rect(screen, (239,184,41), [stamina.get_height() + 20, screen.get_height() - 57, self.stamina * 8 ,8])
         pygame.draw.rect(screen, (67,93,255), [hydratation.get_height() + 20, screen.get_height() - 20, self.hydratation * 8 ,8])
+        # dessiner le carré pour afficher l'outil
         pygame.draw.rect(screen, (179, 179, 179), [0,  (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10))), 
         math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)])
-
-
+        if self.inventory.last_obj != "" :
+            self.inventory.last_obj = pygame.transform.scale(self.inventory.last_obj, (math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)))
+            screen.blit(self.inventory.last_obj, (0, (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10)))))
