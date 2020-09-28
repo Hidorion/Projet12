@@ -77,7 +77,7 @@ class Loading_map(threading.Thread):
         # self.game.map_cratere_behind = self.game.create_map("images/Bg/Cratere_behind.tmx")
 
         # self.game.map_desert_sol = self.game.create_map("images/Bg/Desert.tmx")
-        # # Map("images/Bg/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
+        # Map("images/Bg/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
         # self.game.map_desert_behind = self.game.create_map("images/Bg/Desert_behind.tmx")        
 
 def start_loading(screen, game, map_loading) :

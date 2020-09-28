@@ -57,7 +57,7 @@ class create_registration():
         requete_sql = f""" SELECT id 
                           FROM "connection" 
                           WHERE connection.pseudo = '{pseudo}'"""
-        self.cursor.execute(requete_sql, pseudo)
+        self.cursor.execute(requete_sql)
         result = self.cursor.fetchone()
         return result
 
@@ -67,5 +67,20 @@ class create_registration():
                           WHERE player.id_connection = '{id_connection}'"""
         self.cursor.execute(requete_sql)
         self.connexion.commit()
+
+    def read_inventory(self, pseudo):
+        requete_sql = f"""SELECT object.name, amount, action.name, category.name, object.stamina, object.food, object.hydratation
+                        FROM inventaire
+                        INNER JOIN player ON inventaire.id_player = player.id
+                        INNER JOIN connection ON player.id_connection = connection.id
+                        INNER JOIN object ON inventaire.id_object = object.id
+                        INNER JOIN category ON object.id_category = category.id
+                        INNER JOIN action ON object.id_action = action.id
+                        WHERE connection.pseudo = '{pseudo}'"""
+        self.cursor.execute(requete_sql)
+        return self.cursor.fetchall()
+
+# sql = create_registration()
+
 
 
