@@ -17,15 +17,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: dojo_animal; Type: SCHEMA; Schema: -; Owner: postgres
---
-
-CREATE SCHEMA dojo_animal;
-
-
-ALTER SCHEMA dojo_animal OWNER TO postgres;
-
---
 -- Name: adminpack; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -42,210 +33,6 @@ COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
-
---
--- Name: animal; Type: TABLE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE TABLE dojo_animal.animal (
-    id integer NOT NULL,
-    name character varying(30) NOT NULL,
-    id_type integer NOT NULL
-);
-
-
-ALTER TABLE dojo_animal.animal OWNER TO postgres;
-
---
--- Name: animal_id_seq; Type: SEQUENCE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE SEQUENCE dojo_animal.animal_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE dojo_animal.animal_id_seq OWNER TO postgres;
-
---
--- Name: animal_id_seq; Type: SEQUENCE OWNED BY; Schema: dojo_animal; Owner: postgres
---
-
-ALTER SEQUENCE dojo_animal.animal_id_seq OWNED BY dojo_animal.animal.id;
-
-
---
--- Name: animal_zone; Type: TABLE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE TABLE dojo_animal.animal_zone (
-    id_animal integer NOT NULL,
-    id_zone integer NOT NULL
-);
-
-
-ALTER TABLE dojo_animal.animal_zone OWNER TO postgres;
-
---
--- Name: animal_zone_contact; Type: TABLE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE TABLE dojo_animal.animal_zone_contact (
-    id_animal integer NOT NULL,
-    id_contact integer NOT NULL,
-    id_zone integer NOT NULL,
-    date_obs date NOT NULL,
-    quantity_male integer DEFAULT 0 NOT NULL,
-    quantity_female integer DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE dojo_animal.animal_zone_contact OWNER TO postgres;
-
---
--- Name: contact; Type: TABLE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE TABLE dojo_animal.contact (
-    id integer NOT NULL,
-    name character varying(30) NOT NULL
-);
-
-
-ALTER TABLE dojo_animal.contact OWNER TO postgres;
-
---
--- Name: contact_id_seq; Type: SEQUENCE; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE dojo_animal.contact ALTER COLUMN id ADD GENERATED ALWAYS AS IDENTITY (
-    SEQUENCE NAME dojo_animal.contact_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1
-);
-
-
---
--- Name: country; Type: TABLE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE TABLE dojo_animal.country (
-    id integer NOT NULL,
-    name character varying(30) NOT NULL
-);
-
-
-ALTER TABLE dojo_animal.country OWNER TO postgres;
-
---
--- Name: country_id_seq; Type: SEQUENCE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE SEQUENCE dojo_animal.country_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE dojo_animal.country_id_seq OWNER TO postgres;
-
---
--- Name: country_id_seq; Type: SEQUENCE OWNED BY; Schema: dojo_animal; Owner: postgres
---
-
-ALTER SEQUENCE dojo_animal.country_id_seq OWNED BY dojo_animal.country.id;
-
-
---
--- Name: type; Type: TABLE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE TABLE dojo_animal.type (
-    id integer NOT NULL,
-    name character varying(30) NOT NULL,
-    id_parent integer
-);
-
-
-ALTER TABLE dojo_animal.type OWNER TO postgres;
-
---
--- Name: type_id_seq; Type: SEQUENCE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE SEQUENCE dojo_animal.type_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE dojo_animal.type_id_seq OWNER TO postgres;
-
---
--- Name: type_id_seq; Type: SEQUENCE OWNED BY; Schema: dojo_animal; Owner: postgres
---
-
-ALTER SEQUENCE dojo_animal.type_id_seq OWNED BY dojo_animal.type.id;
-
-
---
--- Name: zone; Type: TABLE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE TABLE dojo_animal.zone (
-    id integer NOT NULL,
-    name character varying(30) NOT NULL
-);
-
-
-ALTER TABLE dojo_animal.zone OWNER TO postgres;
-
---
--- Name: zone_country; Type: TABLE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE TABLE dojo_animal.zone_country (
-    id_zone integer NOT NULL,
-    id_country integer NOT NULL
-);
-
-
-ALTER TABLE dojo_animal.zone_country OWNER TO postgres;
-
---
--- Name: zone_id_seq; Type: SEQUENCE; Schema: dojo_animal; Owner: postgres
---
-
-CREATE SEQUENCE dojo_animal.zone_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE dojo_animal.zone_id_seq OWNER TO postgres;
-
---
--- Name: zone_id_seq; Type: SEQUENCE OWNED BY; Schema: dojo_animal; Owner: postgres
---
-
-ALTER SEQUENCE dojo_animal.zone_id_seq OWNED BY dojo_animal.zone.id;
-
 
 --
 -- Name: action; Type: TABLE; Schema: public; Owner: postgres
@@ -356,9 +143,9 @@ ALTER SEQUENCE public.category_id_seq OWNED BY public.category.id;
 
 CREATE TABLE public.connection (
     id integer NOT NULL,
-    email integer NOT NULL,
     pseudo character varying NOT NULL,
-    password character varying NOT NULL
+    password character varying NOT NULL,
+    e_mail character varying NOT NULL
 );
 
 
@@ -443,7 +230,10 @@ CREATE TABLE public.object (
     id_category integer NOT NULL,
     name character varying NOT NULL,
     amount_min integer NOT NULL,
-    amount_max integer NOT NULL
+    amount_max integer NOT NULL,
+    stamina integer,
+    food integer,
+    hydratation integer
 );
 
 
@@ -538,31 +328,39 @@ CREATE TABLE public.recipe_object (
 ALTER TABLE public.recipe_object OWNER TO postgres;
 
 --
--- Name: animal id; Type: DEFAULT; Schema: dojo_animal; Owner: postgres
+-- Name: registration; Type: TABLE; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY dojo_animal.animal ALTER COLUMN id SET DEFAULT nextval('dojo_animal.animal_id_seq'::regclass);
+CREATE TABLE public.registration (
+    id integer NOT NULL,
+    address text,
+    name text,
+    password text
+);
 
 
---
--- Name: country id; Type: DEFAULT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.country ALTER COLUMN id SET DEFAULT nextval('dojo_animal.country_id_seq'::regclass);
-
-
---
--- Name: type id; Type: DEFAULT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.type ALTER COLUMN id SET DEFAULT nextval('dojo_animal.type_id_seq'::regclass);
-
+ALTER TABLE public.registration OWNER TO postgres;
 
 --
--- Name: zone id; Type: DEFAULT; Schema: dojo_animal; Owner: postgres
+-- Name: registration_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY dojo_animal.zone ALTER COLUMN id SET DEFAULT nextval('dojo_animal.zone_id_seq'::regclass);
+CREATE SEQUENCE public.registration_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.registration_id_seq OWNER TO postgres;
+
+--
+-- Name: registration_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.registration_id_seq OWNED BY public.registration.id;
 
 
 --
@@ -615,67 +413,10 @@ ALTER TABLE ONLY public.player ALTER COLUMN id SET DEFAULT nextval('public.playe
 
 
 --
--- Data for Name: animal; Type: TABLE DATA; Schema: dojo_animal; Owner: postgres
+-- Name: registration id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-COPY dojo_animal.animal (id, name, id_type) FROM stdin;
-\.
-
-
---
--- Data for Name: animal_zone; Type: TABLE DATA; Schema: dojo_animal; Owner: postgres
---
-
-COPY dojo_animal.animal_zone (id_animal, id_zone) FROM stdin;
-\.
-
-
---
--- Data for Name: animal_zone_contact; Type: TABLE DATA; Schema: dojo_animal; Owner: postgres
---
-
-COPY dojo_animal.animal_zone_contact (id_animal, id_contact, id_zone, date_obs, quantity_male, quantity_female) FROM stdin;
-\.
-
-
---
--- Data for Name: contact; Type: TABLE DATA; Schema: dojo_animal; Owner: postgres
---
-
-COPY dojo_animal.contact (id, name) FROM stdin;
-\.
-
-
---
--- Data for Name: country; Type: TABLE DATA; Schema: dojo_animal; Owner: postgres
---
-
-COPY dojo_animal.country (id, name) FROM stdin;
-\.
-
-
---
--- Data for Name: type; Type: TABLE DATA; Schema: dojo_animal; Owner: postgres
---
-
-COPY dojo_animal.type (id, name, id_parent) FROM stdin;
-\.
-
-
---
--- Data for Name: zone; Type: TABLE DATA; Schema: dojo_animal; Owner: postgres
---
-
-COPY dojo_animal.zone (id, name) FROM stdin;
-\.
-
-
---
--- Data for Name: zone_country; Type: TABLE DATA; Schema: dojo_animal; Owner: postgres
---
-
-COPY dojo_animal.zone_country (id_zone, id_country) FROM stdin;
-\.
+ALTER TABLE ONLY public.registration ALTER COLUMN id SET DEFAULT nextval('public.registration_id_seq'::regclass);
 
 
 --
@@ -731,7 +472,14 @@ COPY public.category (id, name, id_parent) FROM stdin;
 --
 
 COPY public.connection (id, pseudo, password, e_mail) FROM stdin;
-2	Kosovo	Hachette	onsenfout@gmail.com
+2	Douze	Gamelle	Doudou@gmail.com
+3	kagari	group12	azaidzj\t
+7	laura	group12	zeaafa
+9	bidule	group12	aleoaien
+10	truc	group12	ajeua
+11	jean	group12	aueuahe
+14	laura	647dca49fd1d3f5532e4c08761fc6b4ebe7b9c47	laura.busignies@hotmail.com
+17	benjamin	group12	busignies.laura@hotmail.com
 \.
 
 
@@ -748,6 +496,11 @@ COPY public.flora (id, name) FROM stdin;
 --
 
 COPY public.inventaire (id_player, id_object, amount) FROM stdin;
+1	1	1
+1	2	1
+1	3	1
+1	4	1
+2	1	1
 \.
 
 
@@ -755,67 +508,44 @@ COPY public.inventaire (id_player, id_object, amount) FROM stdin;
 -- Data for Name: object; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.object (id, id_action, id_category, name, amount_min, amount_max) FROM stdin;
-1	2	1	Hachette	1	1
-2	3	1	Pelle	1	1
-3	6	1	Pioche	1	1
-4	8	1	Serpe	1	1
-5	4	1	Torche	1	1
-6	9	1	Canne à pêche	1	1
-7	10	1	Concococteur	1	1
-8	5	1	Feu de camp	1	1
-9	7	1	Lit de fortune	1	1
-10	1	7	Bois	3	8
-11	1	7	Silex	3	8
-12	1	7	Liane	2	6
-13	1	7	Pierre	2	6
-14	1	7	Sève	1	4
-15	1	7	Laine	2	10
-16	1	7	Feuille	2	8
-17	1	7	Eau	1	10
-18	1	7	Jus de coco	1	3
-19	1	5	Noix de coco	1	1
-20	1	5	Melon	1	1
-21	1	5	Ananas	1	1
-22	1	5	Figue	1	3
-23	1	5	Banane	2	6
-24	1	4	Blé	10	20
-25	1	4	Maïs	1	4
-26	1	6	Carotte	1	3
-27	1	6	Pomme de terre	2	6
-28	1	6	Poireaux	1	1
-29	1	6	Avocat	1	2
-30	10	1	Récipient	1	2
-31	5	8	Ortie	2	6
-32	5	8	Champignon Blanc	2	5
-33	5	8	Champignon Marron	2	5
-34	5	8	Champignon Rouge	3	6
-35	5	8	Baie Rouge	6	10
-36	5	8	Baie Jaune	6	10
-37	5	8	Baie Noire	6	10
-38	5	8	Baie Bleue	6	10
-39	10	8	Fleur Bleue	2	4
-40	10	8	Fleur Rouge	2	4
-41	10	8	Fleur Jaune	2	4
-42	10	8	Fleur Rose	2	4
-43	10	8	Fleur Verte	2	4
-44	10	8	Fleur Noire	2	4
-45	10	8	Fleur Blanche	2	4
-46	10	8	Fleur Violette	2	4
-47	12	3	Graine de fleurs	1	1
-48	12	3	Graine de baies	1	1
-49	12	3	Graine d'orties	1	1
-50	12	3	Spore de champignons	1	1
-51	12	3	Grain de céréales	1	1
-52	12	3	Graine de cocotiers	1	1
-53	12	3	Pépin de melons	1	1
-54	12	3	Graine d'ananas	1	1
-55	12	3	Pépin de figues	1	1
-56	12	3	Graine de bananes	1	1
-57	12	3	Graine de carottes	1	1
-58	12	3	Graine de patates	1	1
-59	12	3	Graine de poireaux	1	1
-60	12	3	Noyau d'avocats	1	1
+COPY public.object (id, id_action, id_category, name, amount_min, amount_max, stamina, food, hydratation) FROM stdin;
+5	4	1	Torche	1	1	-5	0	0
+6	9	1	Canne à pêche	1	1	5	0	0
+7	10	1	Concococteur	1	1	-5	0	0
+19	1	5	Noix de coco	1	1	-10	30	10
+23	1	5	Banane	2	6	20	50	0
+26	1	6	Carotte	1	3	10	45	0
+30	10	1	Récipient	1	2	-10	0	0
+31	5	8	Ortie	2	6	0	15	3
+32	5	8	Champignon Blanc	2	5	-15	-5	2
+33	5	8	Champignon Marron	2	5	2	2	2
+34	5	8	Champignon Rouge	3	6	-30	-15	-20
+45	10	8	Fleur Blanche	2	4	10	10	10
+46	10	8	Fleur Violette	2	4	0	0	0
+52	12	3	Graine de cocotiers	1	1	0	3	3
+56	12	3	Graine de bananes	1	1	0	4	4
+57	12	3	Graine de carottes	1	1	0	1	2
+9	7	1	Lit	1	1	100	-10	-10
+35	5	8	Baie	6	10	10	30	5
+1	2	1	Hachette	1	1	-5	0	0
+2	3	1	Pelle	1	1	-5	0	0
+3	6	1	Pioche	1	1	-5	0	0
+4	8	1	Serpe	1	1	-5	0	0
+10	1	7	Bois	3	8	0	0	0
+11	1	7	Silex	3	8	0	0	0
+12	1	7	Liane	2	6	0	0	0
+13	1	7	Pierre	2	6	0	0	0
+14	1	7	Sève	1	4	0	0	0
+15	1	7	Laine	2	10	0	0	0
+16	1	7	Feuille	2	8	0	0	0
+17	1	7	Eau	1	10	10	0	50
+18	1	7	Jus de coco	1	3	10	10	30
+8	5	1	Campfire	1	1	0	0	0
+20	10	9	Potion de force	1	1	75	0	0
+21	10	9	Potion nutritive	1	1	0	75	0
+22	10	9	Potion hydratante	1	1	0	0	75
+24	10	9	Potion parfaite	1	1	50	50	50
+50	12	3	Soupe	1	1	25	25	35
 \.
 
 
@@ -824,6 +554,12 @@ COPY public.object (id, id_action, id_category, name, amount_min, amount_max) FR
 --
 
 COPY public.player (id, id_connection, avatar, position_x, position_y, stamina, food, hydratation) FROM stdin;
+16	10	avatar1	9000	9000	100	100	100
+3	7	avatar7	9908	8967	25	25	56
+2	2	avatar5	9000	3000	100	100	100
+15	9	avatar5	0	0	100	100	100
+20	17	avatar6	3788	10988	100	100	100
+1	3	avatar2	5916	2420	24	100	56
 \.
 
 
@@ -841,6 +577,16 @@ COPY public.recipe (id, id_object, id_action) FROM stdin;
 7	7	1
 8	8	1
 9	9	1
+10	18	1
+11	20	10
+12	21	10
+13	22	10
+14	24	10
+15	30	1
+16	50	1
+17	52	1
+18	56	1
+19	57	1
 \.
 
 
@@ -852,42 +598,82 @@ COPY public.recipe_object (id_recipe, id_object, amount) FROM stdin;
 1	10	4
 1	11	2
 1	12	2
+2	10	3
+2	13	1
+2	12	1
+3	10	3
+3	11	4
+3	12	2
+4	10	1
+4	11	2
+4	12	1
+5	10	3
+5	14	2
+5	16	1
+6	10	1
+6	12	1
+6	13	1
+7	19	1
+8	13	5
+8	14	3
+8	30	1
+9	10	4
+9	12	4
+9	16	6
+11	32	2
+11	35	2
+11	45	2
+12	33	2
+12	46	2
+12	35	2
+13	34	2
+13	35	2
+13	45	2
+14	20	1
+14	21	1
+14	22	1
+10	19	1
+15	19	1
+16	17	1
+16	26	2
+16	31	4
+16	23	2
+17	19	1
+18	23	1
+19	26	1
 \.
 
 
 --
--- Name: animal_id_seq; Type: SEQUENCE SET; Schema: dojo_animal; Owner: postgres
+-- Data for Name: registration; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('dojo_animal.animal_id_seq', 1, false);
-
-
---
--- Name: contact_id_seq; Type: SEQUENCE SET; Schema: dojo_animal; Owner: postgres
---
-
-SELECT pg_catalog.setval('dojo_animal.contact_id_seq', 6, true);
-
-
---
--- Name: country_id_seq; Type: SEQUENCE SET; Schema: dojo_animal; Owner: postgres
---
-
-SELECT pg_catalog.setval('dojo_animal.country_id_seq', 3, true);
-
-
---
--- Name: type_id_seq; Type: SEQUENCE SET; Schema: dojo_animal; Owner: postgres
---
-
-SELECT pg_catalog.setval('dojo_animal.type_id_seq', 6, true);
-
-
---
--- Name: zone_id_seq; Type: SEQUENCE SET; Schema: dojo_animal; Owner: postgres
---
-
-SELECT pg_catalog.setval('dojo_animal.zone_id_seq', 2, true);
+COPY public.registration (id, address, name, password) FROM stdin;
+1	libor.alex@gmail.com	Alex	Libor
+2	libor.alex@gmail.com	alors	Libor
+3	euh@quoi.fr	Youpi	tralala
+4	lom@gmail.com	aller	psg4ever
+5	lom@gmail.com	aller	psg4ever
+6	lom@gmail.com	aller	psg4ever
+7	lom@gmail.com	aller	psg4ever
+8	lom@gmail.com	aller	psg4ever
+9	lom@gmail.com	aller	psg4ever
+10	lom@gmail.com	aller	psg4ever
+11	lom@gmail.com	aller	psg4ever
+12	lom@gmail.com	aller	psg4ever
+13	lom@gmail.com	aller	psg4ever
+14	lom@gmail.com	aller	psg4ever
+15	lom@gmail.com	aller	psg4ever
+16	lom@gmail.com	aller	psg4ever
+17	lom@gmail.com	aller	psg4ever
+18	lom@gmail.com	aller	psg4ever
+19	lom@gmail.com	aller	psg4ever
+20	lom@gmail.com	aller	psg4ever
+21	lom@gmail.com	aller	psg4ever
+22	lom@gmail.com	aller	psg4ever
+23	lom@gmail.com	aller	psg4ever
+24	lom@gmail.com	aller	psg4ever
+\.
 
 
 --
@@ -908,14 +694,14 @@ SELECT pg_catalog.setval('public.animal_id_seq', 1, false);
 -- Name: category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.category_id_seq', 12, true);
+SELECT pg_catalog.setval('public.category_id_seq', 1, false);
 
 
 --
 -- Name: connection_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.connection_id_seq', 1, false);
+SELECT pg_catalog.setval('public.connection_id_seq', 17, true);
 
 
 --
@@ -929,54 +715,21 @@ SELECT pg_catalog.setval('public.flora_id_seq', 1, false);
 -- Name: object_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.object_id_seq', 60, true);
+SELECT pg_catalog.setval('public.object_id_seq', 24, true);
 
 
 --
 -- Name: player_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.player_id_seq', 1, false);
+SELECT pg_catalog.setval('public.player_id_seq', 20, true);
 
 
 --
--- Name: animal animal_pk; Type: CONSTRAINT; Schema: dojo_animal; Owner: postgres
+-- Name: registration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY dojo_animal.animal
-    ADD CONSTRAINT animal_pk PRIMARY KEY (id);
-
-
---
--- Name: contact contact_pk; Type: CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.contact
-    ADD CONSTRAINT contact_pk PRIMARY KEY (id);
-
-
---
--- Name: country country_pk; Type: CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.country
-    ADD CONSTRAINT country_pk PRIMARY KEY (id);
-
-
---
--- Name: type type_pk; Type: CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.type
-    ADD CONSTRAINT type_pk PRIMARY KEY (id);
-
-
---
--- Name: zone zone_pk; Type: CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.zone
-    ADD CONSTRAINT zone_pk PRIMARY KEY (id);
+SELECT pg_catalog.setval('public.registration_id_seq', 24, true);
 
 
 --
@@ -1044,75 +797,11 @@ ALTER TABLE ONLY public.recipe
 
 
 --
--- Name: animal animal_FK; Type: FK CONSTRAINT; Schema: dojo_animal; Owner: postgres
+-- Name: registration registration_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY dojo_animal.animal
-    ADD CONSTRAINT "animal_FK" FOREIGN KEY (id_type) REFERENCES dojo_animal.type(id);
-
-
---
--- Name: animal_zone animal_zone_FK; Type: FK CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.animal_zone
-    ADD CONSTRAINT "animal_zone_FK" FOREIGN KEY (id_zone) REFERENCES dojo_animal.zone(id);
-
-
---
--- Name: animal_zone animal_zone_FK_1; Type: FK CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.animal_zone
-    ADD CONSTRAINT "animal_zone_FK_1" FOREIGN KEY (id_animal) REFERENCES dojo_animal.animal(id);
-
-
---
--- Name: animal_zone_contact animal_zone_contact_FK; Type: FK CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.animal_zone_contact
-    ADD CONSTRAINT "animal_zone_contact_FK" FOREIGN KEY (id_animal) REFERENCES dojo_animal.animal(id);
-
-
---
--- Name: animal_zone_contact animal_zone_contact_FK_1; Type: FK CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.animal_zone_contact
-    ADD CONSTRAINT "animal_zone_contact_FK_1" FOREIGN KEY (id_zone) REFERENCES dojo_animal.zone(id);
-
-
---
--- Name: animal_zone_contact animal_zone_contact_FK_2; Type: FK CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.animal_zone_contact
-    ADD CONSTRAINT "animal_zone_contact_FK_2" FOREIGN KEY (id_contact) REFERENCES dojo_animal.contact(id);
-
-
---
--- Name: type type_FK; Type: FK CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.type
-    ADD CONSTRAINT "type_FK" FOREIGN KEY (id_parent) REFERENCES dojo_animal.type(id);
-
-
---
--- Name: zone_country zone_country_FK; Type: FK CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.zone_country
-    ADD CONSTRAINT "zone_country_FK" FOREIGN KEY (id_zone) REFERENCES dojo_animal.zone(id);
-
-
---
--- Name: zone_country zone_country_FK_1; Type: FK CONSTRAINT; Schema: dojo_animal; Owner: postgres
---
-
-ALTER TABLE ONLY dojo_animal.zone_country
-    ADD CONSTRAINT "zone_country_FK_1" FOREIGN KEY (id_country) REFERENCES dojo_animal.country(id);
+ALTER TABLE ONLY public.registration
+    ADD CONSTRAINT registration_pkey PRIMARY KEY (id);
 
 
 --
