@@ -90,10 +90,12 @@ if __name__ == "__main__":
                         game.not_select = True
                     elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
                         game.validation_champ_select = False
+
                 elif game.inventory :
                     for obj in game.player.inventory.list_object : 
-                        if obj.rect.collidepoint(event.pos) :
+                        if obj.rect.collidepoint(event.pos) and obj.category == "Outils":
                             game.player.inventory.last_obj = obj.image
+
                 elif game.play :
                     if game.player.inventory.rect.collidepoint(event.pos) :
                         game.inventory = True

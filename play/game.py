@@ -1,18 +1,26 @@
 # coding: utf-8
 
-#import
+# Import Modules
 import pygame
 import math
 import time
+
+# Import class 
 from play.map import Map
 from play.player import Player
 from champ_select.champ_select import Avatar
 from play.camera import Camera
-from play import Variables as var
 from registration.requeteSQL import create_registration
+
+# Import Variable
+from play import Variables as var
 
 
 class Game:
+
+    """
+        class which groups together the other classes and starts the game
+    """
 
     def __init__(self, screen) :
 
@@ -84,15 +92,19 @@ class Game:
 
     def update(self, screen):
 
+        """
+            Update the game and call the functions necessary for the game
+        """
+
         if self.play and self.full_screen_map == False:
         
             self.movement(screen)
             self.camera.update(self.player.rect)
-            # self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
+            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
             # self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
             # self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
-            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 0)
+            # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
             self.player.interface_player(screen)
             if self.inventory :
                 self.player.inventory.print_inventory(screen)
@@ -108,6 +120,11 @@ class Game:
 
 
     def blit_map (self, screen, map, behind, x, y, ) :
+
+        """
+            fatorization of map blits
+        """
+
         self.map_rect.x = x
         self.map_rect.y = y
         screen.blit(map, (self.camera.apply_rect(self.map_rect))) #(self.player.map_x, self.player.map_y),
@@ -117,6 +134,10 @@ class Game:
         
     def create_map(self, file):
 
+        """
+            Create map with map.tmx
+        """
+
         map = Map(file, self.player)
         map_img = map.make_map()
         self.map_rect = map_img.get_rect()
@@ -125,43 +146,60 @@ class Game:
 
 
     def movement(self, screen) :
+
+        """
+            Call function function that need the keyboard
+        """
+
         # si telle touche est pressée, j'appelle la fonction pour déplacer la carte
-        if self.pressed.get(pygame.K_RIGHT):# and self.map.tm_rect.x + self.player.velocity < self.map.tm.get_width():
+        if self.pressed.get(pygame.K_RIGHT) or self.pressed.get(pygame.K_d):
             self.player.move_right(screen)
             self.last_movement = "right"
             
 
-        elif self.pressed.get(pygame.K_LEFT) :# and self.map.tm_rect.x > - 3200 :
+        elif self.pressed.get(pygame.K_LEFT) or self.pressed.get(pygame.K_a):
             self.player.move_left(screen)
             self.last_movement = "left"
             
 
-        elif self.pressed.get(pygame.K_UP) : #and self.map.tm_rect.y > - 3200 :
+        elif self.pressed.get(pygame.K_UP) or self.pressed.get(pygame.K_w): 
             self.player.move_up(screen)
             self.last_movement = "up"
             
 
-        elif self.pressed.get(pygame.K_DOWN): # and self.map.tm_rect.y + self.player.velocity < self.map.tm.get_height():
+        elif self.pressed.get(pygame.K_DOWN) or self.pressed.get(pygame.K_s):
             self.player.move_down(screen)
             self.last_movement = "down"
 
+        # if inventory is close, press i for open inventory
         if self.pressed.get(pygame.K_i) and self.inventory == True:
             self.inventory = False
+        # if inventory is open, press i for close inventory
         elif self.pressed.get(pygame.K_i) and self.inventory == False:
             self.inventory = True
 
         
-            
+        # for each direction, restart image player 
         list_key = [[pygame.K_RIGHT, "right"], [pygame.K_LEFT, "left"], [pygame.K_UP, "up"], [pygame.K_DOWN, "down"]]
         for key in list_key :
             self.update_image(key[0], key[1])
         
     def update_image(self, key, direction) :
+
+        """
+            factorization restart image if sprite don't move 
+        """
+
         if self.pressed.get(key) == False and self.last_movement == direction :
             self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_{direction}.png")
             self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
     def message_champ_select(self, screen, message):
+
+        """
+            print message in interface pygame
+        """
+
         font = pygame.font.SysFont("Gabriola", math.ceil(screen.get_width() / 40 + screen.get_height() / 40))
         text = font.render(message, 1, (255,255,255))
         text_rect = text.get_rect()
@@ -170,6 +208,10 @@ class Game:
         screen.blit(text,text_rect)
 
     def instance_player (self, screen):
+        """
+            instance player 
+        """
+
         id_connection = self.sql.id_connection(self.pseudo)
         result = self.sql.read_table_player(self.pseudo)
         if result == [] :
