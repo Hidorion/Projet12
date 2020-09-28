@@ -7,7 +7,8 @@ from play.object import Object
 
 class Inventory():
 
-    def __init__(self, screen):
+    def __init__(self, screen, player):
+        self.player = player
         self.image = pygame.image.load("images/ressources/interface/bag.png")
         self.rect = self.image.get_rect()
         self.rect.x = 1060
@@ -42,3 +43,15 @@ class Inventory():
                 y += 80
                 x = 150
                 counter = 0
+
+    def update_vital_sign(self, obj) :
+        """ 
+            improves the player's vital signs
+        """ 
+
+        if self.player.stamina + obj.stamina < 100 or self.player.stamina + obj.stamina > 100 :
+            self.player.stamina += obj.stamina
+        elif self.player.food + obj.food < 100 or self.player.food + obj.food > 100 :
+            self.player.food += obj.food
+        elif self.player.hydratation + obj.hydratation < 100 or self.player.hydratation + obj.hydratation > 100 :
+            self.player.hydratation += obj.hydratation

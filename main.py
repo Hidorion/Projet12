@@ -20,6 +20,7 @@ from play.map_obstacles import Obstacle
 from play.map import Map
 from play.loading_game import start_loading
 from registration.connection_form import run_game
+from play.object import Object
 
 
 
@@ -94,7 +95,9 @@ if __name__ == "__main__":
                 elif game.inventory :
                     for obj in game.player.inventory.list_object : 
                         if obj.rect.collidepoint(event.pos) and obj.category == "Outils":
-                            game.player.inventory.last_obj = obj.image
+                            game.player.inventory.last_obj = Object([obj.name, obj.quantity, obj.action, obj.category, obj.stamina, obj.food, obj.hydratation, obj.id_parent], 0, 0)
+                        elif obj.rect.collidepoint(event.pos) and obj.id_parent == 9:
+                            game.player.inventory.update_vital_sign(obj)
 
                 elif game.play :
                     if game.player.inventory.rect.collidepoint(event.pos) :
