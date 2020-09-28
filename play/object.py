@@ -4,7 +4,9 @@ import pygame
 import math
 
 class Object(pygame.sprite.Sprite):
-
+    """
+        Create the object class for the inventory
+    """
     def __init__(self, list_inventaire, x, y) :
         pygame.sprite.Sprite.__init__(self)
         
@@ -15,5 +17,8 @@ class Object(pygame.sprite.Sprite):
         self.image = pygame.image.load(f"images/ressources/Objets/{self.name}.png")
         self.image = pygame.transform.scale(self.image, (50, 42))
         self.rect = self.image.get_rect()
+        self.stamina = list_inventaire[4]
+        self.food = list_inventaire[5]
+        self.hydratation = list_inventaire[6]
         self.rect.x = x 
         self.rect.y = y

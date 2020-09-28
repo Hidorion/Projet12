@@ -3,6 +3,10 @@ import pygame as pyg
 from play import Variables as var
 
 class Camera:
+    """
+        Create camera for follow player
+    """
+    
     def __init__(self, width, height):
         self.camera = pyg.Rect(0, 0, width, height)
         self.width = 1000
