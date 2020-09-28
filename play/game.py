@@ -88,11 +88,11 @@ class Game:
         
             self.movement(screen)
             self.camera.update(self.player.rect)
-            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
+            # self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
             # self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
             # self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
-            # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 0)
             self.player.interface_player(screen)
             if self.inventory :
                 self.player.inventory.print_inventory(screen)
