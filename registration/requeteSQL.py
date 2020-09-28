@@ -69,7 +69,7 @@ class create_registration():
         self.connexion.commit()
 
     def read_inventory(self, pseudo):
-        requete_sql = f"""SELECT object.name, amount, action.name, category.name, object.stamina, object.food, object.hydratation
+        requete_sql = f"""SELECT object.name, amount, action.name, category.name, object.stamina, object.food, object.hydratation, category.id_parent
                         FROM inventaire
                         INNER JOIN player ON inventaire.id_player = player.id
                         INNER JOIN connection ON player.id_connection = connection.id

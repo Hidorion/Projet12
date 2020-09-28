@@ -37,7 +37,7 @@ class Player (pygame.sprite.Sprite) :
 
         self.rect_character = Rect_character(self.rect.x, self.rect.y)
 
-        self.inventory = Inventory(screen)
+        self.inventory = Inventory(screen, self)
 
 
         # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
@@ -128,5 +128,5 @@ class Player (pygame.sprite.Sprite) :
         pygame.draw.rect(screen, (179, 179, 179), [0,  (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10))), 
         math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)])
         if self.inventory.last_obj != "" :
-            self.inventory.last_obj = pygame.transform.scale(self.inventory.last_obj, (math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)))
-            screen.blit(self.inventory.last_obj, (0, (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10)))))
+            self.inventory.last_obj.image = pygame.transform.scale(self.inventory.last_obj.image, (math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)))
+            screen.blit(self.inventory.last_obj.image, (0, (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10)))))
