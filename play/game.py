@@ -144,6 +144,13 @@ class Game:
         elif self.pressed.get(pygame.K_DOWN): # and self.map.tm_rect.y + self.player.velocity < self.map.tm.get_height():
             self.player.move_down(screen)
             self.last_movement = "down"
+
+        if self.pressed.get(pygame.K_i) and self.inventory == True:
+            self.inventory = False
+        elif self.pressed.get(pygame.K_i) and self.inventory == False:
+            self.inventory = True
+
+        
             
         list_key = [[pygame.K_RIGHT, "right"], [pygame.K_LEFT, "left"], [pygame.K_UP, "up"], [pygame.K_DOWN, "down"]]
         for key in list_key :
