@@ -25,18 +25,13 @@ class Inventory():
 
     def print_inventory(self, screen) :
         screen.blit(self.interface_inventory, (self.interface_inventory_rect.x, self.interface_inventory_rect.y))
-        for obj in self.list_object :
-            screen.blit(obj.image, obj.rect)
-        
-
-    def add_list_object(self, pseudo):
-        sql = create_registration()
-        result = sql.read_inventory(pseudo)
         x = 150
         y = 112
         counter = 0
-        for obj in result :
-            self.list_object.add(Object(obj, x, y))
+        for obj in self.list_object :
+            obj.rect.x = x
+            obj.rect.y = y
+            screen.blit(obj.image, obj.rect)
             x += 95
             counter += 1
             if counter == 10:
@@ -44,14 +39,28 @@ class Inventory():
                 x = 150
                 counter = 0
 
+        for obj in self.list_object :
+            screen.blit(obj.image, obj.rect)
+        
+
+    def add_list_object(self, pseudo):
+        sql = create_registration()
+        result = sql.read_inventory(pseudo)
+        for obj in result :
+            self.list_object.add(Object(obj, 0, 0))
+
     def update_vital_sign(self, obj) :
         """ 
             improves the player's vital signs
         """ 
+        self.player.stamina += obj.stamina
+        self.player.food += obj.food
+        self.player.hydratation += obj.hydratation
+        if self.player.stamina > 100 :
+            self.player.stamina = 100
+        if self.player.food > 100 :
+            self.player.food = 100
+        if self.player.hydratation > 100 :
+            self.player.hydratation = 100
 
-        if self.player.stamina + obj.stamina < 100 or self.player.stamina + obj.stamina > 100 :
-            self.player.stamina += obj.stamina
-        elif self.player.food + obj.food < 100 or self.player.food + obj.food > 100 :
-            self.player.food += obj.food
-        elif self.player.hydratation + obj.hydratation < 100 or self.player.hydratation + obj.hydratation > 100 :
-            self.player.hydratation += obj.hydratation
+        self.player.inventory.list_object.remove(obj)

@@ -93,12 +93,11 @@ if __name__ == "__main__":
                         game.validation_champ_select = False
 
                 elif game.inventory :
-                    for obj in game.player.inventory.list_object : 
+                    for obj in game.player.inventory.list_object :
                         if obj.rect.collidepoint(event.pos) and obj.category == "Outils":
-                            game.player.inventory.last_obj = Object([obj.name, obj.quantity, obj.action, obj.category, obj.stamina, obj.food, obj.hydratation, obj.id_parent], 0, 0)
-                        elif obj.rect.collidepoint(event.pos) and obj.id_parent == 9:
+                            game.player.inventory.last_obj = Object([obj.name, obj.quantity, obj.action, obj.category, obj.stamina, obj.food, obj.hydratation, obj.id_object], 0, 0)
+                        elif obj.rect.collidepoint(event.pos) :
                             game.player.inventory.update_vital_sign(obj)
-
                 elif game.play :
                     if game.player.inventory.rect.collidepoint(event.pos) :
                         game.inventory = True

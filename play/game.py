@@ -211,18 +211,20 @@ class Game:
         """
             instance player 
         """
-
         id_connection = self.sql.id_connection(self.pseudo)
         result = self.sql.read_table_player(self.pseudo)
         if result == [] :
             self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 13000, 9000, 100, 100, 100])
         result = self.sql.read_table_player(self.pseudo)
-        print(result)
-        self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5])
+        id_player = self.sql.id_player(id_connection[0])
+        self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5], id_player[0])
         self.player.group_obstacle = self.group_obstacle
 
     def update_player(self):
         id_connection = self.sql.id_connection(self.pseudo)
         self.sql.update_table_player(self.player.rect.x, self.player.rect.y, self.player.stamina, 
         self.player.food, self.player.hydratation, id_connection[0])
+        self.sql.delete_table_inventory(self.player.id_player)
+        for obj in self.player.inventory.list_object :
+            self.sql.add_inventory(self.player.id_player, obj.id_object, 1)
         

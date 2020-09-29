@@ -20,6 +20,6 @@ class Object(pygame.sprite.Sprite):
         self.stamina = list_inventaire[4]
         self.food = list_inventaire[5]
         self.hydratation = list_inventaire[6]
-        self.id_parent = list_inventaire[7]
+        self.id_object = list_inventaire[7]
         self.rect.x = x 
         self.rect.y = y
