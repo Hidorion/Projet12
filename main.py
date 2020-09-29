@@ -55,11 +55,12 @@ if __name__ == "__main__":
     running = True
     while running :
         
-        if game.play == False and game.validation_champ_select == False:
+        if game.loading :
             start_loading(screen, game, map_loading)
             game.instance_player(screen)
             game.player.inventory.add_list_object("kagari")
             game.play = True
+            game.loading = False
 
         for event in pygame.event.get():
 
@@ -76,6 +77,9 @@ if __name__ == "__main__":
 
             elif event.type == pygame.KEYUP :
                 game.pressed[event.key] = False
+            
+            if event.type == pygame.KEYUP :
+                game.not_pressed[event.key] = True
                 
 
 
