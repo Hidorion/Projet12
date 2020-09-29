@@ -95,10 +95,9 @@ if __name__ == "__main__":
                 elif game.inventory :
                     for obj in game.player.inventory.list_object :
                         if obj.rect.collidepoint(event.pos) and obj.category == "Outils":
-                            game.player.inventory.last_obj = Object([obj.name, obj.quantity, obj.action, obj.category, obj.stamina, obj.food, obj.hydratation, obj.id_parent], 0, 0)
+                            game.player.inventory.last_obj = Object([obj.name, obj.quantity, obj.action, obj.category, obj.stamina, obj.food, obj.hydratation, obj.id_object], 0, 0)
                         elif obj.rect.collidepoint(event.pos) :
                             game.player.inventory.update_vital_sign(obj)
-                            game.player.inventory.list_object.remove(obj)
                 elif game.play :
                     if game.player.inventory.rect.collidepoint(event.pos) :
                         game.inventory = True

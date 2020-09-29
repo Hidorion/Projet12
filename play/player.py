@@ -12,7 +12,7 @@ from play.inventory import Inventory
 
 class Player (pygame.sprite.Sprite) :
 
-    def __init__(self, screen, game, avatar, x, y, stamina, food, hydratation):
+    def __init__(self, screen, game, avatar, x, y, stamina, food, hydratation, id_player):
         pygame.sprite.Sprite.__init__(self)
         self.game = game
         self.avatar = avatar
@@ -21,6 +21,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.id_player = id_player
         self.stamina = stamina
         self.food = food 
         self.hydratation = hydratation

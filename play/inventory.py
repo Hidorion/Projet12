@@ -62,3 +62,5 @@ class Inventory():
             self.player.food = 100
         if self.player.hydratation > 100 :
             self.player.hydratation = 100
+
+        self.player.inventory.list_object.remove(obj)
