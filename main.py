@@ -105,6 +105,7 @@ if __name__ == "__main__":
                 elif game.play :
                     if game.player.inventory.rect.collidepoint(event.pos) :
                         game.inventory = True
+                        game.play = False
 
                 # elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
                 #     game.full_screen_map = True

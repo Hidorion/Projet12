@@ -11,6 +11,7 @@ from play.player import Player
 from champ_select.champ_select import Avatar
 from play.camera import Camera
 from registration.requeteSQL import create_registration
+from play.object import Object
 
 # Import Variable
 from play import Variables as var
@@ -102,13 +103,18 @@ class Game:
         if self.play and self.full_screen_map == False:
         
             self.movement(screen)
+            # if self.player.rect.x > 16222 :
+            #     result = self.sql.read_information_object("Banane")
+            #     self.player.inventory.list_object.add(Object(result[0], 0, 0))
             self.camera.update(self.player.rect)
-            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 6400)
-            # self.blit_map(screen, self.map_marecage_sol, self.map_marecage_behind, 6400, 12800)
-            # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 6400)
-            # self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
+            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
+            for obj in self.player.inventory.list_object_map :
+                image = pygame.transform.scale(obj.image,(28, 28))
+                screen.blit(image, (self.camera.apply_rect(obj.rect)))
+            # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
             # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
             self.player.interface_player(screen)
+            self.player.pick_up_object(self)
         if self.inventory :
             self.player.interface_player(screen)
             self.player.inventory.print_inventory(screen)

@@ -21,6 +21,7 @@ class Inventory():
         self.interface_inventory_rect.x = screen.get_width() / 10
         self.interface_inventory_rect.y = screen.get_height() / 10
         self.list_object = pygame.sprite.Group()
+        self.list_object_map = pygame.sprite.Group()
         self.last_obj = ""
 
     def print_inventory(self, screen) :
@@ -35,8 +36,8 @@ class Inventory():
             x += 95
             counter += 1
             if counter == 10:
-                y += 80
-                x = 150
+                y += 75
+                x = 149.5
                 counter = 0
 
         for obj in self.list_object :
@@ -48,19 +49,20 @@ class Inventory():
         result = sql.read_inventory(pseudo)
         for obj in result :
             self.list_object.add(Object(obj, 0, 0))
+        result = sql.read_information_object("Banane")
+        self.player.inventory.list_object_map.add(Object(result[0], 16225, 4720))
+        self.player.inventory.list_object_map.add(Object(result[0], 16240, 4742))
+        self.player.inventory.list_object_map.add(Object(result[0], 16210, 4760))
 
     def update_vital_sign(self, obj) :
         """ 
             improves the player's vital signs
         """ 
         self.player.stamina += obj.stamina
+        self.player.stamina = 100 if self.player.stamina > 100 else self.player.stamina
         self.player.food += obj.food
+        self.player.food = 100 if self.player.food > 100 else self.player.food
         self.player.hydratation += obj.hydratation
-        if self.player.stamina > 100 :
-            self.player.stamina = 100
-        if self.player.food > 100 :
-            self.player.food = 100
-        if self.player.hydratation > 100 :
-            self.player.hydratation = 100
+        self.player.hydratation = 100 if self.player.hydratation > 100 else self.player.hydratation
 
         self.player.inventory.list_object.remove(obj)
