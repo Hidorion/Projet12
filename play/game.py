@@ -39,6 +39,7 @@ class Game:
         #Booleen
 
         self.pressed = {}
+        self.not_pressed = {}
         # Si le champ_select est affiché
         self.validation_champ_select = False
         # Si un avatar est selectionné
@@ -54,6 +55,8 @@ class Game:
 
         # Permet de blit ou non l'interface du player à chaque changement
         self.interface = True 
+        # Permet de lance le chargement des map
+        self.loading = True
 
     
         # Index de l'avatar choisit
@@ -95,7 +98,7 @@ class Game:
         """
             Update the game and call the functions necessary for the game
         """
-
+        self.commandes()
         if self.play and self.full_screen_map == False:
         
             self.movement(screen)
@@ -106,8 +109,10 @@ class Game:
             # self.blit_map(screen, self.map_montagne_sol, self.map_montagne_behind, 6400, 0)
             # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
             self.player.interface_player(screen)
-            if self.inventory :
-                self.player.inventory.print_inventory(screen)
+        if self.inventory :
+            self.player.interface_player(screen)
+            self.player.inventory.print_inventory(screen)
+            
 
         if self.validation_champ_select :
             screen.blit(self.champ_select.background_champ_select, (0,0))
@@ -171,18 +176,27 @@ class Game:
             self.player.move_down(screen)
             self.last_movement = "down"
 
-        # if inventory is close, press i for open inventory
-        if self.pressed.get(pygame.K_i) and self.inventory == True:
-            self.inventory = False
-        # if inventory is open, press i for close inventory
-        elif self.pressed.get(pygame.K_i) and self.inventory == False:
-            self.inventory = True
+        
 
         
         # for each direction, restart image player 
         list_key = [[pygame.K_RIGHT, "right"], [pygame.K_LEFT, "left"], [pygame.K_UP, "up"], [pygame.K_DOWN, "down"]]
         for key in list_key :
             self.update_image(key[0], key[1])
+
+    def commandes(self):
+        # if inventory is open, press i for close inventory
+        if self.not_pressed.get(pygame.K_i) and self.inventory == False and self.play == True :
+            self.inventory = True
+            self.play = False
+            self.not_pressed[pygame.K_i] = False
+        # if inventory is close, press i for open inventory
+        elif self.not_pressed.get(pygame.K_i) and self.inventory == True and self.play == False :
+            self.inventory = False
+            self.play = True
+            self.not_pressed[pygame.K_i] = False
+        
+
         
     def update_image(self, key, direction) :
 
@@ -211,20 +225,32 @@ class Game:
         """
             instance player 
         """
+        # Je récupère l'id de connection du player
         id_connection = self.sql.id_connection(self.pseudo)
+        # Je regarde si le player un champ dans la table player
         result = self.sql.read_table_player(self.pseudo)
+        # Si il a pas de champ dans la table player j'en créé un 
         if result == [] :
             self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 13000, 9000, 100, 100, 100])
+        # Je récupère les infromation de la class player
         result = self.sql.read_table_player(self.pseudo)
         id_player = self.sql.id_player(id_connection[0])
+        # J'intancie la class player avec les informations récupérées de la BDD
         self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5], id_player[0])
         self.player.group_obstacle = self.group_obstacle
 
     def update_player(self):
+        """
+            Save player information
+        """
+        # Je récupère l'id de connection du player
         id_connection = self.sql.id_connection(self.pseudo)
+        # Je met à jour ses infromation dans la base de donnée
         self.sql.update_table_player(self.player.rect.x, self.player.rect.y, self.player.stamina, 
         self.player.food, self.player.hydratation, id_connection[0])
+        # Pour mettre a jour son inventaire je supprime ce qui appartient a l'id player de la table inventaire
         self.sql.delete_table_inventory(self.player.id_player)
+        # Pour chaque objet dans l'inventaire, je l'ajouet à la BDD
         for obj in self.player.inventory.list_object :
             self.sql.add_inventory(self.player.id_player, obj.id_object, 1)
         

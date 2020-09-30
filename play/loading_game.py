@@ -27,7 +27,7 @@ class Loading_bar(threading.Thread):
             self.screen.blit(self.map, (0,0)) 
             pygame.draw.rect(self.screen, (0, 0, 0), [175, 675, 850, 10]) 
             pygame.draw.rect(self.screen, (255,255,255), [175, 675, self.bar_loading, 10]) 
-            self.bar_loading += 2
+            self.bar_loading += 5
             if self.bar_loading < 250 :
                 self.print_advice("Dormez dans votre lit de camp pour sauvegarder votre progression")
             elif self.bar_loading > 250 and self.bar_loading < 500 :
