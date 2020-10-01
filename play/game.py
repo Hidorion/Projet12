@@ -110,12 +110,12 @@ class Game:
             # screen.blit(self.map_foret_sol, (0, 0))
             self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
             for obj in self.player.inventory.list_object_map :
-                image = pygame.transform.scale(obj.image,(28, 28))
+                image = pygame.transform.scale(obj.image,(23, 28))
                 screen.blit(image, (self.camera.apply_rect(obj.rect)))
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
             # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
             self.player.interface_player(screen)
-            self.player.pick_up_object(self)
+            self.player.inventory.pick_up_object(self)
         if self.inventory :
             self.player.interface_player(screen)
             self.player.inventory.print_inventory(screen)
@@ -258,6 +258,6 @@ class Game:
         # Pour mettre a jour son inventaire je supprime ce qui appartient a l'id player de la table inventaire
         self.sql.delete_table_inventory(self.player.id_player)
         # Pour chaque objet dans l'inventaire, je l'ajouet à la BDD
-        for obj in self.player.inventory.list_object :
+        for obj in self.player.inventory.list_object_inventory :
             self.sql.add_inventory(self.player.id_player, obj.id_object, 1)
         

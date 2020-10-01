@@ -9,6 +9,7 @@ class create_registration():
     def __init__(self):
         self.connexion = psycopg2.connect("dbname=Projet12 user=postgres password=group12")
         # self.connexion = psycopg2.connect("dbname=postgres user=postgres password=12")
+        # self.connexion = psycopg2.connect("dbname=postgres user=postgres password=douzetrentedeux")
         self.cursor = self.connexion.cursor()
         self.name = []
         self.email = []
