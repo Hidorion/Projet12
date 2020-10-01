@@ -4,6 +4,7 @@ import math
 
 from registration.registration_player import create_registration
 from play.object import Object
+from play.map import Map
 
 class Inventory():
 
@@ -20,8 +21,9 @@ class Inventory():
         self.interface_inventory_rect = self.interface_inventory.get_rect()
         self.interface_inventory_rect.x = screen.get_width() / 10
         self.interface_inventory_rect.y = screen.get_height() / 10
-        self.list_object = pygame.sprite.Group()
+        self.list_object_inventory= pygame.sprite.Group()
         self.list_object_map = pygame.sprite.Group()
+        
         self.last_obj = ""
 
     def print_inventory(self, screen) :
@@ -29,7 +31,7 @@ class Inventory():
         x = 150
         y = 112
         counter = 0
-        for obj in self.list_object :
+        for obj in self.list_object_inventory:
             obj.rect.x = x
             obj.rect.y = y
             screen.blit(obj.image, obj.rect)
@@ -40,7 +42,7 @@ class Inventory():
                 x = 149.5
                 counter = 0
 
-        for obj in self.list_object :
+        for obj in self.list_object_inventory:
             screen.blit(obj.image, obj.rect)
         
 
@@ -48,11 +50,9 @@ class Inventory():
         sql = create_registration()
         result = sql.read_inventory(pseudo)
         for obj in result :
-            self.list_object.add(Object(obj, 0, 0))
+            self.list_object_inventory.add(Object(obj, 0, 0))
         result = sql.read_information_object("Banane")
-        self.player.inventory.list_object_map.add(Object(result[0], 16225, 4720))
-        self.player.inventory.list_object_map.add(Object(result[0], 16240, 4742))
-        self.player.inventory.list_object_map.add(Object(result[0], 16210, 4760))
+        Map("images/Bg/Foret_interaction.tmx", self.player.game).interaction(12800, 0, result)
 
     def update_vital_sign(self, obj) :
         """ 
@@ -65,4 +65,4 @@ class Inventory():
         self.player.hydratation += obj.hydratation
         self.player.hydratation = 100 if self.player.hydratation > 100 else self.player.hydratation
 
-        self.player.inventory.list_object.remove(obj)
+        self.list_object_inventory.remove(obj)
