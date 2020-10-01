@@ -108,7 +108,7 @@ class Game:
             #     self.player.inventory.list_object.add(Object(result[0], 0, 0))
             self.camera.update(self.player.rect)
             # screen.blit(self.map_foret_sol, (0, 0))
-            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
+            self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 12800, 0)
             for obj in self.player.inventory.list_object_map :
                 image = pygame.transform.scale(obj.image,(28, 28))
                 screen.blit(image, (self.camera.apply_rect(obj.rect)))
