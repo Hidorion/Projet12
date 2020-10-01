@@ -4,6 +4,8 @@
 import math
 import pygame
 import pytmx
+import random
+
 from play.map_obstacles import Obstacle
 from play.object import Object
 
@@ -50,9 +52,11 @@ class Map :
             if tile.name == "wall":
                 self.game.group_obstacle.add(Obstacle(tile.x + position_x, tile.y + position_y, tile.width, tile.height))
 
-    def interaction(self, position_x, position_y, result):
+    def interaction(self, position_x, position_y, sql):
+        fruit = ["Banane", "Ananas", "Noix de coco"]
         for tile in self.tmxdata:
             if tile.name == "arbre" :
+                result = sql.read_information_object(random.choice(fruit))
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 30, tile.y + position_y + 5))
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 15, tile.y + position_y + 47))
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 55, tile.y + position_y + 23))

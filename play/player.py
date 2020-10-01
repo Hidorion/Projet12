@@ -94,16 +94,7 @@ class Player (pygame.sprite.Sprite) :
             self.rect.y -= self.velocity
             self.rect_character.rect.y -= self.velocity
 
-    def pick_up_object(self, game):
-        
-        """
-            Collision avec les fruit, les delete et les add a l'inventaire
-        """
 
-        for obj in self.inventory.list_object_map :
-            if self.rect_character.rect.colliderect(obj.rect) and game.pressed.get(pygame.K_q):
-                self.inventory.list_object.add(obj)
-                self.inventory.list_object_map.remove(obj)
 
     def change_image(self, not_move, move):
         # Pour chaque tour de boucle, move s'agrémente, a partir de 15 l'image change, et se remet normal au bout de 45 tour 

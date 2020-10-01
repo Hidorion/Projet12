@@ -77,10 +77,7 @@ if __name__ == "__main__":
 
             elif event.type == pygame.KEYUP :
                 game.pressed[event.key] = False
-            
-            if event.type == pygame.KEYUP :
                 game.not_pressed[event.key] = True
-                
 
 
             if event.type == pygame.MOUSEBUTTONDOWN :
@@ -95,10 +92,11 @@ if __name__ == "__main__":
                         game.not_select = True
                     elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
                         game.validation_champ_select = False
-
                 elif game.inventory :
-                    for obj in game.player.inventory.list_object :
-                        if obj.rect.collidepoint(event.pos) and obj.category == "Outils":
+                    for obj in game.player.inventory.list_object_inventory :
+                        if obj.rect.collidepoint(event.pos) and game.pressed.get(pygame.K_e) :
+                            game.player.inventory.delete_inventory(obj)
+                        elif obj.rect.collidepoint(event.pos) and obj.category == "Outils":
                             game.player.inventory.last_obj = Object([obj.name, obj.quantity, obj.action, obj.category, obj.stamina, obj.food, obj.hydratation, obj.id_object], 0, 0)
                         elif obj.rect.collidepoint(event.pos) :
                             game.player.inventory.update_vital_sign(obj)
@@ -107,9 +105,6 @@ if __name__ == "__main__":
                         game.inventory = True
                         game.play = False
 
-                # elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
-                #     game.full_screen_map = True
-                #     game.play = False
 
 
         

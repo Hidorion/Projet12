@@ -1,6 +1,7 @@
 #coding:utf-8
 import pygame
 import math
+import random
 
 from registration.registration_player import create_registration
 from play.object import Object
@@ -23,6 +24,7 @@ class Inventory():
         self.interface_inventory_rect.y = screen.get_height() / 10
         self.list_object_inventory= pygame.sprite.Group()
         self.list_object_map = pygame.sprite.Group()
+        self.list_arbre = pygame.sprite.Group()
         
         self.last_obj = ""
 
@@ -51,8 +53,7 @@ class Inventory():
         result = sql.read_inventory(pseudo)
         for obj in result :
             self.list_object_inventory.add(Object(obj, 0, 0))
-        result = sql.read_information_object("Banane")
-        Map("images/Bg/Foret_interaction.tmx", self.player.game).interaction(12800, 0, result)
+        Map("images/Bg/Foret_interaction.tmx", self.player.game).interaction(12800, 0, sql)
 
     def update_vital_sign(self, obj) :
         """ 
@@ -66,3 +67,23 @@ class Inventory():
         self.player.hydratation = 100 if self.player.hydratation > 100 else self.player.hydratation
 
         self.list_object_inventory.remove(obj)
+
+    def pick_up_object(self, game):
+        
+        """
+            Collision avec les fruit, les delete et les add a l'inventaire
+        """
+        if len(self.list_object_inventory) < 70 :
+            for obj in self.list_object_map :
+                if self.player.rect_character.rect.colliderect(obj.rect) and self.player.game.pressed.get(pygame.K_q):
+                    self.list_object_inventory.add(obj)
+                    self.list_object_map.remove(obj)
+
+    def delete_inventory(self, obj):
+
+        self.list_object_map.add(obj)
+        obj.rect.x = self.player.rect_character.rect.x + random.randint(-30, 30)
+        obj.rect.y = self.player.rect_character.rect.y + random.randint(-30, 30)
+        self.list_object_inventory.remove(obj)
+
+
