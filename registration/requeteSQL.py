@@ -2,6 +2,7 @@
 
 #import
 import psycopg2
+import random
 
 class create_registration():
 
@@ -84,9 +85,34 @@ class create_registration():
                         INNER JOIN object ON inventaire.id_object = object.id
                         INNER JOIN category ON object.id_category = category.id
                         INNER JOIN action ON object.id_action = action.id
-                        WHERE connection.pseudo = '{pseudo}'"""
+                        WHERE connection.pseudo = '{pseudo}'
+                        ORDER BY inventaire.id_object"""
         self.cursor.execute(requete_sql)
         return self.cursor.fetchall()
+
+    def read_information_object(self, name):
+        requete_sql = f"""SELECT object.name, amount_min, amount_max , action.name, category.name, object.stamina, object.food, object.hydratation, object.id
+                        FROM object
+                        INNER JOIN category ON object.id_category = category.id
+                        INNER JOIN action ON object.id_action = action.id
+                        WHERE object.name = '{name}'"""
+        self.cursor.execute(requete_sql)
+        result = self.cursor.fetchall()
+
+        # Calculer le nombre d'objet avec la valeur min et max de la table 
+        min = result[0][1]
+        max = result[0][2]
+        # Calculer le random
+        amount = random.randint(min, max)
+        # Transformer la tuple en liste pour delete un element et mettre le nombre d'objet
+        result = [x for element in result for x in element]
+        del result[2]
+        result[1] = amount
+        # Transformer en tuple pour la return
+        result = tuple(result)
+        tuple_result = [result]
+        return tuple_result
+
 
     def delete_table_inventory(self, id_player):
         requete_sql = f"""DELETE FROM inventaire
@@ -101,8 +127,6 @@ class create_registration():
         self.connexion.commit()
 
 
-
-# sql = create_registration()
 
 
 
