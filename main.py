@@ -33,6 +33,8 @@ screen = pygame.display.set_mode((var.x_screen, var.y_screen))
 map_loading = pygame.image.load("images/Bg/chargement.png")
 map_loading = pygame.transform.scale(map_loading, (var.x_screen, var.y_screen))
 
+
+
 clock = pygame.time.Clock()
 
 game = Game(screen)
@@ -58,7 +60,7 @@ if __name__ == "__main__":
         if game.loading :
             start_loading(screen, game, map_loading)
             game.instance_player(screen)
-            game.player.inventory.add_list_object("kagari")
+            game.player.inventory.add_list_object(game.pseudo)
             game.play = True
             game.loading = False
 
@@ -100,6 +102,9 @@ if __name__ == "__main__":
                             game.player.inventory.last_obj = Object([obj.name, obj.quantity, obj.action, obj.category, obj.stamina, obj.food, obj.hydratation, obj.id_object], 0, 0)
                         elif obj.rect.collidepoint(event.pos) :
                             game.player.inventory.update_vital_sign(obj)
+                    if game.player.inventory.button_tri_inventory_rect.collidepoint(event.pos) :
+                        game.player.inventory.sort_inventory(game.pseudo)
+
                 elif game.play :
                     if game.player.inventory.rect.collidepoint(event.pos) :
                         game.inventory = True
