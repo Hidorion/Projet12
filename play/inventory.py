@@ -16,6 +16,12 @@ class Inventory():
         self.rect.x = 1060
         self.rect.y = 390
         self.interface_inventory = pygame.image.load("images/Bg/inventory.png")
+
+        self.button_tri_inventory = pygame.image.load("images/button/button_tri_inventory.png")
+        self.button_tri_inventory_rect = self.button_tri_inventory.get_rect()
+        self.button_tri_inventory_rect.x = 990
+        self.button_tri_inventory_rect.y = 555
+
         # print(math.ceil(screen.get_width() - (screen.get_width() / 10 * 2)))
         # print(math.ceil(screen.get_height() - (screen.get_height() / 10 * 2)))
         self.interface_inventory = pygame.transform.scale(self.interface_inventory,( 960 , 576 ))
@@ -46,6 +52,7 @@ class Inventory():
 
         for obj in self.list_object_inventory:
             screen.blit(obj.image, obj.rect)
+        screen.blit(self.button_tri_inventory, self.button_tri_inventory_rect)
         
 
     def add_list_object(self, pseudo):
@@ -73,7 +80,7 @@ class Inventory():
         """
             Collision avec les fruit, les delete et les add a l'inventaire
         """
-        if len(self.list_object_inventory) < 70 :
+        if len(self.list_object_inventory) < 69 :
             for obj in self.list_object_map :
                 if self.player.rect_character.rect.colliderect(obj.rect) and self.player.game.pressed.get(pygame.K_q):
                     self.list_object_inventory.add(obj)
@@ -86,4 +93,15 @@ class Inventory():
         obj.rect.y = self.player.rect_character.rect.y + random.randint(-30, 30)
         self.list_object_inventory.remove(obj)
 
+    def sort_inventory(self, pseudo):
+
+        sql = create_registration()
+        sql.delete_table_inventory(self.player.id_player)
+        # Pour chaque objet dans l'inventaire, je l'ajouet à la BDD
+        for obj in self.list_object_inventory :
+            sql.add_inventory(self.player.id_player, obj.id_object, obj.quantity)
+        self.list_object_inventory = pygame.sprite.Group()
+        result = sql.read_inventory(pseudo)
+        for obj in result :
+            self.list_object_inventory.add(Object(obj, 0, 0))
 
