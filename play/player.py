@@ -40,6 +40,8 @@ class Player (pygame.sprite.Sprite) :
 
         self.inventory = Inventory(screen, self)
 
+        self.group_teleport = pygame.sprite.Group()
+
 
         # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
         # self.map_img_foret = self.map_foret.obstacle(self.game.map_foret_sol)
@@ -105,6 +107,14 @@ class Player (pygame.sprite.Sprite) :
             self.image = pygame.image.load(move)
         if self.move == 60 :
             self.move = 0 
+
+    # def teleport(self):
+    #     if pygame.sprite.spritecollideany(self.rect_character, self.group_teleport):
+    #         self.rect_character.x = self.group_teleport[1].rect.x
+    #         self.rect_character.y = self.group_teleport[1].rect.y
+    #         print("ok fonction")
+
+
 
     def interface_player(self, screen):
         food = pygame.image.load("images/ressources/interface/food.png")

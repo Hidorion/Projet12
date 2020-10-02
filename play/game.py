@@ -114,6 +114,7 @@ class Game:
                 screen.blit(image, (self.camera.apply_rect(obj.rect)))
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
             # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+            self.player.teleport()
             self.player.interface_player(screen)
             self.player.inventory.pick_up_object(self)
         if self.inventory :

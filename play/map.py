@@ -8,6 +8,7 @@ import random
 
 from play.map_obstacles import Obstacle
 from play.object import Object
+from play.object import Teleport
 
 
 
@@ -60,7 +61,8 @@ class Map :
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 30, tile.y + position_y + 5))
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 15, tile.y + position_y + 47))
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 55, tile.y + position_y + 23))
-        
+            elif tile.name == "tp" :
+                self.game.player.group_teleport.add(Teleport(tile.x + position_x + 30, tile.y + position_y))
         
         
         
