@@ -62,8 +62,13 @@ class Map :
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 30, tile.y + position_y + 5))
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 15, tile.y + position_y + 47))
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 55, tile.y + position_y + 23))
+<<<<<<< Updated upstream
             # elif tile.name == "tp" :
             #     self.game.player.group_teleport.append(Teleport(tile.x + position_x + 30, tile.y + position_y))
+=======
+            elif tile.name == "tp" :
+                self.game.player.group_teleport.append(Teleport(tile.x + position_x + 30, tile.y + position_y))
+>>>>>>> Stashed changes
         
         
         

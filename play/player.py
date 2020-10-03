@@ -40,7 +40,11 @@ class Player (pygame.sprite.Sprite) :
 
         self.inventory = Inventory(screen, self)
 
+<<<<<<< Updated upstream
         self.group_environment = pygame.sprite.Group()
+=======
+        self.group_teleport = []
+>>>>>>> Stashed changes
 
 
         # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
@@ -97,7 +101,6 @@ class Player (pygame.sprite.Sprite) :
             self.rect_character.rect.y -= self.velocity
 
 
-
     def change_image(self, not_move, move):
         # Pour chaque tour de boucle, move s'agrémente, a partir de 15 l'image change, et se remet normal au bout de 45 tour 
         self.move += 1
@@ -108,11 +111,18 @@ class Player (pygame.sprite.Sprite) :
         if self.move == 60 :
             self.move = 0 
 
+<<<<<<< Updated upstream
     # def teleport(self):
     #     if self.rect_character.rect.colliderect(self.group_teleport[0]):
     #         self.rect.x = self.group_teleport[1].rect.x
     #         self.rect.y = self.group_teleport[1].rect.y + 30 
 
+=======
+    def teleport(self):
+        if self.rect_character.rect.colliderect(self.group_teleport[0]) :
+            self.rect.x = self.group_teleport[1].rect.x -30
+            self.rect.y = self.group_teleport[1].rect.y -30
+>>>>>>> Stashed changes
 
 
     def interface_player(self, screen):
