@@ -28,9 +28,8 @@ class Inventory():
         self.interface_inventory_rect = self.interface_inventory.get_rect()
         self.interface_inventory_rect.x = screen.get_width() / 10
         self.interface_inventory_rect.y = screen.get_height() / 10
-        self.list_object_inventory= pygame.sprite.Group()
+        self.list_object_inventory = pygame.sprite.Group()
         self.list_object_map = pygame.sprite.Group()
-        self.list_arbre = pygame.sprite.Group()
         
         self.last_obj = ""
 
@@ -73,7 +72,7 @@ class Inventory():
         self.player.hydratation += obj.hydratation
         self.player.hydratation = 100 if self.player.hydratation > 100 else self.player.hydratation
 
-        self.list_object_inventory.remove(obj)
+        
 
     def pick_up_object(self, game):
         
@@ -104,4 +103,12 @@ class Inventory():
         result = sql.read_inventory(pseudo)
         for obj in result :
             self.list_object_inventory.add(Object(obj, 0, 0))
+
+    def add_object_environment(self, obj):
+        self.update_vital_sign(self.last_obj)
+        sql = create_registration()
+        result = sql.read_information_object(obj.object)
+        for loop in range(obj.quantity):
+            self.list_object_inventory.add(Object(result[0], 0, 0))
+        self.player.group_environment.remove(obj)
 

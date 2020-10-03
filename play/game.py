@@ -67,12 +67,6 @@ class Game:
         self.map_foret_sol = ""
         self.map_foret_behind = ""
 
-        self.map_montagne_sol = ""
-        self.map_montagne_behind = ""
-
-        self.map_marecage_sol = ""
-        self.map_marecage_behind = ""
-
         self.map_cratere_sol = ""
         self.map_cratere_behind = ""
 
@@ -99,7 +93,7 @@ class Game:
         """
             Update the game and call the functions necessary for the game
         """
-        self.commandes()
+        
         if self.play and self.full_screen_map == False:
         
             self.movement(screen)
@@ -109,18 +103,21 @@ class Game:
             self.camera.update(self.player.rect)
             # screen.blit(self.map_foret_sol, (0, 0))
             self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
+            for obj in self.player.group_environment :
+                screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
             for obj in self.player.inventory.list_object_map :
                 image = pygame.transform.scale(obj.image,(23, 28))
                 screen.blit(image, (self.camera.apply_rect(obj.rect)))
+            
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
             # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
-            self.player.teleport()
             self.player.interface_player(screen)
             self.player.inventory.pick_up_object(self)
         if self.inventory :
             self.player.interface_player(screen)
             self.player.inventory.print_inventory(screen)
-            
+
+        self.commandes(screen)
 
         if self.validation_champ_select :
             screen.blit(self.champ_select.background_champ_select, (0,0))
@@ -192,7 +189,7 @@ class Game:
         for key in list_key :
             self.update_image(key[0], key[1])
 
-    def commandes(self):
+    def commandes(self,screen):
         # if inventory is open, press i for close inventory
         if self.not_pressed.get(pygame.K_i) and self.inventory == False and self.play == True :
             self.inventory = True
@@ -203,7 +200,14 @@ class Game:
             self.inventory = False
             self.play = True
             self.not_pressed[pygame.K_i] = False
-        
+
+        # try :
+        if self.pressed.get(pygame.K_c) and self.player.inventory.last_obj.name == "hachette" :
+            for obj in self.player.group_environment :
+                if self.player.rect_character.rect.colliderect(obj.rect) :
+                    self.player.inventory.add_object_environment(obj)
+        # except :
+        #     self.message_champ_select(screen, "Equipez vous de la hache")
 
         
     def update_image(self, key, direction) :

@@ -40,7 +40,7 @@ class Player (pygame.sprite.Sprite) :
 
         self.inventory = Inventory(screen, self)
 
-        self.group_teleport = pygame.sprite.Group()
+        self.group_environment = pygame.sprite.Group()
 
 
         # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
@@ -109,10 +109,9 @@ class Player (pygame.sprite.Sprite) :
             self.move = 0 
 
     # def teleport(self):
-    #     if pygame.sprite.spritecollideany(self.rect_character, self.group_teleport):
-    #         self.rect_character.x = self.group_teleport[1].rect.x
-    #         self.rect_character.y = self.group_teleport[1].rect.y
-    #         print("ok fonction")
+    #     if self.rect_character.rect.colliderect(self.group_teleport[0]):
+    #         self.rect.x = self.group_teleport[1].rect.x
+    #         self.rect.y = self.group_teleport[1].rect.y + 30 
 
 
 
