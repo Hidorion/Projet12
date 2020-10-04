@@ -26,7 +26,7 @@ class Object(pygame.sprite.Sprite):
 
 class Environment(pygame.sprite.Sprite):
 
-    def __init__(self, name, obj, quantity, x, y) :
+    def __init__(self, name, obj, outil, quantity, x, y) :
         pygame.sprite.Sprite.__init__(self)
 
         self.name = name 
@@ -34,8 +34,10 @@ class Environment(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.pv = 3
         self.object = obj
         self.quantity = quantity
+        self.outil = outil
 
 class Teleport(pygame.sprite.Sprite):
 

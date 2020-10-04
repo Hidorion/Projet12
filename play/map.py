@@ -54,21 +54,31 @@ class Map :
                 self.game.group_obstacle.add(Obstacle(tile.x + position_x, tile.y + position_y, tile.width, tile.height))
 
     def interaction(self, position_x, position_y, sql):
-        fruit = ["Banane", "Ananas", "Noix de coco"]
         for tile in self.tmxdata:
-            if tile.name == "arbre" :
-                result = sql.read_information_object(random.choice(fruit))
-                self.game.player.group_environment.add(Environment(tile.name, "Bois", 5, tile.x + position_x, tile.y + position_y - 5))
-                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 30, tile.y + position_y + 5))
-                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 15, tile.y + position_y + 47))
-                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 55, tile.y + position_y + 23))
-<<<<<<< Updated upstream
-            # elif tile.name == "tp" :
-            #     self.game.player.group_teleport.append(Teleport(tile.x + position_x + 30, tile.y + position_y))
-=======
-            elif tile.name == "tp" :
-                self.game.player.group_teleport.append(Teleport(tile.x + position_x + 30, tile.y + position_y))
->>>>>>> Stashed changes
+            if tile.name == "pommier" :
+                result = sql.read_information_object("Pomme")
+                self.game.player.group_environment.add(Environment(tile.name, "Bois", "hachette", 5, tile.x + position_x, tile.y + position_y - 5))
+                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 33, tile.y + position_y + 5))
+                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 18, tile.y + position_y + 47))
+                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 60, tile.y + position_y + 25))
+            elif tile.name == "cocotier" :
+                result = sql.read_information_object("Noix de coco")
+                self.game.player.group_environment.add(Environment(tile.name, "Bois", "hachette", 5, tile.x + position_x -1, tile.y + position_y - 5))
+                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 40, tile.y + position_y + 30))
+                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 5, tile.y + position_y + 40))
+            elif tile.name == "bananier" :
+                result = sql.read_information_object("Banane")
+                self.game.player.group_environment.add(Environment(tile.name, "Bois", "hachette", 5, tile.x + position_x -1, tile.y + position_y - 5))
+                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 40, tile.y + position_y + 27))
+                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 5, tile.y + position_y + 37))
+            elif tile.name == "ananas" :
+                result = sql.read_information_object("Ananas")
+                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x, tile.y + position_y))
+            elif tile.name == "carotte" :
+                result = sql.read_information_object("Carotte")
+                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x, tile.y + position_y))
+                
+
         
         
         

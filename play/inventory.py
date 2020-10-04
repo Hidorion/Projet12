@@ -104,11 +104,46 @@ class Inventory():
         for obj in result :
             self.list_object_inventory.add(Object(obj, 0, 0))
 
-    def add_object_environment(self, obj):
+    def delete_add_environment(self, obj):
         self.update_vital_sign(self.last_obj)
         sql = create_registration()
         result = sql.read_information_object(obj.object)
         for loop in range(obj.quantity):
-            self.list_object_inventory.add(Object(result[0], 0, 0))
+            if len(self.list_object_inventory) < 69 :
+                self.list_object_inventory.add(Object(result[0], 0, 0))
         self.player.group_environment.remove(obj)
 
+    def move_tree(self, obj, screen):
+        obj.pv -= 1
+        
+        if self.player.rect_character.rect.x  > obj.rect.x + obj.image.get_width() / 2:
+            obj.image = pygame.transform.rotate(obj.image, 15)
+            obj.rect.x -= 23
+            obj.rect.y -= 8
+            for fruit in self.list_object_map :
+                if fruit.rect.colliderect(obj.rect) :
+                    fruit.rect.x += -10
+                    fruit.rect.y += 3
+
+        else :
+            obj.image = pygame.transform.rotate(obj.image, - 15)
+            obj.rect.x += -3
+            obj.rect.y += -5
+            for fruit in self.list_object_map :
+                if fruit.rect.colliderect(obj.rect) :
+                    fruit.rect.x += 10
+                    fruit.rect.y += 5
+
+    def drop_fruit(self, obj) :
+        obj.pv -= 1
+        for fruit in self.list_object_map :
+                if fruit.rect.colliderect(obj.rect) :
+                    fruit.rect.y = obj.rect.y + obj.image.get_height() / 1.3
+    
+    def interaction_environment(self, obj, screen):
+        if obj.pv == 3:
+            self.move_tree(obj, screen)
+        elif obj.pv == 2 :
+            self.drop_fruit(obj)
+        else : 
+            self.delete_add_environment(obj)

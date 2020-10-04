@@ -95,7 +95,6 @@ class Game:
         """
         
         if self.play and self.full_screen_map == False:
-        
             self.movement(screen)
             # if self.player.rect.x > 16222 :
             #     result = self.sql.read_information_object("Banane")
@@ -106,7 +105,7 @@ class Game:
             for obj in self.player.group_environment :
                 screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
             for obj in self.player.inventory.list_object_map :
-                image = pygame.transform.scale(obj.image,(23, 28))
+                image = pygame.transform.scale(obj.image,(18, 23))
                 screen.blit(image, (self.camera.apply_rect(obj.rect)))
             
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
@@ -202,12 +201,13 @@ class Game:
             self.not_pressed[pygame.K_i] = False
 
         # try :
-        if self.pressed.get(pygame.K_c) and self.player.inventory.last_obj.name == "hachette" :
+        if self.not_pressed.get(pygame.K_c) and self.player.inventory.last_obj.name == "hachette" :
             for obj in self.player.group_environment :
                 if self.player.rect_character.rect.colliderect(obj.rect) :
-                    self.player.inventory.add_object_environment(obj)
+                    self.player.inventory.interaction_environment(obj, screen)
+                    self.not_pressed[pygame.K_c] = False
         # except :
-        #     self.message_champ_select(screen, "Equipez vous de la hache")
+        #      self.message_champ_select(screen, "Equipez vous de la hache")
 
         
     def update_image(self, key, direction) :
