@@ -87,7 +87,7 @@ class create_registration():
                         INNER JOIN category ON object.id_category = category.id
                         INNER JOIN action ON object.id_action = action.id
                         WHERE connection.pseudo = '{pseudo}'
-                        ORDER BY inventaire.id_object, object.name"""
+                        ORDER BY inventaire.id_object, object.name """
         self.cursor.execute(requete_sql)
         return self.cursor.fetchall()
 
