@@ -59,7 +59,7 @@ class Inventory():
         result = sql.read_inventory(pseudo)
         for obj in result :
             self.list_object_inventory.add(Object(obj, 0, 0))
-        Map("images/Bg/Foret_interaction.tmx", self.player.game).interaction(12800, 0, sql)
+        Map("images/Bg/Desert_interaction.tmx", self.player.game).interaction(12800, 0, sql)
 
     def update_vital_sign(self, obj) :
         """ 
