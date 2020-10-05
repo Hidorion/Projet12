@@ -128,6 +128,17 @@ class create_registration():
         self.connexion.commit()
 
 
-
+    def read_crafting(self, pseudo):
+            requete_sql = f"""SELECT object.name, amount, action.name, category.name, object.stamina, object.food, object.hydratation, inventaire.id_object
+                            FROM inventaire
+                            INNER JOIN player ON inventaire.id_player = player.id
+                            INNER JOIN connection ON player.id_connection = connection.id
+                            INNER JOIN object ON inventaire.id_object = object.id
+                            INNER JOIN category ON object.id_category = category.id
+                            INNER JOIN action ON object.id_action = action.id
+                            WHERE (connection.pseudo = '{pseudo}' AND object.id_category = '7')
+                            ORDER BY inventaire.id_object, object.name """
+            self.cursor.execute(requete_sql)
+            return self.cursor.fetchall()
 
 
