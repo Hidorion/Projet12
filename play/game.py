@@ -101,24 +101,24 @@ class Game:
             #     self.player.inventory.list_object.add(Object(result[0], 0, 0))
             self.camera.update(self.player.rect)
             # screen.blit(self.map_foret_sol, (0, 0))
-            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
-            for obj in self.player.group_environment :
-                screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
-            for obj in self.player.inventory.list_object_map :
-                image = pygame.transform.scale(obj.image,(18, 23))
-                screen.blit(image, (self.camera.apply_rect(obj.rect)))
+            # self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
+            # for obj in self.player.group_environment :
+            #     screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
+            # for obj in self.player.inventory.list_object_map :
+            #     image = pygame.transform.scale(obj.image,(18, 23))
+            #     screen.blit(image, (self.camera.apply_rect(obj.rect)))
             
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
-            # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
             self.player.interface_player(screen)
             self.player.inventory.pick_up_object(self)
         if self.inventory :
             self.player.interface_player(screen)
             self.player.inventory.print_inventory(screen)
         # show crafting station
-        if self.craft :
+        if self.crafting :
             self.player.interface_player(screen)
-            self.player.craft.show_crafting(screen)
+            self.player.crafting.show_crafting(screen)
 
         self.commandes(screen)
 
