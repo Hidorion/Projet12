@@ -40,7 +40,8 @@ class Player (pygame.sprite.Sprite) :
 
         self.inventory = Inventory(screen, self)
 
-        self.group_environment = pygame.sprite.Group()
+        self.group_tree = pygame.sprite.Group()
+        self.group_stone = pygame.sprite.Group()
 
 
         # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
