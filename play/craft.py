@@ -11,13 +11,10 @@ class Crafting():
         self.crafting_interface_rect = self.crafting_interface.get_rect()
         self.crafting_interface_rect.x = screen.get_width() / 10
         self.crafting_interface_rect.y = screen.get_height() / 10
-        self.crafting_interface = pygame.transform.scale(self.crafting_interface,( 960 , 576 ))
-        self.crafting_interface_rect = self.crafting_interface.get_rect()
-        self.crafting_interface_rect.x = screen.get_width() / 10
-        self.crafting_interface_rect.y = screen.get_height() / 10
 
 
-    def show_crafting(screen,self):
+
+    def show_crafting(self,screen):
         screen.blit(self.crafting_interface, (self.crafting_interface_rect.x, self.crafting_interface_rect.y))
 
 

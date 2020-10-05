@@ -109,7 +109,7 @@ class Game:
             #     screen.blit(image, (self.camera.apply_rect(obj.rect)))
             
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
-            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 0)
             self.player.interface_player(screen)
             self.player.inventory.pick_up_object(self)
         if self.inventory :
@@ -118,7 +118,7 @@ class Game:
         # show crafting station
         if self.crafting :
             self.player.interface_player(screen)
-            self.player.crafting.show_crafting(screen)
+            self.player.craft.show_crafting(screen)
 
         self.commandes(screen)
 
