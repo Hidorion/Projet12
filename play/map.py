@@ -71,6 +71,9 @@ class Map :
                 self.game.player.group_tree.add(Tree(tile.name, "Bois", "hachette", 2, tile.x + position_x -1, tile.y + position_y - 5))
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 40, tile.y + position_y + 27))
                 self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x + 5, tile.y + position_y + 37))
+            elif tile.name == "pin" :
+                self.game.player.group_tree.add(Tree(tile.name, "Bois", "hachette", 2, tile.x + position_x -1, tile.y + position_y))
+
             elif tile.name == "ananas" :
                 result = sql.read_information_object("Ananas")
                 self.game.group_object.add(Object(result[0], tile.x + position_x, tile.y + position_y))
