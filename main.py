@@ -33,6 +33,8 @@ screen = pygame.display.set_mode((var.x_screen, var.y_screen))
 map_loading = pygame.image.load("images/Bg/chargement.png")
 map_loading = pygame.transform.scale(map_loading, (var.x_screen, var.y_screen))
 
+
+
 clock = pygame.time.Clock()
 
 game = Game(screen)
@@ -55,11 +57,12 @@ if __name__ == "__main__":
     running = True
     while running :
         
-        if game.play == False and game.validation_champ_select == False:
+        if game.loading :
             start_loading(screen, game, map_loading)
             game.instance_player(screen)
-            game.player.inventory.add_list_object("kagari")
+            game.player.inventory.add_list_object(game.pseudo)
             game.play = True
+            game.loading = False
 
         for event in pygame.event.get():
 
@@ -76,7 +79,7 @@ if __name__ == "__main__":
 
             elif event.type == pygame.KEYUP :
                 game.pressed[event.key] = False
-                
+                game.not_pressed[event.key] = True
 
 
             if event.type == pygame.MOUSEBUTTONDOWN :
@@ -91,21 +94,23 @@ if __name__ == "__main__":
                         game.not_select = True
                     elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
                         game.validation_champ_select = False
-
                 elif game.inventory :
-                    for obj in game.player.inventory.list_object :
-                        if obj.rect.collidepoint(event.pos) and obj.category == "Outils":
-                            game.player.inventory.last_obj = Object([obj.name, obj.quantity, obj.action, obj.category, obj.stamina, obj.food, obj.hydratation, obj.id_parent], 0, 0)
-                        elif obj.rect.collidepoint(event.pos) :
+                    for obj in game.player.inventory.list_object_inventory :
+                        if obj.rect.collidepoint(event.pos) and game.pressed.get(pygame.K_e) :
+                            game.player.inventory.delete_inventory(obj)
+                        elif obj.rect.collidepoint(event.pos) and obj.category == "Outils":
+                            game.player.inventory.last_obj = Object([obj.name, obj.quantity, obj.action, obj.category, obj.stamina, obj.food, obj.hydratation, obj.id_object], 0, 0)
+                        elif obj.rect.collidepoint(event.pos) and obj.category != "Ressource":
                             game.player.inventory.update_vital_sign(obj)
-                            game.player.inventory.list_object.remove(obj)
+                            game.player.inventory.list_object_inventory.remove(obj)
+                    if game.player.inventory.button_tri_inventory_rect.collidepoint(event.pos) :
+                        game.player.inventory.sort_inventory(game.pseudo)
+
                 elif game.play :
                     if game.player.inventory.rect.collidepoint(event.pos) :
                         game.inventory = True
+                        game.play = False
 
-                # elif game.map.mini_map_rect.collidepoint(event.pos) and game.play == True :
-                #     game.full_screen_map = True
-                #     game.play = False
 
 
         

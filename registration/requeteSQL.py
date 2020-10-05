@@ -2,12 +2,14 @@
 
 #import
 import psycopg2
+import random
 
 class create_registration():
 
     def __init__(self):
         self.connexion = psycopg2.connect("dbname=Projet12 user=postgres password=group12")
         # self.connexion = psycopg2.connect("dbname=postgres user=postgres password=12")
+        # self.connexion = psycopg2.connect("dbname=postgres user=postgres password=douzetrentedeux")
         self.cursor = self.connexion.cursor()
         self.name = []
         self.email = []
@@ -55,8 +57,16 @@ class create_registration():
 
     def id_connection(self, pseudo):
         requete_sql = f""" SELECT id 
-                          FROM "connection" 
+                          FROM connection 
                           WHERE connection.pseudo = '{pseudo}'"""
+        self.cursor.execute(requete_sql)
+        result = self.cursor.fetchone()
+        return result
+
+    def id_player(self, id_connection):
+        requete_sql = f""" SELECT id 
+                          FROM player
+                          WHERE id_connection = '{id_connection}'"""
         self.cursor.execute(requete_sql)
         result = self.cursor.fetchone()
         return result
@@ -69,18 +79,55 @@ class create_registration():
         self.connexion.commit()
 
     def read_inventory(self, pseudo):
-        requete_sql = f"""SELECT object.name, amount, action.name, category.name, object.stamina, object.food, object.hydratation, category.id_parent
+        requete_sql = f"""SELECT object.name, amount, action.name, category.name, object.stamina, object.food, object.hydratation, inventaire.id_object
                         FROM inventaire
                         INNER JOIN player ON inventaire.id_player = player.id
                         INNER JOIN connection ON player.id_connection = connection.id
                         INNER JOIN object ON inventaire.id_object = object.id
                         INNER JOIN category ON object.id_category = category.id
                         INNER JOIN action ON object.id_action = action.id
-                        WHERE connection.pseudo = '{pseudo}'"""
+                        WHERE connection.pseudo = '{pseudo}'
+                        ORDER BY inventaire.id_object, object.name """
         self.cursor.execute(requete_sql)
         return self.cursor.fetchall()
 
-# sql = create_registration()
+    def read_information_object(self, name):
+        requete_sql = f"""SELECT object.name, amount_min, amount_max , action.name, category.name, object.stamina, object.food, object.hydratation, object.id
+                        FROM object
+                        INNER JOIN category ON object.id_category = category.id
+                        INNER JOIN action ON object.id_action = action.id
+                        WHERE object.name = '{name}'"""
+        self.cursor.execute(requete_sql)
+        result = self.cursor.fetchall()
+
+        # Calculer le nombre d'objet avec la valeur min et max de la table 
+        min = result[0][1]
+        max = result[0][2]
+        # Calculer le random
+        amount = random.randint(min, max)
+        # Transformer la tuple en liste pour delete un element et mettre le nombre d'objet
+        result = [x for element in result for x in element]
+        del result[2]
+        result[1] = amount
+        # Transformer en tuple pour la return
+        result = tuple(result)
+        tuple_result = [result]
+        return tuple_result
+
+
+    def delete_table_inventory(self, id_player):
+        requete_sql = f"""DELETE FROM inventaire
+                        WHERE id_player = {id_player}"""
+        self.cursor.execute(requete_sql)
+        self.connexion.commit()
+
+    def add_inventory(self, id_player, id_object, amount):
+        requete_sql = f"""INSERT INTO inventaire 
+        VALUES ({id_player}, {id_object}, {amount})"""
+        self.cursor.execute(requete_sql)
+        self.connexion.commit()
+
+
 
 
 

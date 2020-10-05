@@ -12,7 +12,7 @@ from play.inventory import Inventory
 
 class Player (pygame.sprite.Sprite) :
 
-    def __init__(self, screen, game, avatar, x, y, stamina, food, hydratation):
+    def __init__(self, screen, game, avatar, x, y, stamina, food, hydratation, id_player):
         pygame.sprite.Sprite.__init__(self)
         self.game = game
         self.avatar = avatar
@@ -21,6 +21,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.id_player = id_player
         self.stamina = stamina
         self.food = food 
         self.hydratation = hydratation
@@ -38,6 +39,8 @@ class Player (pygame.sprite.Sprite) :
         self.rect_character = Rect_character(self.rect.x, self.rect.y)
 
         self.inventory = Inventory(screen, self)
+
+        self.group_environment = pygame.sprite.Group()
 
 
         # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
@@ -93,6 +96,7 @@ class Player (pygame.sprite.Sprite) :
             self.rect.y -= self.velocity
             self.rect_character.rect.y -= self.velocity
 
+
     def change_image(self, not_move, move):
         # Pour chaque tour de boucle, move s'agrémente, a partir de 15 l'image change, et se remet normal au bout de 45 tour 
         self.move += 1
@@ -102,6 +106,13 @@ class Player (pygame.sprite.Sprite) :
             self.image = pygame.image.load(move)
         if self.move == 60 :
             self.move = 0 
+
+    # def teleport(self):
+    #     if self.rect_character.rect.colliderect(self.group_teleport[0]):
+    #         self.rect.x = self.group_teleport[1].rect.x
+    #         self.rect.y = self.group_teleport[1].rect.y + 30 
+
+
 
     def interface_player(self, screen):
         food = pygame.image.load("images/ressources/interface/food.png")
