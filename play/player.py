@@ -7,6 +7,7 @@ import pygame
 from play.map import Map
 from play.rect_character import Rect_character
 from play.inventory import Inventory
+from play.craft import Crafting
 
 
 
@@ -39,6 +40,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect_character = Rect_character(self.rect.x, self.rect.y)
 
         self.inventory = Inventory(screen, self)
+        self.craft = Crafting(screen,self)
 
         self.group_environment = pygame.sprite.Group()
 
