@@ -10,7 +10,7 @@ import threading
 
 #import fichier
 from play.game import Game
-from registration.requeteSQL import create_registration
+from registration.sql_queries import create_registration
 # from registration.registration import sign_in
 from getpass import getpass
 from registration.connection import forget_psd
@@ -25,7 +25,7 @@ from play.object import Object
 
 
 pygame.init()
-pygame.display.set_caption("Projet 2")
+pygame.display.set_caption("New Horizon: Island")
 
 screen = pygame.display.set_mode((var.x_screen, var.y_screen))
 

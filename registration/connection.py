@@ -8,9 +8,9 @@ from getpass import getpass
 ###########################
 ##### connection infos #####
 ###########################
-connection_infos = "dbname=Projet12 user=postgres password=group12"
+# connection_infos = "dbname=Projet12 user=postgres password=group12"
 
-# connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
+connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
 
 
 # def lenght_input(entry, mot, max = 16, min = 3) :

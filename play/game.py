@@ -10,7 +10,7 @@ from play.map import Map
 from play.player import Player
 from champ_select.champ_select import Avatar
 from play.camera import Camera
-from registration.requeteSQL import create_registration
+from registration.sql_queries import create_registration
 from play.object import Object
 
 # Import Variable

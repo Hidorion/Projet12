@@ -6,7 +6,7 @@ import psycopg2
 from getpass import getpass
 
 
-from registration.requeteSQL import create_registration
+from registration.sql_queries import create_registration
 from validate_email import validate_email
 
 import pygame
