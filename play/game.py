@@ -75,6 +75,7 @@ class Game:
 
         self.group_obstacle = pygame.sprite.Group()
         self.group_object = pygame.sprite.Group()
+        self.group_water = pygame.sprite.Group()
         
         self.counter_move = 0
 
@@ -208,26 +209,29 @@ class Game:
             self.not_pressed[pygame.K_i] = False
 
         # Utiliser la hache
-        if self.not_pressed.get(pygame.K_c) and self.player.inventory.last_obj != "":
+        if self.not_pressed.get(pygame.K_u) and self.player.inventory.last_obj != "":
             if self.player.inventory.last_obj.name == "hachette" :
                 for obj in self.player.group_tree :
                     if self.player.rect_character.rect.colliderect(obj.rect) :
                         self.player.inventory.interaction_tree(obj)
-                        self.not_pressed[pygame.K_c] = False
-                self.not_pressed[pygame.K_c] = False
-        elif self.pressed.get(pygame.K_c) and self.player.inventory.last_obj == "" :
-            self.message_champ_select(screen, "Equipez vous de votre hache")
-
-        # Utiliser la pioche
-        if self.not_pressed.get(pygame.K_p) and self.player.inventory.last_obj != "":
-            if self.player.inventory.last_obj.name == "pioche" :
+                        self.not_pressed[pygame.K_u] = False
+                self.not_pressed[pygame.K_u] = False
+        
+            elif self.player.inventory.last_obj.name == "pioche" :
                 for obj in self.player.group_stone :
                     if self.player.rect_character.rect.colliderect(obj.rect) :
                         self.player.inventory.interaction_stone(obj)
-                        self.not_pressed[pygame.K_p] = False
-                self.not_pressed[pygame.K_p] = False
-        elif self.pressed.get(pygame.K_p) and self.player.inventory.last_obj == "" :
-            self.message_champ_select(screen, "Equipez vous de votre pioche")
+                        self.not_pressed[pygame.K_u] = False
+                self.not_pressed[pygame.K_u] = False
+            elif self.player.inventory.last_obj.name == "eau":
+                for obj in self.group_water :
+                    if self.player.rect_character.rect.colliderect(obj.rect) :
+                        print("ok")
+
+
+            
+        elif self.pressed.get(pygame.K_u) and self.player.inventory.last_obj == "" :
+            self.message_champ_select(screen, "Vous n'avez pas d'outil selectionné")
 
 
         
