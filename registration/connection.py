@@ -8,9 +8,9 @@ from getpass import getpass
 ###########################
 ##### connection infos #####
 ###########################
-# connection_infos = "dbname=Projet12 user=postgres password=group12"
-# connection_infos = "dbname=postgres user=postgres password=12"
-connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
+connection_infos = "dbname=Projet12 user=postgres password=group12"
+
+# connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
 
 
 # def lenght_input(entry, mot, max = 16, min = 3) :
@@ -25,7 +25,7 @@ def forget_psd():
     user_mail = (input("Adresse e-mail : ").lower(),) # On prend le mail
     connection = psycopg2.connect(connection_infos)
     cursor = connection.cursor()
-    cursor.execute(f'SELECT * FROM registration WHERE name = %s AND address = %s', (user_name, user_mail))
+    cursor.execute(f'SELECT * FROM connection WHERE pseudo = %s AND address = %s', (user_name, user_mail))
     connection.commit()
     result = cursor.fetchone()
     if result:
@@ -51,7 +51,7 @@ def get_new_pwd(name,address):
     user_password = (hashlib.sha1(user_password).hexdigest(),) #On le hash en hexa
     connection = psycopg2.connect(connection_infos)
     cursor = connection.cursor()
-    cursor.execute(f'UPDATE registration SET password = %s WHERE name = %s AND address = %s', (user_password, name, address))
+    cursor.execute(f'UPDATE connection SET password = %s WHERE pseudo = %s AND address = %s', (user_password, name, address))
     connection.commit()
     
     
@@ -68,7 +68,7 @@ def check_logs(inputs_tuple):
     #user_password = (hashlib.sha1(user_password).hexdigest(),) #On le hash en hexa
     connection = psycopg2.connect(connection_infos)
     cursor = connection.cursor()
-    cursor.execute(f'SELECT * FROM registration WHERE name = %s AND password = %s', (user_name, user_password))
+    cursor.execute(f'SELECT * FROM connection WHERE pseudo = %s AND password = %s', (user_name, user_password))
     connection.commit()
     result = cursor.fetchone()
     if result: #A Si le user et le password sont bons

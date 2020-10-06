@@ -7,9 +7,9 @@ import random
 ###########################
 ##### connection infos #####
 ###########################
-# connection_infos = "dbname=Projet12 user=postgres password=group12"
-# connection_infos = "dbname=postgres user=postgres password=12"
-connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
+connection_infos = "dbname=Projet12 user=postgres password=group12"
+
+# connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
 
 class create_registration():
 
