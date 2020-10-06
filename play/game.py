@@ -74,6 +74,8 @@ class Game:
         self.map_desert_behind = ""
 
         self.group_obstacle = pygame.sprite.Group()
+        self.group_object = pygame.sprite.Group()
+        self.group_water = pygame.sprite.Group()
         
         self.counter_move = 0
 
@@ -101,12 +103,13 @@ class Game:
             #     self.player.inventory.list_object.add(Object(result[0], 0, 0))
             self.camera.update(self.player.rect)
             # screen.blit(self.map_foret_sol, (0, 0))
-            # self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
-            # for obj in self.player.group_environment :
-            #     screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
-            # for obj in self.player.inventory.list_object_map :
-            #     image = pygame.transform.scale(obj.image,(18, 23))
-            #     screen.blit(image, (self.camera.apply_rect(obj.rect)))
+            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
+            for obj in self.player.group_tree :
+                screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
+            for obj in self.player.inventory.list_object_map :
+                image = pygame.transform.scale(obj.image,(18, 23))
+                screen.blit(image, (self.camera.apply_rect(obj.rect)))
+            
             
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
             self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 0)
@@ -141,6 +144,11 @@ class Game:
         self.map_rect.x = x
         self.map_rect.y = y
         screen.blit(map, (self.camera.apply_rect(self.map_rect))) #(self.player.map_x, self.player.map_y),
+        for obj in self.group_object:
+            image = pygame.transform.scale(obj.image,(18, 23))
+            screen.blit(image, (self.camera.apply_rect(obj.rect)))
+        for obj in self.player.group_stone:
+            screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
         screen.blit(self.player.image, self.camera.apply(self.player.rect))
         screen.blit(behind, self.camera.apply_rect(self.map_rect))
         
@@ -204,14 +212,14 @@ class Game:
             self.play = True
             self.not_pressed[pygame.K_i] = False
 
-        # try :
-        if self.not_pressed.get(pygame.K_c) and self.player.inventory.last_obj.name == "hachette" :
-            for obj in self.player.group_environment :
-                if self.player.rect_character.rect.colliderect(obj.rect) :
-                    self.player.inventory.interaction_environment(obj, screen)
-                    self.not_pressed[pygame.K_c] = False
-        # except :
-        #      self.message_champ_select(screen, "Equipez vous de la hache")
+        # # try :
+        # if self.not_pressed.get(pygame.K_c) and self.player.inventory.last_obj.name == "hachette" :
+        #     for obj in self.player.group_environment :
+        #         if self.player.rect_character.rect.colliderect(obj.rect) :
+        #             self.player.inventory.interaction_environment(obj, screen)
+        #             self.not_pressed[pygame.K_c] = False
+        # # except :
+        # #      self.message_champ_select(screen, "Equipez vous de la hache")
         
         # if crafting is open, press k to close crafting
         if self.not_pressed.get(pygame.K_k) and self.crafting == False and self.play == True :
@@ -223,6 +231,32 @@ class Game:
             self.crafting = False
             self.play = True
             self.not_pressed[pygame.K_k] = False
+        # Utiliser la hache
+        if self.not_pressed.get(pygame.K_u) and self.player.inventory.last_obj != "":
+            if self.player.inventory.last_obj.name == "hachette" :
+                for obj in self.player.group_tree :
+                    if self.player.rect_character.rect.colliderect(obj.rect) :
+                        self.player.inventory.interaction_tree(obj)
+                        self.not_pressed[pygame.K_u] = False
+                self.not_pressed[pygame.K_u] = False
+        
+            elif self.player.inventory.last_obj.name == "pioche" :
+                for obj in self.player.group_stone :
+                    if self.player.rect_character.rect.colliderect(obj.rect) :
+                        self.player.inventory.interaction_stone(obj)
+                        self.not_pressed[pygame.K_u] = False
+                self.not_pressed[pygame.K_u] = False
+            elif self.player.inventory.last_obj.name == "eau":
+                for obj in self.group_water :
+                    if self.player.rect_character.rect.colliderect(obj.rect) :
+                        print("ok")
+
+
+            
+        elif self.pressed.get(pygame.K_u) and self.player.inventory.last_obj == "" :
+            self.message_champ_select(screen, "Vous n'avez pas d'outil selectionné")
+
+
         
     def update_image(self, key, direction) :
 
