@@ -137,7 +137,7 @@ class create_registration():
                           SET amount = '{amount}'
                           WHERE id_object = 17 and id_player = {id_player}"""
         self.cursor.execute(requete_sql)
-        self.connexion.commit()
+        self.connection.commit()
 
 
 
