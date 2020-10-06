@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="2126">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="2141">
  <tileset firstgid="1" source="../ressources/tileset/sol.tsx"/>
  <tileset firstgid="484" source="../ressources/tileset/sol2.tsx"/>
  <tileset firstgid="1508" source="../ressources/tileset/decor foret.tsx"/>
@@ -1284,8 +1284,8 @@
   <object id="2047" name="wall" x="2606" y="3616.5" width="30" height="6"/>
   <object id="2048" name="wall" x="2603.5" y="3586" width="3" height="36.5"/>
   <object id="2049" name="wall" x="2696.5" y="3588" width="2" height="33.5"/>
-  <object id="2050" name="wall" x="2666.5" y="3622" width="2" height="26"/>
-  <object id="2051" name="wall" x="2635" y="3623" width="2" height="25"/>
+  <object id="2050" name="wall" x="2669.5" y="3622" width="2" height="26"/>
+  <object id="2051" name="wall" x="2632" y="3623" width="2" height="25"/>
   <object id="2052" name="wall" x="2611" y="3621" width="9" height="15"/>
   <object id="2053" name="wall" x="2683.5" y="3623" width="7.5" height="16"/>
   <object id="2055" name="wall" x="2695.5" y="3571" width="5.5" height="16"/>
@@ -1921,7 +1921,7 @@
   <object id="2008" name="pommier" x="2431.83" y="1312.33" width="96.3333" height="95.3333"/>
   <object id="2009" name="pommier" x="2721.17" y="1311.67" width="96.3333" height="95.3333"/>
   <object id="2010" name="pommier" x="2976.5" y="1374.33" width="96.3333" height="95.3333"/>
-  <object id="2011" name="pommier" x="3520.83" y="1598.67" width="96.3333" height="95.3333"/>
+  <object id="2011" name="pommier" x="3520.83" y="1600.67" width="96.3333" height="95.3333"/>
   <object id="2012" name="pommier" x="3135.17" y="2145.67" width="96.3333" height="95.3333"/>
   <object id="2013" name="pommier" x="3712.17" y="1953.67" width="96.3333" height="95.3333"/>
   <object id="2014" name="pommier" x="4129.17" y="1984" width="96.3333" height="95.3333"/>
@@ -1980,6 +1980,16 @@
   <object id="2122" name="champignon" x="1727.67" y="3456.33" width="32" height="32"/>
   <object id="2123" name="champignon" x="1601.33" y="3455.33" width="32" height="32"/>
   <object id="2125" name="pommier" x="2432.5" y="3999.5" width="95.5" height="96.5"/>
+  <object id="2126" name="carotte" x="2816" y="1952" width="31.5" height="31.5"/>
+  <object id="2128" name="carotte" x="2815.75" y="1983.75" width="31.5" height="31.5"/>
+  <object id="2129" name="carotte" x="2816.25" y="2016.25" width="31.5" height="31.5"/>
+  <object id="2133" name="carotte" x="2848.25" y="1952.13" width="31.5" height="31.5"/>
+  <object id="2134" name="carotte" x="2848" y="1983.88" width="31.5" height="31.5"/>
+  <object id="2135" name="carotte" x="2848.5" y="2016.38" width="31.5" height="31.5"/>
+  <object id="2136" name="carotte" x="2880.75" y="1951.63" width="31.5" height="31.5"/>
+  <object id="2137" name="carotte" x="2880.5" y="1983.38" width="31.5" height="31.5"/>
+  <object id="2138" name="carotte" x="2881" y="2015.88" width="31.5" height="31.5"/>
+  <object id="2139" name="eau" x="3927.33" y="2153.33" width="394.667" height="225.333"/>
  </objectgroup>
  <layer id="14" name="provisoire" width="200" height="200" visible="0">
   <data encoding="csv">

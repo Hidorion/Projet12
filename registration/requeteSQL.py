@@ -79,7 +79,7 @@ class create_registration():
         self.connexion.commit()
 
     def read_inventory(self, pseudo):
-        requete_sql = f"""SELECT object.name, amount, action.name, category.name, object.stamina, object.food, object.hydratation, inventaire.id_object
+        requete_sql = f"""SELECT object.name, inventaire.amount, action.name, category.name, object.stamina, object.food, object.hydratation, inventaire.id_object
                         FROM inventaire
                         INNER JOIN player ON inventaire.id_player = player.id
                         INNER JOIN connection ON player.id_connection = connection.id
@@ -133,10 +133,4 @@ class create_registration():
                           WHERE id_object = 17 and id_player = {id_player}"""
         self.cursor.execute(requete_sql)
         self.connexion.commit()
-
-
-
-
-sql = create_registration()
-sql.update_water(1, 75)
 

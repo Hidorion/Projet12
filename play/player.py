@@ -140,5 +140,9 @@ class Player (pygame.sprite.Sprite) :
         pygame.draw.rect(screen, (179, 179, 179), [0,  (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10))), 
         math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)])
         if self.inventory.last_obj != "" :
+            if self.inventory.last_obj.name == "eau" and self.inventory.last_obj.quantity == 0 :
+                self.inventory.last_obj.image = pygame.image.load(f"images/ressources/Objets/eau_vide.png")
+            elif self.inventory.last_obj.name == "eau" and self.inventory.last_obj.quantity == 100 :
+                self.inventory.last_obj.image = pygame.image.load(f"images/ressources/Objets/eau.png")
             self.inventory.last_obj.image = pygame.transform.scale(self.inventory.last_obj.image, (math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)))
             screen.blit(self.inventory.last_obj.image, (0, (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10)))))

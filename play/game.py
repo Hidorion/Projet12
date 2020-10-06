@@ -115,6 +115,7 @@ class Game:
             # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
             self.player.interface_player(screen)
             self.player.inventory.pick_up_object(self)
+            
         if self.inventory :
             self.player.interface_player(screen)
             self.player.inventory.print_inventory(screen)
@@ -225,8 +226,21 @@ class Game:
                 self.not_pressed[pygame.K_u] = False
             elif self.player.inventory.last_obj.name == "eau":
                 for obj in self.group_water :
-                    if self.player.rect_character.rect.colliderect(obj.rect) :
-                        print("ok")
+                    if pygame.sprite.spritecollideany(self.player.rect_character, self.group_water):
+                        for obj in self.player.inventory.list_object_inventory :
+                            obj.quantity = 100 if obj.name == "eau" else 1
+                            self.not_pressed[pygame.K_u] = False
+                        pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau.png"), (50, 42))
+
+                        self.not_pressed[pygame.K_u] = False
+                    else : 
+                        self.player.inventory.update_vital_sign(self.player.inventory.last_obj)
+                        for obj in self.player.inventory.list_object_inventory :
+                            obj.quantity = 0 if obj.name == "eau" else 1
+                            self.player.inventory.last_obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau_vide.png"), (50, 42))
+                            self.not_pressed[pygame.K_u] = False
+                        self.not_pressed[pygame.K_u] = False
+                    
 
 
             
@@ -289,5 +303,5 @@ class Game:
         self.sql.delete_table_inventory(self.player.id_player)
         # Pour chaque objet dans l'inventaire, je l'ajouet à la BDD
         for obj in self.player.inventory.list_object_inventory :
-            self.sql.add_inventory(self.player.id_player, obj.id_object, 1)
+            self.sql.add_inventory(self.player.id_player, obj.id_object, obj.quantity)
         
