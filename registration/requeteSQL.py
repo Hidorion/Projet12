@@ -132,7 +132,16 @@ class create_registration():
         self.cursor.execute(requete_sql)
         self.connection.commit()
 
+    def update_water(self, id_player, amount) :
+        requete_sql = f"""UPDATE inventaire 
+                          SET amount = '{amount}'
+                          WHERE id_object = 17 and id_player = {id_player}"""
+        self.cursor.execute(requete_sql)
+        self.connexion.commit()
 
 
 
+
+sql = create_registration()
+sql.update_water(1, 75)
 
