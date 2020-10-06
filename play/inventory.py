@@ -3,7 +3,7 @@ import pygame
 import math
 import random
 
-from registration.registration_player import create_registration
+from registration.player_registration import create_registration
 from play.object import Object
 from play.map import Map
 

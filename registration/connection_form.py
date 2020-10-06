@@ -5,7 +5,7 @@ import registration.pygame_textinput
 import pygame
 
 from registration.connection import check_logs
-from registration.registration_player import sign_up 
+from registration.player_registration import sign_up 
 
 # Code
 
