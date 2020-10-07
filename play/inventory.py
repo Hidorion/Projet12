@@ -11,13 +11,13 @@ class Inventory():
 
     def __init__(self, screen, player):
         self.player = player
-        self.image = pygame.image.load("images/ressources/interface/bag.png")
+        self.image = pygame.image.load("assets/resources/interface/bag.png")
         self.rect = self.image.get_rect()
         self.rect.x = 1060
         self.rect.y = 390
-        self.interface_inventory = pygame.image.load("images/Bg/inventory.png")
+        self.interface_inventory = pygame.image.load("assets/backgrounds/inventory.png")
 
-        self.button_tri_inventory = pygame.image.load("images/button/button_tri_inventory.png")
+        self.button_tri_inventory = pygame.image.load("assets/buttons/button_tri_inventory.png")
         self.button_tri_inventory_rect = self.button_tri_inventory.get_rect()
         self.button_tri_inventory_rect.x = 990
         self.button_tri_inventory_rect.y = 555
@@ -59,7 +59,7 @@ class Inventory():
         result = sql.read_inventory(pseudo)
         for obj in result :
             self.list_object_inventory.add(Object(obj, 0, 0))
-        Map("images/Bg/Foret_interaction.tmx", self.player.game).interaction(12800, 0, sql)
+        # Map("assets/backgrounds/Foret_interaction.tmx", self.player.game).interaction(12800, 0, sql)
 
     def update_vital_sign(self, obj) :
         """ 
@@ -156,7 +156,7 @@ class Inventory():
 
     def first_break_stone(self, obj):
         obj.pv -= 1
-        obj.image = pygame.image.load(f"images/ressources/environment/{obj.name}2.png")
+        obj.image = pygame.image.load(f"assets/resources/environment/{obj.name}2.png")
         sql = create_registration()
         result = sql.read_information_object(obj.object)
         for loop in range(2):

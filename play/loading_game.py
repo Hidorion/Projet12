@@ -21,7 +21,7 @@ class Loading_bar(threading.Thread):
         self.map = map
 
     def run(self) :
-        pygame.mixer.music.load("images/musique/wait.mp3")
+        pygame.mixer.music.load("assets/music/wait.mp3")
         pygame.mixer.music.play()
         while self.bar_loading < 850 :
             self.screen.blit(self.map, (0,0)) 
@@ -62,16 +62,17 @@ class Loading_map(threading.Thread):
         self.game = game
 
     def run(self) :
-        self.game.map_foret_sol = self.game.create_map("images/Bg/Foret.tmx")
-        Map("images/Bg/Foret_obstacle.tmx", self.game).obstacle(12800, 0)
-        self.game.map_foret_behind = self.game.create_map("images/Bg/Foret_behind.tmx")
+        self.game.map_foret_sol = self.game.create_map("assets/backgrounds/Foret.tmx")
+        Map("assets/backgrounds/Foret_obstacle.tmx", self.game).obstacle(12800, 0)
+        self.game.map_foret_behind = self.game.create_map("assets/backgrounds/Foret_behind.tmx")
 
-        # self.game.map_cratere_sol = self.game.create_map("images/Bg/Cratere.tmx")
-        # self.game.map_cratere_behind = self.game.create_map("images/Bg/Cratere_behind.tmx")
+        # self.game.map_cratere_sol = self.game.create_map("assets/backgrounds/Cratere.tmx")
+        # Map("assets/backgrounds/Cratere_obstacle.tmx", self.game).obstacle(6400, 0)
+        # self.game.map_cratere_behind = self.game.create_map("assets/backgrounds/Cratere_behind.tmx")
 
-        # self.game.map_desert_sol = self.game.create_map("images/Bg/Desert.tmx")
-        # Map("images/Bg/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
-        # self.game.map_desert_behind = self.game.create_map("images/Bg/Desert_behind.tmx")        
+        # self.game.map_desert_sol = self.game.create_map("assets/backgrounds/Desert.tmx")
+        # Map("assets/backgrounds/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
+        # self.game.map_desert_behind = self.game.create_map("assets/backgrounds/Desert_behind.tmx")        
 
 def start_loading(screen, game, map_loading) :
 

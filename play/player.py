@@ -5,7 +5,7 @@ import math
 import pygame
 
 from play.map import Map
-from play.rect_character import Rect_character
+from play.character_rect import Character_rect
 from play.inventory import Inventory
 
 
@@ -16,7 +16,7 @@ class Player (pygame.sprite.Sprite) :
         pygame.sprite.Sprite.__init__(self)
         self.game = game
         self.avatar = avatar
-        self.image = pygame.image.load(f"images/ressources/{self.avatar}/character_up.png")
+        self.image = pygame.image.load(f"assets/avatars/{self.avatar}/character_up.png")
         self.image = pygame.transform.scale(self.image, (32 , 32))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -36,7 +36,7 @@ class Player (pygame.sprite.Sprite) :
         self.velocity = 2
         self.move = 0
 
-        self.rect_character = Rect_character(self.rect.x, self.rect.y)
+        self.rect_character = Character_rect(self.rect.x, self.rect.y)
 
         self.inventory = Inventory(screen, self)
 
@@ -44,10 +44,10 @@ class Player (pygame.sprite.Sprite) :
         self.group_stone = pygame.sprite.Group()
 
 
-        # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
+        # self.map_foret = Map("assets/bg/Foret_obstacle.tmx", self)
         # self.map_img_foret = self.map_foret.obstacle(self.game.map_foret_sol)
 
-        # self.map_montagne = Map("images/bg/Montagne_obstacle.tmx", self)
+        # self.map_montagne = Map("assets/bg/Montagne_obstacle.tmx", self)
         # self.map_img_montagne = self.map_montagne.make_map(True)
 
 
@@ -60,7 +60,7 @@ class Player (pygame.sprite.Sprite) :
         
         self.rect_character.rect.x += self.velocity
         self.rect.x += self.velocity
-        self.change_image(f"images/ressources/{self.avatar}/character_right.png", f"images/ressources/{self.avatar}/character_right_move.png" )
+        self.change_image(f"assets/avatars/{self.avatar}/character_right.png", f"assets/avatars/{self.avatar}/character_right_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
         if pygame.sprite.spritecollideany(self.rect_character, self.group_obstacle):
             self.rect.x -= self.velocity
@@ -71,7 +71,7 @@ class Player (pygame.sprite.Sprite) :
 
         self.rect_character.rect.x -= self.velocity
         self.rect.x -= self.velocity
-        self.change_image(f"images/ressources/{self.avatar}/character_left.png", f"images/ressources/{self.avatar}/character_left_move.png" )
+        self.change_image(f"assets/avatars/{self.avatar}/character_left.png", f"assets/avatars/{self.avatar}/character_left_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
         if pygame.sprite.spritecollideany(self.rect_character, self.group_obstacle):
             self.rect.x += self.velocity
@@ -81,7 +81,7 @@ class Player (pygame.sprite.Sprite) :
 
         self.rect_character.rect.y -= self.velocity
         self.rect.y -= self.velocity
-        self.change_image(f"images/ressources/{self.avatar}/character_up.png", f"images/ressources/{self.avatar}/character_up_move.png" )
+        self.change_image(f"assets/avatars/{self.avatar}/character_up.png", f"assets/avatars/{self.avatar}/character_up_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
         if pygame.sprite.spritecollideany(self.rect_character, self.group_obstacle):
             self.rect.y += self.velocity
@@ -91,7 +91,7 @@ class Player (pygame.sprite.Sprite) :
         
         self.rect_character.rect.y += self.velocity
         self.rect.y += self.velocity
-        self.change_image(f"images/ressources/{self.avatar}/character_down.png", f"images/ressources/{self.avatar}/character_down_move.png" )
+        self.change_image(f"assets/avatars/{self.avatar}/character_down.png", f"assets/avatars/{self.avatar}/character_down_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
         if pygame.sprite.spritecollideany(self.rect_character, self.group_obstacle):
             self.rect.y -= self.velocity
@@ -116,10 +116,10 @@ class Player (pygame.sprite.Sprite) :
 
 
     def interface_player(self, screen):
-        food = pygame.image.load("images/ressources/interface/food.png")
-        stamina = pygame.image.load("images/ressources/interface/stamina.png")
-        hydratation = pygame.image.load("images/ressources/interface/hydratation.png")
-        support_map =pygame.image.load("images/ressources/interface/support_map.png")
+        food = pygame.image.load("assets/resources/interface/food.png")
+        stamina = pygame.image.load("assets/resources/interface/stamina.png")
+        hydratation = pygame.image.load("assets/resources/interface/hydratation.png")
+        support_map =pygame.image.load("assets/resources/interface/support_map.png")
         
         # x, y, largeur, hauteur
         # Dessiner le rectangle noir derrière les barres de vie

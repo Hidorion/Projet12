@@ -14,7 +14,7 @@ from registration.sql_queries import create_registration
 from play.object import Object
 
 # Import Variable
-from play import Variables as var
+from play import variables as var
 
 
 class Game:
@@ -104,6 +104,7 @@ class Game:
             self.camera.update(self.player.rect)
             # screen.blit(self.map_foret_sol, (0, 0))
             self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
+            # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
             for obj in self.player.group_tree :
                 screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
             for obj in self.player.inventory.list_object_map :
@@ -242,7 +243,7 @@ class Game:
         """
 
         if self.pressed.get(key) == False and self.last_movement == direction :
-            self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_{direction}.png")
+            self.player.image = pygame.image.load(f"assets/avatars/{self.player.avatar}/character_{direction}.png")
             self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
     def message_champ_select(self, screen, message):
