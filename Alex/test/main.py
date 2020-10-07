@@ -1,8 +1,10 @@
-# A. Main program to sign in or to log into the game.
+import psycopg2
 
-listtest = ["ztgvb","ftyh","drftyu"]
-print(listtest)
-listtest[0] = ""
-print(listtest)
-listtest[0] = "rftgyhju"
-print(listtest)
+def db_connect (connection_infos, request):
+    connection = psycopg2.connect(connection_infos)
+    cursor = connection.cursor()
+    sql_request = request
+    cursor.execute(sql_request ,)
+    connection.commit()
+    result = cursor.fetchone()
+    return result
