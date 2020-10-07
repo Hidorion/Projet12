@@ -104,6 +104,7 @@ class Game:
             self.camera.update(self.player.rect)
             # screen.blit(self.map_foret_sol, (0, 0))
             self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
+            
             for obj in self.player.group_tree :
                 screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
             for obj in self.player.inventory.list_object_map :
@@ -225,14 +226,12 @@ class Game:
                         self.not_pressed[pygame.K_u] = False
                 self.not_pressed[pygame.K_u] = False
             elif self.player.inventory.last_obj.name == "eau":
-                for obj in self.group_water :
                     if pygame.sprite.spritecollideany(self.player.rect_character, self.group_water):
                         for obj in self.player.inventory.list_object_inventory :
                             obj.quantity = 100 if obj.name == "eau" else 1
                             self.not_pressed[pygame.K_u] = False
-                        pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau.png"), (50, 42))
-
                         self.not_pressed[pygame.K_u] = False
+                        # pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau.png"), (50, 42))
                     else : 
                         self.player.inventory.update_vital_sign(self.player.inventory.last_obj)
                         for obj in self.player.inventory.list_object_inventory :

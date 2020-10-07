@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="2141">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="2247">
  <tileset firstgid="1" source="../ressources/tileset/sol.tsx"/>
  <tileset firstgid="484" source="../ressources/tileset/sol2.tsx"/>
  <tileset firstgid="1508" source="../ressources/tileset/decor foret.tsx"/>
@@ -1309,6 +1309,74 @@
   <object id="2073" name="wall" x="2560.05" y="3411.27" width="8.45455" height="73.4545"/>
   <object id="2074" name="wall" x="2572.5" y="3423.5" width="29.5" height="1"/>
   <object id="2124" name="wall" x="2468" y="4091" width="24" height="23.5"/>
+  <object id="2141" name="wall" x="1914" y="4858.67" width="12" height="24.6667"/>
+  <object id="2142" name="wall" x="2043.33" y="4859" width="12" height="24.6667"/>
+  <object id="2143" name="wall" x="1818.67" y="4987" width="12" height="24.6667"/>
+  <object id="2144" name="wall" x="1658.67" y="5082.33" width="12" height="24.6667"/>
+  <object id="2145" name="wall" x="1688.67" y="4858.33" width="12" height="24.6667"/>
+  <object id="2146" name="wall" x="1786" y="4795.67" width="12" height="24.6667"/>
+  <object id="2147" name="wall" x="1882.67" y="4668.33" width="12" height="24.6667"/>
+  <object id="2148" name="wall" x="2074" y="4669.67" width="12" height="24.6667"/>
+  <object id="2149" name="wall" x="1560.67" y="4859" width="12" height="24.6667"/>
+  <object id="2150" name="wall" x="1498.67" y="4731" width="12" height="24.6667"/>
+  <object id="2151" name="wall" x="1561.33" y="5177.67" width="12" height="24.6667"/>
+  <object id="2152" name="wall" x="1786.67" y="5180.33" width="12" height="24.6667"/>
+  <object id="2153" name="wall" x="1914" y="5180.33" width="12" height="24.6667"/>
+  <object id="2154" name="wall" x="2008.67" y="5114.33" width="12" height="24.6667"/>
+  <object id="2155" name="wall" x="1914.67" y="5405" width="12" height="24.6667"/>
+  <object id="2156" name="wall" x="1658" y="5372.33" width="12" height="24.6667"/>
+  <object id="2157" name="wall" x="1656.67" y="4571.67" width="12" height="24.6667"/>
+  <object id="2158" name="wall" x="2041.33" y="4508.33" width="12" height="24.6667"/>
+  <object id="2159" name="wall" x="1818" y="4445" width="12" height="24.6667"/>
+  <object id="2160" name="wall" x="1946.67" y="4413" width="12" height="24.6667"/>
+  <object id="2161" name="wall" x="2137.33" y="4379.67" width="12" height="24.6667"/>
+  <object id="2162" name="wall" x="1753.33" y="4283.67" width="12" height="24.6667"/>
+  <object id="2163" name="wall" x="2009.33" y="4156.33" width="12" height="24.6667"/>
+  <object id="2164" name="wall" x="1690" y="4061" width="12" height="24.6667"/>
+  <object id="2165" name="wall" x="1818.67" y="4025.67" width="12" height="24.6667"/>
+  <object id="2166" name="wall" x="1304.67" y="4891" width="12" height="24.6667"/>
+  <object id="2167" name="wall" x="1434.67" y="4925.67" width="12" height="24.6667"/>
+  <object id="2168" name="wall" x="1433.33" y="5083" width="12" height="24.6667"/>
+  <object id="2169" name="wall" x="1307.33" y="5149" width="12" height="24.6667"/>
+  <object id="2170" name="wall" x="1177.33" y="5213.67" width="12" height="24.6667"/>
+  <object id="2171" name="wall" x="1432" y="5339.67" width="12" height="24.6667"/>
+  <object id="2172" name="wall" x="856.667" y="5083.67" width="12" height="24.6667"/>
+  <object id="2173" name="wall" x="920.667" y="4793.67" width="12" height="24.6667"/>
+  <object id="2174" name="wall" x="1018" y="4603.67" width="12" height="24.6667"/>
+  <object id="2175" name="wall" x="1209.33" y="4540.33" width="12" height="24.6667"/>
+  <object id="2176" name="wall" x="1338.67" y="4477" width="12" height="24.6667"/>
+  <object id="2177" name="wall" x="1466" y="4315.67" width="12" height="24.6667"/>
+  <object id="2178" name="wall" x="1338.67" y="4091" width="12" height="24.6667"/>
+  <object id="2179" name="wall" x="2171" y="2652.67" width="12" height="24.6667"/>
+  <object id="2180" name="wall" x="2105.5" y="2619.67" width="12" height="24.6667"/>
+  <object id="2181" name="wall" x="2042" y="2554.17" width="12" height="24.6667"/>
+  <object id="2182" name="wall" x="1978" y="2524.17" width="12" height="24.6667"/>
+  <object id="2183" name="wall" x="1913.5" y="2523.67" width="12" height="24.6667"/>
+  <object id="2184" name="wall" x="1913.5" y="2424.17" width="12" height="24.6667"/>
+  <object id="2185" name="wall" x="1849" y="2332.17" width="12" height="24.6667"/>
+  <object id="2186" name="wall" x="1752.5" y="2139.17" width="12" height="24.6667"/>
+  <object id="2187" name="wall" x="1882" y="1915.67" width="12" height="24.6667"/>
+  <object id="2188" name="wall" x="1978" y="1791.17" width="12" height="24.6667"/>
+  <object id="2189" name="wall" x="2106.5" y="1692.17" width="12" height="24.6667"/>
+  <object id="2190" name="wall" x="2234.67" y="1498.33" width="12" height="24.6667"/>
+  <object id="2191" name="wall" x="2362" y="1435.67" width="12" height="24.6667"/>
+  <object id="2192" name="wall" x="2521.33" y="1373" width="12" height="24.6667"/>
+  <object id="2193" name="wall" x="2650" y="1435.67" width="12" height="24.6667"/>
+  <object id="2194" name="wall" x="2873.33" y="1467.67" width="12" height="24.6667"/>
+  <object id="2195" name="wall" x="3066" y="1625.67" width="12" height="24.6667"/>
+  <object id="2196" name="wall" x="3194.67" y="1659" width="12" height="24.6667"/>
+  <object id="2197" name="wall" x="3321.33" y="1692.33" width="12" height="24.6667"/>
+  <object id="2198" name="wall" x="3481.33" y="1596.33" width="12" height="24.6667"/>
+  <object id="2199" name="wall" x="3641.33" y="1566.33" width="12" height="24.6667"/>
+  <object id="2200" name="wall" x="3642" y="1788.33" width="12" height="24.6667"/>
+  <object id="2201" name="wall" x="3833.33" y="1659.67" width="12" height="24.6667"/>
+  <object id="2202" name="wall" x="4058.67" y="1694.33" width="12" height="24.6667"/>
+  <object id="2203" name="wall" x="4313.33" y="1724.33" width="12" height="24.6667"/>
+  <object id="2204" name="wall" x="2488" y="2429" width="12" height="24.6667"/>
+  <object id="2205" name="wall" x="2585.33" y="2395.67" width="12" height="24.6667"/>
+  <object id="2206" name="wall" x="2520.67" y="2363.67" width="12" height="24.6667"/>
+  <object id="2207" name="wall" x="2553.33" y="2332.33" width="12" height="24.6667"/>
+  <object id="2208" name="wall" x="2489.33" y="2301.67" width="12" height="24.6667"/>
  </objectgroup>
  <layer id="3" name="walk_behind3" width="200" height="200" visible="0">
   <data encoding="csv">
@@ -1990,6 +2058,43 @@
   <object id="2137" name="carotte" x="2880.5" y="1983.38" width="31.5" height="31.5"/>
   <object id="2138" name="carotte" x="2881" y="2015.88" width="31.5" height="31.5"/>
   <object id="2139" name="eau" x="3927.33" y="2153.33" width="394.667" height="225.333"/>
+  <object id="2209" name="bois" x="1632.67" y="4736.67" width="32.6667" height="32"/>
+  <object id="2210" name="bois" x="1405" y="5152" width="32.6667" height="32"/>
+  <object id="2211" name="bois" x="1857" y="5025.33" width="32.6667" height="32"/>
+  <object id="2212" name="bois" x="1983.67" y="4708" width="32.6667" height="32"/>
+  <object id="2213" name="bois" x="1789" y="5312" width="32.6667" height="32"/>
+  <object id="2214" name="bois" x="1117" y="4544" width="32.6667" height="32"/>
+  <object id="2215" name="bois" x="1918.33" y="4258.67" width="32.6667" height="32"/>
+  <object id="2216" name="bois" x="1758.33" y="4069.33" width="32.6667" height="32"/>
+  <object id="2217" name="bois" x="1566.33" y="4961.33" width="32.6667" height="32"/>
+  <object id="2218" name="bois" x="893" y="4928" width="32.6667" height="32"/>
+  <object id="2219" name="bois" x="1405" y="4098.67" width="32.6667" height="32"/>
+  <object id="2220" name="bois" x="1406.33" y="4384" width="32.6667" height="32"/>
+  <object id="2222" name="pin" x="1824.33" y="2207.67" width="63.6667" height="128.667"/>
+  <object id="2223" name="pin" x="1728.83" y="2015.33" width="63.6667" height="128.667"/>
+  <object id="2224" name="pin" x="1856.67" y="1791.17" width="63.6667" height="128.667"/>
+  <object id="2225" name="pin" x="1953.67" y="1664.17" width="63.6667" height="128.667"/>
+  <object id="2226" name="pin" x="2079.17" y="1569.17" width="63.6667" height="128.667"/>
+  <object id="2227" name="pin" x="2207.67" y="1376.67" width="63.6667" height="128.667"/>
+  <object id="2228" name="pin" x="2336.17" y="1312.17" width="63.6667" height="128.667"/>
+  <object id="2229" name="pin" x="2496.67" y="1247.67" width="63.6667" height="128.667"/>
+  <object id="2230" name="pin" x="2623.67" y="1312.67" width="63.6667" height="128.667"/>
+  <object id="2231" name="pin" x="2848.67" y="1344.67" width="63.6667" height="128.667"/>
+  <object id="2232" name="pin" x="3039.67" y="1504.17" width="63.6667" height="128.667"/>
+  <object id="2233" name="pin" x="3167.67" y="1536.17" width="63.6667" height="128.667"/>
+  <object id="2234" name="pin" x="3296.17" y="1567.67" width="63.6667" height="128.667"/>
+  <object id="2235" name="pin" x="3455.67" y="1471.67" width="63.6667" height="128.667"/>
+  <object id="2236" name="pin" x="3616.67" y="1439.67" width="63.6667" height="128.667"/>
+  <object id="2237" name="pin" x="3617.17" y="1664.67" width="63.6667" height="128.667"/>
+  <object id="2238" name="pin" x="3808.67" y="1536.17" width="63.6667" height="128.667"/>
+  <object id="2239" name="pin" x="4031.67" y="1567.67" width="63.6667" height="128.667"/>
+  <object id="2240" name="pin" x="4288.67" y="1598.67" width="63.6667" height="128.667"/>
+  <object id="2241" name="pin" x="1888.83" y="2303" width="63.6667" height="128.667"/>
+  <object id="2242" name="pin" x="1889.5" y="2399" width="63.6667" height="128.667"/>
+  <object id="2243" name="pin" x="1953.83" y="2400.67" width="63.6667" height="128.667"/>
+  <object id="2244" name="pin" x="2018.5" y="2430.67" width="63.6667" height="128.667"/>
+  <object id="2245" name="pin" x="2079.5" y="2494.33" width="63.6667" height="128.667"/>
+  <object id="2246" name="pin" x="2143.5" y="2527" width="63.6667" height="128.667"/>
  </objectgroup>
  <layer id="14" name="provisoire" width="200" height="200" visible="0">
   <data encoding="csv">
