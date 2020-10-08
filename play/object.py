@@ -14,7 +14,7 @@ class Object(pygame.sprite.Sprite):
         self.quantity = list_inventaire[1]
         self.action = list_inventaire[2]
         self.category = list_inventaire[3]
-        self.image = pygame.image.load(f"images/ressources/Objets/{self.name}.png")
+        self.image = pygame.image.load(f"assets/resources/items/{self.name}.png")
         self.image = pygame.transform.scale(self.image, (50, 42))
         self.rect = self.image.get_rect()
         self.stamina = list_inventaire[4]
@@ -30,7 +30,7 @@ class Tree(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.name = name 
-        self.image = pygame.image.load(f"images/ressources/environment/{self.name}.png")
+        self.image = pygame.image.load(f"assets/resources/environment/{self.name}.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -45,7 +45,7 @@ class stone(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.name = name 
-        self.image = pygame.image.load(f"images/ressources/environment/{self.name}.png")
+        self.image = pygame.image.load(f"assets/resources/environment/{self.name}.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y

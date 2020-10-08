@@ -8,7 +8,7 @@ import time
 # Import class 
 from play.map import Map
 from play.player import Player
-from selection_fields.selection_fields import Avatar
+from avatar_selection.avatar_selection import Avatar
 from play.camera import Camera
 from registration.sql_queries import create_registration
 from play.object import Object
