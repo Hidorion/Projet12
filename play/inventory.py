@@ -39,6 +39,10 @@ class Inventory():
         y = 112
         counter = 0
         for obj in self.list_object_inventory:
+            if obj.name == "eau" and obj.quantity == 100:
+                obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau.png"), (50, 42))
+            elif obj.name == "eau" and obj.quantity == 0: 
+                obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau_vide.png"), (50, 42))
             obj.rect.x = x
             obj.rect.y = y
             screen.blit(obj.image, obj.rect)
@@ -59,6 +63,9 @@ class Inventory():
         result = sql.read_inventory(pseudo)
         for obj in result :
             self.list_object_inventory.add(Object(obj, 0, 0))
+        
+        
+        
         Map("images/Bg/Foret_interaction.tmx", self.player.game).interaction(12800, 0, sql)
 
     def update_vital_sign(self, obj) :

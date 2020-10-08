@@ -81,14 +81,14 @@ class Map :
                 self.game.group_object.add(Object(result[0], tile.x + position_x, tile.y + position_y))
             elif tile.name == "carotte" :
                 result = sql.read_information_object("Carotte")
-                self.game.player.inventory.list_object_map.add(Object(result[0], tile.x + position_x, tile.y + position_y))
+                self.game.group_object.add(Object(result[0], tile.x + position_x, tile.y + position_y))
             elif tile.name == "pierre" :
                 self.game.player.group_stone.add(Tree(tile.name, "Pierre", "Pioche", 4, tile.x + position_x, tile.y + position_y + 5))
             elif tile.name == "champignon" :
                 result = sql.read_information_object(random.choice(list_champignon))
                 self.game.group_object.add(Object(result[0], tile.x + position_x, tile.y + position_y))
             elif tile.name == "eau" :
-                self.game.group_water.add(Object_water(tile.x + position_x, tile.y + position_y))
+                self.game.group_water.add(Object_water(tile.x + position_x, tile.y + position_y, tile.width, tile.height))
                 
 
         

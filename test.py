@@ -2,7 +2,7 @@ import requests
 import json
 from pprint import pprint
 
-API_KEY = "2a10w18djQKj2D4Ll3x54h8sO"  # Your API_KEY here
+API_KEY = "2a105mNgp56RlYJ5jj7fpgDDKu"  # Your API_KEY here
 api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 
 image_path_1 = "images/ressources/image_objet/banane.png"
@@ -27,5 +27,8 @@ s = requests.Session()
 response = s.send(prepared)
 json_result = json.loads(response.text)
 
+
 pprint(response.status_code)
-pprint(json_result)
+# pprint(json_result)
+for key, value in json_result.items() :
+    print(key)
