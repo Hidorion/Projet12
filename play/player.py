@@ -33,16 +33,12 @@ class Player (pygame.sprite.Sprite) :
         self.group_obstacle = ""
 
         self.health = 10
-        self.velocity = 2
+        self.velocity = 3
         self.move = 0
 
         self.rect_character = Rect_character(self.rect.x, self.rect.y)
 
         self.inventory = Inventory(screen, self)
-
-        self.group_tree = pygame.sprite.Group()
-        self.group_stone = pygame.sprite.Group()
-
 
         # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
         # self.map_img_foret = self.map_foret.obstacle(self.game.map_foret_sol)

@@ -29,6 +29,4 @@ json_result = json.loads(response.text)
 
 
 pprint(response.status_code)
-# pprint(json_result)
-for key, value in json_result.items() :
-    print(key)
+pprint(json_result['results']['species']['commonNames'])

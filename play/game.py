@@ -73,9 +73,13 @@ class Game:
         self.map_desert_sol = ""
         self.map_desert_behind = ""
 
+        # Groupe de sprite
         self.group_obstacle = pygame.sprite.Group()
         self.group_object = pygame.sprite.Group()
         self.group_water = pygame.sprite.Group()
+        self.group_tree = pygame.sprite.Group()
+        self.group_stone = pygame.sprite.Group()
+        self.list_object_map = pygame.sprite.Group()
         
         self.counter_move = 0
 
@@ -105,9 +109,9 @@ class Game:
             # screen.blit(self.map_foret_sol, (0, 0))
             self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
             
-            for obj in self.player.group_tree :
+            for obj in self.group_tree :
                 screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
-            for obj in self.player.inventory.list_object_map :
+            for obj in self.list_object_map :
                 image = pygame.transform.scale(obj.image,(18, 23))
                 screen.blit(image, (self.camera.apply_rect(obj.rect)))
             
@@ -145,7 +149,7 @@ class Game:
         for obj in self.group_object:
             image = pygame.transform.scale(obj.image,(18, 23))
             screen.blit(image, (self.camera.apply_rect(obj.rect)))
-        for obj in self.player.group_stone:
+        for obj in self.group_stone:
             screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
         screen.blit(self.player.image, self.camera.apply(self.player.rect))
         screen.blit(behind, self.camera.apply_rect(self.map_rect))
@@ -213,32 +217,32 @@ class Game:
         # Utiliser la hache
         if self.not_pressed.get(pygame.K_u) and self.player.inventory.last_obj != "":
             if self.player.inventory.last_obj.name == "hachette" :
-                for obj in self.player.group_tree :
+                for obj in self.group_tree :
                     if self.player.rect_character.rect.colliderect(obj.rect) :
                         self.player.inventory.interaction_tree(obj)
                         self.not_pressed[pygame.K_u] = False
                 self.not_pressed[pygame.K_u] = False
         
             elif self.player.inventory.last_obj.name == "pioche" :
-                for obj in self.player.group_stone :
+                for obj in self.group_stone :
                     if self.player.rect_character.rect.colliderect(obj.rect) :
                         self.player.inventory.interaction_stone(obj)
                         self.not_pressed[pygame.K_u] = False
                 self.not_pressed[pygame.K_u] = False
             elif self.player.inventory.last_obj.name == "eau":
-                    if pygame.sprite.spritecollideany(self.player.rect_character, self.group_water):
-                        for obj in self.player.inventory.list_object_inventory :
-                            obj.quantity = 100 if obj.name == "eau" else 1
-                            self.not_pressed[pygame.K_u] = False
+                if pygame.sprite.spritecollideany(self.player.rect_character, self.group_water):
+                    for obj in self.player.inventory.list_object_inventory :
+                        obj.quantity = 100 if obj.name == "eau" else 1
                         self.not_pressed[pygame.K_u] = False
-                        # pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau.png"), (50, 42))
-                    else : 
-                        self.player.inventory.update_vital_sign(self.player.inventory.last_obj)
-                        for obj in self.player.inventory.list_object_inventory :
-                            obj.quantity = 0 if obj.name == "eau" else 1
-                            self.player.inventory.last_obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau_vide.png"), (50, 42))
-                            self.not_pressed[pygame.K_u] = False
+                    self.not_pressed[pygame.K_u] = False
+                    pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau.png"), (50, 42))
+                else : 
+                    self.player.inventory.update_vital_sign(self.player.inventory.last_obj)
+                    for obj in self.player.inventory.list_object_inventory :
+                        obj.quantity = 0 if obj.name == "eau" else 1
+                        self.player.inventory.last_obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau_vide.png"), (50, 42))
                         self.not_pressed[pygame.K_u] = False
+                    self.not_pressed[pygame.K_u] = False
                     
 
 
