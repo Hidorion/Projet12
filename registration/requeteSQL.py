@@ -14,8 +14,10 @@ connection_infos = "dbname=Projet12 user=postgres password=group12"
 class create_registration():
 
     def __init__(self):
-        self.connection = psycopg2.connect(connection_infos)
-        self.cursor = self.connection.cursor()
+
+        self.connexion = psycopg2.connect("dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev")
+        self.cursor = self.connexion.cursor()
+
         self.name = []
         self.email = []
 
@@ -46,7 +48,8 @@ class create_registration():
         self.email = self.cursor.fetchall()
 
     def read_table_player(self, pseudo):
-        requete_sql =f"""SELECT player.avatar, player.position_x, player.position_y, player.stamina, player.food, player.hydratation FROM player 
+        requete_sql =f"""SELECT player.avatar, player.position_x, player.position_y, player.stamina, player.food, player.hydratation 
+        FROM player 
         INNER JOIN connection ON player.id_connection = connection.id
         WHERE connection.pseudo = '{pseudo}'"""
         self.cursor.execute(requete_sql)
