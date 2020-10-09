@@ -57,17 +57,24 @@ class Crafting():
         return self.cursor.fetchall()
         #return requete_sql
 
-    def read_recipe(self):
-        requete_sql = f"""SELECT object.name, recipe_object.object_name , recipe_object.amount
-                        FROM recipe
-                        INNER JOIN object ON recipe.id_object = object.id
-                        INNER JOIN recipe_object ON recipe_object.id_recipe = recipe.id
-                        ORDER BY object.name"""
+    def read_recipe_and_ingredients(self):
+        requete_sql = f"""SELECT recipe.recipe_name , object.name, recipe_object.amount
+                        FROM recipe_object
+                        INNER JOIN object ON recipe_object.id_object = object.id
+                        INNER JOIN recipe ON recipe.id = recipe_object.id_recipe
+                        ORDER BY recipe.id"""
         self.cursor.execute(requete_sql)
+        return self.cursor.fetchall()
+
+    def list_of_recipes(self):
+        sql_request = f"""SELECT recipe_name FROM recipe ORDER BY recipe.id"""
+        self.cursor.execute(sql_request)
         return self.cursor.fetchall()
 if __name__ == "__main__":    
     GoClass = Crafting(2)
     result = GoClass.read_inventory("douze")
-    resultrecipe = GoClass.read_recipe()
-    print(resultrecipe)
+    resultrecipe = GoClass.read_recipe_and_ingredients()
+    resultrecipelist = GoClass.list_of_recipes()
+    list_of_recipe = [n[0] for n in resultrecipelist]
+    print(list_of_recipe)
 
