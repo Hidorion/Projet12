@@ -4,11 +4,20 @@
 import psycopg2
 import random
 
+###########################
+##### connection infos #####
+###########################
+connection_infos = "dbname=Projet12 user=postgres password=group12"
+
+# connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
+
 class create_registration():
 
     def __init__(self):
+
         self.connexion = psycopg2.connect("dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev")
         self.cursor = self.connexion.cursor()
+
         self.name = []
         self.email = []
 
@@ -18,13 +27,13 @@ class create_registration():
             pseudo TEXT, 
             password TEXT,
             e_mail TEXT)""")
-        self.connexion.commit()
+        self.connection.commit()
 
     # save identification and password
     def new_registration(self, e_mail, pseudo, password):
         requete_sql = """INSERT INTO connection(pseudo, password, e_mail) VALUES (%s, %s, %s) """
         self.cursor.execute(requete_sql, (pseudo, password, e_mail))
-        self.connexion.commit()
+        self.connection.commit()
 
     # take the names of the table
     def read_registration_name(self):
@@ -52,7 +61,7 @@ class create_registration():
                         VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         self.cursor.execute(requete_sql, (information_player[0], information_player[1], information_player[2], 
         information_player[3], information_player[4], information_player[5], information_player[6]))
-        self.connexion.commit()
+        self.connection.commit()
 
     def id_connection(self, pseudo):
         requete_sql = f""" SELECT id 
@@ -75,7 +84,7 @@ class create_registration():
                           SET position_x = '{position_x}', position_y = '{position_y}', stamina = '{stamina}', food = '{food}', hydratation = '{hydratation}'
                           WHERE player.id_connection = '{id_connection}'"""
         self.cursor.execute(requete_sql)
-        self.connexion.commit()
+        self.connection.commit()
 
     def read_inventory(self, pseudo):
         requete_sql = f"""SELECT object.name, inventaire.amount, action.name, category.name, object.stamina, object.food, object.hydratation, inventaire.id_object
@@ -118,18 +127,18 @@ class create_registration():
         requete_sql = f"""DELETE FROM inventaire
                         WHERE id_player = {id_player}"""
         self.cursor.execute(requete_sql)
-        self.connexion.commit()
+        self.connection.commit()
 
     def add_inventory(self, id_player, id_object, amount):
         requete_sql = f"""INSERT INTO inventaire 
         VALUES ({id_player}, {id_object}, {amount})"""
         self.cursor.execute(requete_sql)
-        self.connexion.commit()
+        self.connection.commit()
 
     def update_water(self, id_player, amount) :
         requete_sql = f"""UPDATE inventaire 
                           SET amount = '{amount}'
                           WHERE id_object = 17 and id_player = {id_player}"""
         self.cursor.execute(requete_sql)
-        self.connexion.commit()
+        self.connection.commit()
 

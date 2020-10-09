@@ -5,6 +5,14 @@ import psycopg2
 import hashlib
 from getpass import getpass
 
+###########################
+##### connection infos #####
+###########################
+connection_infos = "dbname=Projet12 user=postgres password=group12"
+
+# connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
+
+
 # def lenght_input(entry, mot, max = 16, min = 3) :
 #         while len(entry) >= max or len(entry) <= min :
 #             print(f"Choisissez un {mot} entre {min} et {max} caractères")
@@ -15,10 +23,12 @@ from getpass import getpass
 def forget_psd():
     user_name = (input("Nom d'utilisateur : ").lower(),) # On prend l'user
     user_mail = (input("Adresse e-mail : ").lower(),) # On prend le mail
+
     connexion = psycopg2.connect("dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev")
     cursor = connexion.cursor()
     cursor.execute(f'SELECT * FROM registration WHERE name = %s AND address = %s', (user_name, user_mail))
     connexion.commit()
+
     result = cursor.fetchone()
     if result:
         get_new_pwd(user_name,user_mail)
@@ -41,12 +51,10 @@ def get_new_pwd(name,address):
         get_new_pwd(name,address)
     user_password = user_password.encode() #On encode en UTF8
     user_password = (hashlib.sha1(user_password).hexdigest(),) #On le hash en hexa
-    #connexion = psycopg2.connect("dbname=Projet12 user=postgres password=group12")
-    # connexion = psycopg2.connect("dbname=postgres user=postgres password=12")
-    connexion = psycopg2.connect("dbname=postgres user=postgres password=douzetrentedeux")
-    cursor = connexion.cursor()
-    cursor.execute(f'UPDATE registration SET password = %s WHERE name = %s AND address = %s', (user_password, name, address))
-    connexion.commit()
+    connection = psycopg2.connect(connection_infos)
+    cursor = connection.cursor()
+    cursor.execute(f'UPDATE connection SET password = %s WHERE pseudo = %s AND address = %s', (user_password, name, address))
+    connection.commit()
     
     
 """
@@ -60,10 +68,10 @@ def check_logs(inputs_tuple):
     user_password = inputs_tuple[1] #getpass("Mot de passe : ") # On prend le password en xxxx
     #user_password = user_password.encode() #On encode en UTF8
     #user_password = (hashlib.sha1(user_password).hexdigest(),) #On le hash en hexa
-    connexion = psycopg2.connect("dbname=Projet12 user=postgres password=group12")
-    cursor = connexion.cursor()
+    connection = psycopg2.connect(connection_infos)
+    cursor = connection.cursor()
     cursor.execute(f'SELECT * FROM connection WHERE pseudo = %s AND password = %s', (user_name, user_password))
-    connexion.commit()
+    connection.commit()
     result = cursor.fetchone()
     if result: #A Si le user et le password sont bons
         return True
