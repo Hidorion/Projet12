@@ -70,11 +70,25 @@ class Crafting():
         sql_request = f"""SELECT recipe_name FROM recipe ORDER BY recipe.id"""
         self.cursor.execute(sql_request)
         return self.cursor.fetchall()
-if __name__ == "__main__":    
-    GoClass = Crafting(2)
-    result = GoClass.read_inventory("douze")
-    resultrecipe = GoClass.read_recipe_and_ingredients()
-    resultrecipelist = GoClass.list_of_recipes()
-    list_of_recipe = [n[0] for n in resultrecipelist]
-    print(list_of_recipe)
+# if __name__ == "__main__":    
+#     GoClass = Crafting(2)
+# #     result = GoClass.read_inventory("douze")
+# #     resultrecipe = GoClass.read_recipe_and_ingredients()
+#     resultrecipelist = GoClass.list_of_recipes()
+#     list_of_recipe = [n[0] for n in resultrecipelist]
+#     print(list_of_recipe)
 
+    def match_name_n_picture (list_of_recipe):
+        request = f"""SELECT object.name
+                    FROM recipe_object
+                    INNER JOIN recipe ON recipe.id = recipe_object.id_recipe
+                    INNER JOIN object ON object.id = recipe_object.id_object
+                    WHERE recipe_name = '{list_of_recipe}'
+                    """
+        self.cursor.execute(request)
+        return self.cursor.fetchall()
+GoClass = Crafting(2)
+resultrecipelist = GoClass.list_of_recipes()
+list_of_recipe = [n[0] for n in resultrecipelist]
+serg = GoClass.match_name_n_picture(list_of_recipe)
+print(serg)
