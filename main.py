@@ -1,12 +1,12 @@
 # coding: utf-8
 
 #import module
-import hashlib
+# import hashlib
 import pygame
-import math
-import time
-import pytmx
-import threading
+# import math
+# import time
+# import pytmx
+# import threading
 
 #import fichier
 from play.game import Game
