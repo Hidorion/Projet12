@@ -3,21 +3,21 @@ import pygame
 import math
 import random
 
-from registration.player_registration import create_registration
-from play.object import Object
-from play.map import Map
+from core.registration.player_registration import create_registration
+from core.play.object import Object
+from core.play.map import Map
 
 class Inventory():
 
     def __init__(self, screen, player):
         self.player = player
-        self.image = pygame.image.load("assets/resources/interface/bag.png")
+        self.image = pygame.image.load("assets/pics/interface_pics/bag.png")
         self.rect = self.image.get_rect()
         self.rect.x = 1060
         self.rect.y = 390
-        self.interface_inventory = pygame.image.load("assets/backgrounds/inventory.png")
+        self.interface_inventory = pygame.image.load("assets/pics/backgrounds_pics/inventory.png")
 
-        self.button_tri_inventory = pygame.image.load("assets/buttons/button_tri_inventory.png")
+        self.button_tri_inventory = pygame.image.load("assets/pics/buttons_pics/button_tri_inventory.png")
         self.button_tri_inventory_rect = self.button_tri_inventory.get_rect()
         self.button_tri_inventory_rect.x = 990
         self.button_tri_inventory_rect.y = 555
@@ -156,7 +156,7 @@ class Inventory():
 
     def first_break_stone(self, obj):
         obj.pv -= 1
-        obj.image = pygame.image.load(f"assets/resources/environment/{obj.name}2.png")
+        obj.image = pygame.image.load(f"assets/pics/environment_pics/{obj.name}2.png")
         sql = create_registration()
         result = sql.read_information_object(obj.object)
         for loop in range(2):

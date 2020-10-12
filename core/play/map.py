@@ -6,10 +6,10 @@ import pygame
 import pytmx
 import random
 
-from play.map_obstacles import Obstacle
-from play.object import Object
-from play.object import Tree
-from play.object import Object_water
+from core.play.map_obstacles import Obstacle
+from core.play.object import Object
+from core.play.object import Tree
+from core.play.object import Object_water
 
 
 

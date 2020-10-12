@@ -9,18 +9,18 @@ import pytmx
 import threading
 
 #import fichier
-from play.game import Game
-from registration.sql_queries import create_registration
+from core.play.game import Game
+from core.registration.sql_queries import create_registration
 # from registration.registration import sign_in
 from getpass import getpass
-from registration.check_connection import forget_psd
+from core.registration.check_connection import forget_psd
 # from Log_in_n_out.log_in import check_logs
-from play import variables as var
-from play.map_obstacles import Obstacle
-from play.map import Map
-from play.loading_game import start_loading
-from registration.connection_form import run_game
-from play.object import Object
+from core.play import variables as var
+from core.play.map_obstacles import Obstacle
+from core.play.map import Map
+from core.play.loading_game import start_loading
+from core.registration.connection_form import run_game
+from core.play.object import Object
 
 
 
@@ -30,7 +30,7 @@ pygame.display.set_caption("New Horizon: Island")
 screen = pygame.display.set_mode((var.x_screen, var.y_screen))
 
 
-map_loading = pygame.image.load("assets/backgrounds/chargement.png")
+map_loading = pygame.image.load("assets/pics/backgrounds_pics/chargement.png")
 map_loading = pygame.transform.scale(map_loading, (var.x_screen, var.y_screen))
 
 

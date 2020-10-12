@@ -4,9 +4,9 @@
 import math
 import pygame
 
-from play.map import Map
-from play.character_rect import Character_rect
-from play.inventory import Inventory
+from core.play.map import Map
+from core.play.character_rect import Character_rect
+from core.play.inventory import Inventory
 
 
 
@@ -116,10 +116,10 @@ class Player (pygame.sprite.Sprite) :
 
 
     def interface_player(self, screen):
-        food = pygame.image.load("assets/resources/interface/food.png")
-        stamina = pygame.image.load("assets/resources/interface/stamina.png")
-        hydratation = pygame.image.load("assets/resources/interface/hydratation.png")
-        support_map =pygame.image.load("assets/resources/interface/support_map.png")
+        food = pygame.image.load("assets/pics/interface_pics/food.png")
+        stamina = pygame.image.load("assets/pics/interface_pics/stamina.png")
+        hydratation = pygame.image.load("assets/pics/interface_pics/hydratation.png")
+        support_map =pygame.image.load("assets/pics/interface_pics/support_map.png")
         
         # x, y, largeur, hauteur
         # Dessiner le rectangle noir derrière les barres de vie

@@ -11,7 +11,7 @@ class Avatar :
 
         
 
-        self.background_champ_select = pygame.image.load("assets/backgrounds/background_champ_select.png").convert_alpha()
+        self.background_champ_select = pygame.image.load("assets/pics/backgrounds_pics/background_champ_select.png").convert_alpha()
         self.background_champ_select = pygame.transform.scale(self.background_champ_select, (screen.get_width(), screen.get_height()))
 
         self.avatar1_image = pygame.image.load("assets/avatars/avatar1/character_down.png")
@@ -62,7 +62,7 @@ class Avatar :
         self.avatar8_image_rect.x = math.ceil(screen.get_width() / 1.3)
         self.avatar8_image_rect.y = self.avatar5_image_rect.y
 
-        self.button = pygame.image.load("assets/buttons/button_champ.png").convert_alpha()
+        self.button = pygame.image.load("assets/pics/buttons_pics/button_champ.png").convert_alpha()
         self.button = pygame.transform.scale(self.button, (math.ceil(screen.get_height() / 2), math.ceil(screen.get_width() / 18 )))
         self.button_rect = self.button.get_rect()
         self.button_rect.x = math.ceil(screen.get_width() / 2 - self.button.get_width() / 2)
