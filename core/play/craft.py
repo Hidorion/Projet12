@@ -8,13 +8,13 @@ import psycopg2
 
 class Crafting():
     
-    def __init__(self, player): #screen, player):
+    def __init__(self, player, screen): #screen, player):
         self.player = player
-        self.crafting_interface = pygame.image.load("images/Bg/crafting.png")
+        self.crafting_interface = pygame.image.load("assets/backgrounds/crafting.png")
         self.crafting_interface = pygame.transform.scale(self.crafting_interface,( 960 , 576 ))
         self.crafting_interface_rect = self.crafting_interface.get_rect()
-        # self.crafting_interface_rect.x = screen.get_width() / 10
-        # self.crafting_interface_rect.y = screen.get_height() / 10
+        self.crafting_interface_rect.x = screen.get_width() / 10
+        self.crafting_interface_rect.y = screen.get_height() / 10
         self.list_object_craft = pygame.sprite.Group()
         connection_infos = "dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host=ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev"
         self.connection = psycopg2.connect(connection_infos)
@@ -65,6 +65,12 @@ class Crafting():
             ingredient = list_of_recipe[recipe]
             list_of_ingredient = Crafting.read_ingredients(ingredient)
             return list_of_ingredient
+
+    def browse_interface ():
+        next = pygame.image.load("assets/backgrounds/next.png")
+        previous = pygame.image.load("assets/backgrounds/previous.png")
+        next_rect = next.get_rect()
+        previous_rect = previous.get_rect()
 
 GoClass = Crafting(2)
 resultrecipelist = GoClass.list_of_recipes()
