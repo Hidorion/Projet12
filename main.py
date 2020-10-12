@@ -99,7 +99,7 @@ if __name__ == "__main__":
                         if obj.rect.collidepoint(event.pos) and game.pressed.get(pygame.K_e) :
                             game.player.inventory.delete_inventory(obj)
                         elif obj.rect.collidepoint(event.pos) and obj.category == "Outils":
-                            game.player.inventory.last_obj = Object([obj.name, obj.quantity, obj.action, obj.category, obj.stamina, obj.food, obj.hydratation, obj.id_object], 0, 0)
+                            game.player.inventory.last_obj = obj
                         elif obj.rect.collidepoint(event.pos) and obj.category != "Ressource":
                             game.player.inventory.update_vital_sign(obj)
                             game.player.inventory.list_object_inventory.remove(obj)
@@ -110,10 +110,6 @@ if __name__ == "__main__":
                     if game.player.inventory.rect.collidepoint(event.pos) :
                         game.inventory = True
                         game.play = False
-
-
-
-        
 
 
 
