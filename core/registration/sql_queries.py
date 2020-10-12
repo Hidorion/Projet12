@@ -8,8 +8,10 @@ import random
 ##### connection infos #####
 ###########################
 # connection_infos = "dbname=Projet12 user=postgres password=group12"
+# connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
 
-connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
+# Shared DB
+connection_infos = "dbname=Team12Corp user=AP2006 password=AP2006p2 host=ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev port=15002"
 
 class create_registration():
 
