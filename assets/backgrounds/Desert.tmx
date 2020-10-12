@@ -2,8 +2,8 @@
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="80">
  <tileset firstgid="1" source="tileset/sol2.tsx"/>
  <tileset firstgid="1025" source="tileset/Fossils_mockup.tsx"/>
- <tileset firstgid="1187" source="../ressources/tileset/sol.tsx"/>
- <tileset firstgid="1670" source="../ressources/tileset/decor foret.tsx"/>
+ <tileset firstgid="1187" source="tileset/sol.tsx"/>
+ <tileset firstgid="1670" source="tileset/decors_foret.tsx"/>
  <layer id="1" name="floor_1" width="200" height="200">
   <data encoding="csv">
 119,119,119,119,119,119,119,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,116,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,996,997,997,998,998,996,996,998,998,997,997,998,998,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,103,103,103,103,103,103,103,103,103,103,103,103,103,103,
