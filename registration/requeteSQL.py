@@ -14,8 +14,10 @@ connection_infos = "dbname=Projet12 user=postgres password=group12"
 class create_registration():
 
     def __init__(self):
-        self.connection = psycopg2.connect(connection_infos)
-        self.cursor = self.connection.cursor()
+
+        self.connexion = psycopg2.connect("dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev")
+        self.cursor = self.connexion.cursor()
+
         self.name = []
         self.email = []
 
@@ -46,7 +48,8 @@ class create_registration():
         self.email = self.cursor.fetchall()
 
     def read_table_player(self, pseudo):
-        requete_sql =f"""SELECT player.avatar, player.position_x, player.position_y, player.stamina, player.food, player.hydratation FROM player 
+        requete_sql =f"""SELECT player.avatar, player.position_x, player.position_y, player.stamina, player.food, player.hydratation 
+        FROM player 
         INNER JOIN connection ON player.id_connection = connection.id
         WHERE connection.pseudo = '{pseudo}'"""
         self.cursor.execute(requete_sql)
@@ -84,7 +87,7 @@ class create_registration():
         self.connection.commit()
 
     def read_inventory(self, pseudo):
-        requete_sql = f"""SELECT object.name, amount, action.name, category.name, object.stamina, object.food, object.hydratation, inventaire.id_object
+        requete_sql = f"""SELECT object.name, inventaire.amount, action.name, category.name, object.stamina, object.food, object.hydratation, inventaire.id_object
                         FROM inventaire
                         INNER JOIN player ON inventaire.id_player = player.id
                         INNER JOIN connection ON player.id_connection = connection.id
@@ -92,7 +95,7 @@ class create_registration():
                         INNER JOIN category ON object.id_category = category.id
                         INNER JOIN action ON object.id_action = action.id
                         WHERE connection.pseudo = '{pseudo}'
-                        ORDER BY inventaire.id_object, object.name """
+                        ORDER BY object.id_category, object.name """
         self.cursor.execute(requete_sql)
         return self.cursor.fetchall()
 
@@ -138,21 +141,4 @@ class create_registration():
                           WHERE id_object = 17 and id_player = {id_player}"""
         self.cursor.execute(requete_sql)
         self.connection.commit()
-
-
-    def read_crafting(self, pseudo):
-            requete_sql = f"""SELECT object.name, amount, action.name, category.name, object.stamina, object.food, object.hydratation, inventaire.id_object
-                            FROM inventaire
-                            INNER JOIN player ON inventaire.id_player = player.id
-                            INNER JOIN connection ON player.id_connection = connection.id
-                            INNER JOIN object ON inventaire.id_object = object.id
-                            INNER JOIN category ON object.id_category = category.id
-                            INNER JOIN action ON object.id_action = action.id
-                            WHERE (connection.pseudo = '{pseudo}' AND object.id_category = 7 )
-                            ORDER BY inventaire.id_object, object.name """
-            self.cursor.execute(requete_sql)
-            return self.cursor.fetchall()
-
-sql = create_registration()
-sql.update_water(1, 75)
 

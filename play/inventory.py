@@ -29,7 +29,7 @@ class Inventory():
         self.interface_inventory_rect.x = screen.get_width() / 10
         self.interface_inventory_rect.y = screen.get_height() / 10
         self.list_object_inventory = pygame.sprite.Group()
-        self.list_object_map = pygame.sprite.Group()
+        
         
         self.last_obj = ""
 
@@ -39,6 +39,12 @@ class Inventory():
         y = 112
         counter = 0
         for obj in self.list_object_inventory:
+            if obj.name == "eau" and obj.quantity == 100:
+                obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau.png"), (50, 42))
+            elif obj.name == "eau" and obj.quantity == 0: 
+                obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau_vide.png"), (50, 42))
+            else : 
+                obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/{obj.name}.png"), (50, 42))
             obj.rect.x = x
             obj.rect.y = y
             screen.blit(obj.image, obj.rect)
@@ -59,7 +65,6 @@ class Inventory():
         result = sql.read_inventory(pseudo)
         for obj in result :
             self.list_object_inventory.add(Object(obj, 0, 0))
-        Map("images/Bg/Desert_interaction.tmx", self.player.game).interaction(12800, 0, sql)
 
     def update_vital_sign(self, obj) :
         """ 
@@ -80,10 +85,6 @@ class Inventory():
             Collision avec les fruit, les delete et les add a l'inventaire
         """
         if len(self.list_object_inventory) < 69 :
-            # for obj in self.list_object_map :
-            #     if self.player.rect_character.rect.colliderect(obj.rect) and self.player.game.pressed.get(pygame.K_q):
-            #         self.list_object_inventory.add(obj)
-            #         self.list_object_map.remove(obj)
             for obj in self.player.game.group_object :
                 if self.player.rect_character.rect.colliderect(obj.rect) and self.player.game.pressed.get(pygame.K_q):
                     self.list_object_inventory.add(obj)
@@ -115,16 +116,16 @@ class Inventory():
         for loop in range(obj.quantity):
             if len(self.list_object_inventory) < 69 :
                 self.list_object_inventory.add(Object(result[0], 0, 0))
-        self.player.group_tree.remove(obj)
+        self.player.game.group_tree.remove(obj)
 
     def move_tree(self, obj):
         obj.pv -= 1
         
         if self.player.rect_character.rect.x  > obj.rect.x + obj.image.get_width() / 2:
             obj.image = pygame.transform.rotate(obj.image, 15)
-            obj.rect.x -= 20
+            obj.rect.x -= 23
             obj.rect.y -= 7
-            for fruit in self.list_object_map :
+            for fruit in self.player.game.list_object_map :
                 if fruit.rect.colliderect(obj.rect) :
                     fruit.rect.x += -12
                     fruit.rect.y += 3
@@ -133,18 +134,18 @@ class Inventory():
             obj.image = pygame.transform.rotate(obj.image, - 15)
             obj.rect.x += -3
             obj.rect.y += -5
-            for fruit in self.list_object_map :
+            for fruit in self.player.game.list_object_map :
                 if fruit.rect.colliderect(obj.rect) :
                     fruit.rect.x += 10
                     fruit.rect.y += 5
 
     def drop_fruit(self, obj) :
         obj.pv -= 1
-        for fruit in self.list_object_map :
+        for fruit in self.player.game.list_object_map :
                 if fruit.rect.colliderect(obj.rect) :
                     fruit.rect.y = obj.rect.y + obj.image.get_height() / 1.3
                     self.player.game.group_object.add(fruit)
-                    self.list_object_map.remove(fruit)
+                    self.player.game.list_object_map.remove(fruit)
     
     def interaction_tree(self, obj):
         if obj.pv == 3:
@@ -171,7 +172,7 @@ class Inventory():
         result = sql.read_information_object(obj.object)
         if len(self.list_object_inventory) < 69 :
             self.list_object_inventory.add(Object(result[0], 0, 0))
-        self.player.group_stone.remove(obj)
+        self.player.game.group_stone.remove(obj)
 
     def interaction_stone(self, obj):
         if obj.pv == 3 :

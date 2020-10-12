@@ -34,17 +34,13 @@ class Player (pygame.sprite.Sprite) :
         self.group_obstacle = ""
 
         self.health = 10
-        self.velocity = 2
+        self.velocity = 3
         self.move = 0
 
         self.rect_character = Rect_character(self.rect.x, self.rect.y)
 
         self.inventory = Inventory(screen, self)
         self.craft = Crafting(screen,self)
-
-        self.group_tree = pygame.sprite.Group()
-        self.group_stone = pygame.sprite.Group()
-
 
         # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
         # self.map_img_foret = self.map_foret.obstacle(self.game.map_foret_sol)
@@ -142,5 +138,9 @@ class Player (pygame.sprite.Sprite) :
         pygame.draw.rect(screen, (179, 179, 179), [0,  (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10))), 
         math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)])
         if self.inventory.last_obj != "" :
+            if self.inventory.last_obj.name == "eau" and self.inventory.last_obj.quantity == 0 :
+                self.inventory.last_obj.image = pygame.image.load(f"images/ressources/Objets/eau_vide.png")
+            elif self.inventory.last_obj.name == "eau" and self.inventory.last_obj.quantity == 100 :
+                self.inventory.last_obj.image = pygame.image.load(f"images/ressources/Objets/eau.png")
             self.inventory.last_obj.image = pygame.transform.scale(self.inventory.last_obj.image, (math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)))
             screen.blit(self.inventory.last_obj.image, (0, (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10)))))

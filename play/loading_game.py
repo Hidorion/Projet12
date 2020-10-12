@@ -27,7 +27,7 @@ class Loading_bar(threading.Thread):
             self.screen.blit(self.map, (0,0)) 
             pygame.draw.rect(self.screen, (0, 0, 0), [175, 675, 850, 10]) 
             pygame.draw.rect(self.screen, (255,255,255), [175, 675, self.bar_loading, 10]) 
-            self.bar_loading += 5
+            self.bar_loading += 2
             if self.bar_loading < 250 :
                 self.print_advice("Dormez dans votre lit de camp pour sauvegarder votre progression")
             elif self.bar_loading > 250 and self.bar_loading < 500 :
@@ -65,6 +65,8 @@ class Loading_map(threading.Thread):
         # self.game.map_foret_sol = self.game.create_map("images/Bg/Foret.tmx")
         # Map("images/Bg/Foret_obstacle.tmx", self.game).obstacle(12800, 0)
         # self.game.map_foret_behind = self.game.create_map("images/Bg/Foret_behind.tmx")
+        self.game.map_foret_sol = self.game.create_map("images/Bg/Foret.tmx")
+        self.game.map_foret_behind = self.game.create_map("images/Bg/Foret_behind.tmx")
 
         # self.game.map_cratere_sol = self.game.create_map("images/Bg/Cratere.tmx")
         # self.game.map_cratere_behind = self.game.create_map("images/Bg/Cratere_behind.tmx")
@@ -72,13 +74,34 @@ class Loading_map(threading.Thread):
         self.game.map_desert_sol = self.game.create_map("images/Bg/Desert.tmx")
         Map("images/Bg/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
         self.game.map_desert_behind = self.game.create_map("images/Bg/Desert_behind.tmx")        
+        # self.game.map_desert_sol = self.game.create_map("images/Bg/Desert.tmx")
+        # Map("images/Bg/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
+        # self.game.map_desert_behind = self.game.create_map("images/Bg/Desert_behind.tmx")      
+        # 
+class Loading_interaction(threading.Thread):
+
+    """
+    Premet de charger les map
+    """
+    def __init__(self, game, screen) :
+        # Initialiser le constructeur de la super class threading
+        threading.Thread.__init__(self)
+        # barre blanche
+        self.game = game
+
+    def run(self) :
+        Map("images/Bg/Foret_obstacle.tmx", self.game).obstacle(12800, 0)
+        Map("images/Bg/Foret_interaction.tmx", self.game).interaction(12800, 0) 
 
 def start_loading(screen, game, map_loading) :
 
     loading_bar = Loading_bar(screen, map_loading)
     loading_map = Loading_map(game, screen)
+    loading_interaction = Loading_interaction(game,screen)
+    loading_interaction.start()
     loading_bar.start()
     loading_map.start()
+    loading_interaction.join()
     loading_bar.join()
     loading_map.join()
 

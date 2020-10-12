@@ -39,21 +39,6 @@ class Tree(pygame.sprite.Sprite):
         self.quantity = quantity
         self.outil = outil
 
-class stone(pygame.sprite.Sprite):
-
-    def __init__(self, name, obj, outil, quantity, x, y) :
-        pygame.sprite.Sprite.__init__(self)
-
-        self.name = name 
-        self.image = pygame.image.load(f"images/ressources/environment/{self.name}.png")
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.pv = 3
-        self.object = obj
-        self.quantity = quantity
-        self.outil = outil
-
 class Teleport(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
@@ -66,10 +51,7 @@ class Teleport(pygame.sprite.Sprite):
 
 class Object_water(pygame.sprite.Sprite):
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)
          
-        self.image = pygame.Surface((28, 15))
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect = pygame.Rect(x, y, width, height)
