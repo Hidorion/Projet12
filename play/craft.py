@@ -20,66 +20,38 @@ class Crafting():
         self.connection = psycopg2.connect(connection_infos)
         self.cursor = self.connection.cursor()
 
-    # def show_crafting(self,screen):
-    #     sql = requeteSQL.create_registration()
-    #     player = self.player
-    #     result = sql.read_crafting(player)
-    #     for obj in result :
-    #         self.list_object_craft.add(Object(obj, 0, 0))
-    #     screen.blit(self.crafting_interface, (self.crafting_interface_rect.x, self.crafting_interface_rect.y))
-    #     x = 150
-    #     y = 112
-    #     counter = 0
-    #     for obj in self.list_object_craft:
-    #         obj.rect.x = x
-    #         obj.rect.y = y
-    #         screen.blit(obj.image, obj.rect)
-    #         x += 95
-    #         counter += 1
-    #         if counter == 10:
-    #             y += 75
-    #             x = 149.5
-    #             counter = 0
-    #     for obj in self.list_object_craft:
-    #         screen.blit(obj.image, obj.rect)
-
-    def read_inventory(self, pseudo):
-        requete_sql = f"""SELECT object.name, amount, action.name, category.name, inventaire.id_object
-                        FROM inventaire
-                        INNER JOIN player ON inventaire.id_player = player.id
-                        INNER JOIN connection ON player.id_connection = connection.id
-                        INNER JOIN object ON inventaire.id_object = object.id
-                        INNER JOIN category ON object.id_category = category.id
-                        INNER JOIN action ON object.id_action = action.id
-                        WHERE (connection.pseudo = '{pseudo}' AND object.id_category = 7 )
-                        ORDER BY inventaire.id_object, object.name """
+    def read_inventory(self, pseudo): #Get, through the player inventory, to the ressources
+        requete_sql = f"""
+                    SELECT object.name, amount, action.name, category.name, inventaire.id_object
+                    FROM inventaire
+                    INNER JOIN player ON inventaire.id_player = player.id
+                    INNER JOIN connection ON player.id_connection = connection.id
+                    INNER JOIN object ON inventaire.id_object = object.id
+                    INNER JOIN category ON object.id_category = category.id
+                    INNER JOIN action ON object.id_action = action.id
+                    WHERE (connection.pseudo = '{pseudo}' AND object.id_category = 7 )
+                    ORDER BY inventaire.id_object, object.name """
         self.cursor.execute(requete_sql)
         return self.cursor.fetchall()
-        #return requete_sql
-
-    def read_recipe_and_ingredients(self):
-        requete_sql = f"""SELECT recipe.recipe_name , object.name, recipe_object.amount
-                        FROM recipe_object
-                        INNER JOIN object ON recipe_object.id_object = object.id
-                        INNER JOIN recipe ON recipe.id = recipe_object.id_recipe
-                        ORDER BY recipe.id"""
+        
+    def get_object_name(self,list_of_recipe): #Get the object name via the recipe name
+        requete_sql = f"""
+                    SELECT object.name
+                    FROM object
+                    INNER JOIN recipe ON object.id = recipe.id_object
+                    WHERE recipe_name = '{list_of_recipe}'
+                    """
         self.cursor.execute(requete_sql)
         return self.cursor.fetchall()
 
-    def list_of_recipes(self):
+    def list_of_recipes(self): #Get the list of recipes
         sql_request = f"""SELECT recipe_name FROM recipe ORDER BY recipe.id"""
         self.cursor.execute(sql_request)
         return self.cursor.fetchall()
-# if __name__ == "__main__":    
-#     GoClass = Crafting(2)
-# #     result = GoClass.read_inventory("douze")
-# #     resultrecipe = GoClass.read_recipe_and_ingredients()
-#     resultrecipelist = GoClass.list_of_recipes()
-#     list_of_recipe = [n[0] for n in resultrecipelist]
-#     print(list_of_recipe)
 
-    def match_name_n_picture (list_of_recipe):
-        request = f"""SELECT object.name
+    def read_ingredients (self,list_of_recipe): #Get the recipe's list of ingredients
+        request = f"""
+                    SELECT object.name
                     FROM recipe_object
                     INNER JOIN recipe ON recipe.id = recipe_object.id_recipe
                     INNER JOIN object ON object.id = recipe_object.id_object
@@ -87,8 +59,14 @@ class Crafting():
                     """
         self.cursor.execute(request)
         return self.cursor.fetchall()
+
+    def get_ingredients (list_of_recipe,recipe): #Get the ingredients of a chosen recipe
+        for recipe in range(len(list_of_recipe)):
+            ingredient = list_of_recipe[recipe]
+            list_of_ingredient = Crafting.read_ingredients(ingredient)
+            return list_of_ingredient
+
 GoClass = Crafting(2)
 resultrecipelist = GoClass.list_of_recipes()
 list_of_recipe = [n[0] for n in resultrecipelist]
-serg = GoClass.match_name_n_picture(list_of_recipe)
-print(serg)
+
