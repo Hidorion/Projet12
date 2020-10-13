@@ -60,13 +60,13 @@ class Crafting():
         self.cursor.execute(request)
         return self.cursor.fetchall()
 
-    def get_ingredients (list_of_recipe,recipe): #Get the ingredients of a chosen recipe
+    def get_ingredients (self,list_of_recipe,recipe): #Get the ingredients of a chosen recipe
         for recipe in range(len(list_of_recipe)):
             ingredient = list_of_recipe[recipe]
             list_of_ingredient = Crafting.read_ingredients(ingredient)
             return list_of_ingredient
 
-    def browse_interface ():
+    def browse_interface (self):
         next = pygame.image.load("assets/backgrounds/next.png")
         previous = pygame.image.load("assets/backgrounds/previous.png")
         next_rect = next.get_rect()
