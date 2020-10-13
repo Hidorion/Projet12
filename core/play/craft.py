@@ -72,7 +72,7 @@ class Crafting():
         next_rect = next.get_rect()
         previous_rect = previous.get_rect()
 
-GoClass = Crafting(2)
-resultrecipelist = GoClass.list_of_recipes()
-list_of_recipe = [n[0] for n in resultrecipelist]
+# GoClass = Crafting(2)
+# resultrecipelist = GoClass.list_of_recipes()
+# list_of_recipe = [n[0] for n in resultrecipelist]
 
