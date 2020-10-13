@@ -4,21 +4,13 @@
 import psycopg2
 import random
 
-###########################
-##### connection infos #####
-###########################
-# connection_infos = "dbname=Projet12 user=postgres password=group12"
-# connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
-
-# Shared DB
-connection_infos = "dbname=Team12Corp user=AP2006 password=AP2006p2 host=ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev port=15002"
 
 class create_registration():
 
     def __init__(self):
 
-        self.connexion = psycopg2.connect("dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev")
-        self.cursor = self.connexion.cursor()
+        self.connection = psycopg2.connect("dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev")
+        self.cursor = self.connection.cursor()
 
         self.name = []
         self.email = []
