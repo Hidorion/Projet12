@@ -123,14 +123,19 @@ class Game:
         # Fonction qui gère les commandes clavier
         self.commandes(screen)
 
+        # Si le champ select est open
         if self.validation_champ_select :
+            # Afficher le background du champ select
             screen.blit(self.champ_select.background_champ_select, (0,0))
+            # Si aucun avatar est selectionné et que l'utilisateur valide
             if self.not_select == True and self.selected_champ == False:
+                # Affiche un message d'erreur
                 self.message_champ_select(screen, "Selectionnez un avatar pour valider")
             if self.selected_champ :
+                # Si l'utilisateur clic sur un avatar, un ecran vert s'afficher derrière l'avatar
                 pygame.draw.rect(screen,(0,225,0),(self.list_image_avatar_x[self.avatar_choose], self.list_image_avatar_y[self.avatar_choose], self.champ_select.avatar1_image.get_width(), self.champ_select.avatar1_image.get_height()))
+            # Fonction qui affiche tout les avatars
             self.champ_select.update(screen)
-            print(var.last_move)
           
 
 
@@ -139,16 +144,20 @@ class Game:
         """
             fatorization of map blits
         """
-
+        # Definir le rect de la map
         self.map_rect.x = x
         self.map_rect.y = y
-        screen.blit(map, (self.camera.apply_rect(self.map_rect))) #(self.player.map_x, self.player.map_y),
+        screen.blit(map, (self.camera.apply_rect(self.map_rect)))
+        # Pour chaque objet (fruit, bois pierre) dans la liste
         for obj in self.group_object:
             image = pygame.transform.scale(obj.image,(18, 23))
             screen.blit(image, (self.camera.apply_rect(obj.rect)))
+        # pour chaque objet (pierre)
         for obj in self.group_stone:
             screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
+        # Si le serveur est ouvert
         if var.server_open :
+            # Afficher chaque player connecté au serveur
             for player in var.list_players :
                 image = pygame.image.load(player[1][1])
                 image = pygame.transform.scale(image, (32 , 32))
@@ -163,8 +172,9 @@ class Game:
         """
             Create map with map.tmx
         """
-
+        # Pour chaque map tiled, instancie le class MAP
         map = Map(file, self.player)
+        # Fonction qui recupère les tuiles de la map tiled pour créer une surface
         map_img = map.make_map()
         self.map_rect = map_img.get_rect()
         return map_img
@@ -201,6 +211,7 @@ class Game:
         # for each direction, restart image player 
         list_key = [[pygame.K_RIGHT, "right"], [pygame.K_LEFT, "left"], [pygame.K_UP, "up"], [pygame.K_DOWN, "down"]]
         for key in list_key :
+            # fonction qui met à jour l'image du player
             self.update_image(key[0], key[1])
 
     def commandes(self,screen):
@@ -215,40 +226,55 @@ class Game:
             self.play = True
             self.not_pressed[pygame.K_i] = False
 
-        # Utiliser la hache
+        # Si l'utilisateur appui sur U et qu'il a un objet selectionné
         if self.not_pressed.get(pygame.K_u) and self.player.inventory.last_obj != "":
+            # Si le dernier objet selectionné est une hache
             if self.player.inventory.last_obj.name == "hachette" :
+                # Pour chaque arbre dans le group d'arbre
                 for obj in self.group_tree :
+                    # Si le rect du player est sur le rect de l'arbre
                     if self.player.rect_character.rect.colliderect(obj.rect) :
+                        # Fonction qui intéragis avec l'arbre suivant son nombre de pv
                         self.player.inventory.interaction_tree(obj)
                         self.not_pressed[pygame.K_u] = False
                 self.not_pressed[pygame.K_u] = False
-        
+
+            # Si le dernier objet selectionné est une pioche
             elif self.player.inventory.last_obj.name == "pioche" :
+                # Pour chaque pierre dans le groupe de pierre
                 for obj in self.group_stone :
+                    # Si le rect du player est sur le rect du rocher
                     if self.player.rect_character.rect.colliderect(obj.rect) :
+                        # Fonction qui intéragis avec le rocher suivant son nombre de pv
                         self.player.inventory.interaction_stone(obj)
                         self.not_pressed[pygame.K_u] = False
                 self.not_pressed[pygame.K_u] = False
+
+            # Si le dernier objet selectionné est une gourde
             elif self.player.inventory.last_obj.name == "eau":
+                # Si le rect du player est a coté de l'eau
                 if pygame.sprite.spritecollideany(self.player.rect_character, self.group_water):
+                    # Pour chaque objet dans l'inventaire
                     for obj in self.player.inventory.list_object_inventory :
+                        # Si l'objet a pour nom "eau" ca quantité passe a 100
                         obj.quantity = 100 if obj.name == "eau" else 1
                         self.not_pressed[pygame.K_u] = False
                     self.not_pressed[pygame.K_u] = False
                     pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau.png"), (50, 42))
                 else : 
+                    # Si le player n'est pas a coté de l'eau, mettre a jour les signes vitaux du player avec la gourde
                     self.player.inventory.update_vital_sign(self.player.inventory.last_obj)
+                    # Pour chaque objet de l'inventaire
                     for obj in self.player.inventory.list_object_inventory :
+                        # La quantité de l'eau est à zéro si l'objet a le nom "eau"
                         obj.quantity = 0 if obj.name == "eau" else 1
                         self.player.inventory.last_obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau_vide.png"), (50, 42))
                         self.not_pressed[pygame.K_u] = False
                     self.not_pressed[pygame.K_u] = False
-                    
 
-
-            
+        # Si aucun outil est selectionné
         elif self.pressed.get(pygame.K_u) and self.player.inventory.last_obj == "" :
+            # fonction qui print un message
             self.message_champ_select(screen, "Vous n'avez pas d'outil selectionné")
 
 
@@ -258,8 +284,9 @@ class Game:
         """
             factorization restart image if sprite don't move 
         """
-
+        # Si le player a une tel direction et qu'il est arrêté
         if self.pressed.get(key) == False and self.last_movement == direction :
+            # L'image se met en position arrêt
             self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_{direction}.png")
             var.last_move = f"images/ressources/{self.player.avatar}/character_{direction}.png"
             self.player.image = pygame.transform.scale(self.player.image, (32, 32))
@@ -312,7 +339,9 @@ class Game:
             self.sql.add_inventory(self.player.id_player, obj.id_object, obj.quantity)
 
     def data_exchange(self, data):
+        # Si le serveur est ouvert
         if var.server_open :
+            # Fonction qui envoi et récupère les informations du serveur
             client.execute_client(data)
 
         

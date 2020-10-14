@@ -6,7 +6,9 @@ import math
 import math
 
 class Avatar :
-
+    """
+        Load toutes les images pour le champ select
+    """
     def __init__(self, screen):
 
         
@@ -72,7 +74,9 @@ class Avatar :
         
 
     def update(self, screen) :
-
+        """
+            Alors oui j'aurais pu tout mettre dans une liste, mais flemme de changer
+        """
         screen.blit(self.avatar1_image, self.avatar1_image_rect)
         screen.blit(self.avatar2_image, self.avatar2_image_rect)
         screen.blit(self.avatar3_image, self.avatar3_image_rect)
