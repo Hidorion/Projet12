@@ -184,7 +184,7 @@ class Inventory():
         """
             Fait tomber les fruit au sol
         """
-        #Enlève 1 pv à l'objet arbre
+        # Enlève 1 pv à l'objet arbre
         obj.pv -= 1
         for fruit in self.player.game.fruit_tree :
             # Pour chaque fruit dans le rect de l'arbre
@@ -207,26 +207,42 @@ class Inventory():
 
     def first_break_stone(self, obj):
         """
+            Change l'image de la pierre
         """
+        #Enlève 1 pv à l'objet pierre
         obj.pv -= 1
         obj.image = pygame.image.load(f"images/ressources/environment/{obj.name}2.png")
+        # Instancie les requêtes SQL
         sql = create_registration()
+        # récupère les informations de l'objet
         result = sql.read_information_object(obj.object)
         for loop in range(2):
             if len(self.list_object_inventory) < 69 :
+                # Ajoute l'objet à l'inventaire si l'inventaire n'est pas full
                 self.list_object_inventory.add(Object(result[0], 0, 0))
+        # Fonction qui met à jour les signes vitaux les signes vitaux suivant l'objet
         self.update_vital_sign(self.last_obj)
 
     def seconde_break_stone(self, obj) :
-        obj.pv -= 1
+        """
+            Delete l'objet pierre
+        """
+        # Fonction qui met à jour les signes vitaux les signes vitaux suivant l'objet
         self.update_vital_sign(self.last_obj)
+        # Instancie les requêtes SQL
         sql = create_registration()
+        # Renvoi les caractéristiques de l'objet
         result = sql.read_information_object(obj.object)
         if len(self.list_object_inventory) < 69 :
+            # Ajoute l'objet a l'inventaire si il est pas full
             self.list_object_inventory.add(Object(result[0], 0, 0))
+        # Supprime l'objet pierre du groupe_stone
         self.player.game.group_stone.remove(obj)
 
     def interaction_stone(self, obj):
+        """
+            Défini la fonction à lancer en fonction des pv de l'objet
+        """
         if obj.pv == 3 :
             self.first_break_stone(obj)
         elif obj.pv == 2 :

@@ -25,6 +25,9 @@ class Object(pygame.sprite.Sprite):
         self.rect.y = y
 
 class Tree(pygame.sprite.Sprite):
+    """
+        Créé un objet arbre
+    """
 
     def __init__(self, name, obj, outil, quantity, x, y) :
         pygame.sprite.Sprite.__init__(self)
@@ -39,17 +42,10 @@ class Tree(pygame.sprite.Sprite):
         self.quantity = quantity
         self.outil = outil
 
-class Teleport(pygame.sprite.Sprite):
-
-    def __init__(self, x, y):
-        pygame.sprite.Sprite.__init__(self)
-
-        self.image = pygame.Surface((30, 30))
-        self.rect = self.image.get_rect()
-        self.rect.x = x 
-        self.rect.y = y 
-
 class Object_water(pygame.sprite.Sprite):
+    """
+        Créé un objet eau pour remplir la gourde
+    """
 
     def __init__(self, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)

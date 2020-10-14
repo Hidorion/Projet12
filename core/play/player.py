@@ -26,10 +26,6 @@ class Player (pygame.sprite.Sprite) :
         self.stamina = stamina
         self.food = food 
         self.hydratation = hydratation
-        # self.rect = pygame.Rect(self.rect.x, self.rect.y, 32, 32)
-
-        self.map_x = 0
-        self.map_y = 0
         
         self.group_obstacle = ""
 
@@ -40,13 +36,6 @@ class Player (pygame.sprite.Sprite) :
         self.rect_character = Rect_character(self.rect.x, self.rect.y)
 
         self.inventory = Inventory(screen, self)
-
-        # self.map_foret = Map("images/bg/Foret_obstacle.tmx", self)
-        # self.map_img_foret = self.map_foret.obstacle(self.game.map_foret_sol)
-
-        # self.map_montagne = Map("images/bg/Montagne_obstacle.tmx", self)
-        # self.map_img_montagne = self.map_montagne.make_map(True)
-
 
         self.group_player = pygame.sprite.Group()
         self.group_player.add(self)
