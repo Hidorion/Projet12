@@ -11,6 +11,10 @@ import threading
 #import fichier
 from core.play.game import Game
 from core.registration.requeteSQL import create_registration
+<<<<<<< Updated upstream
+=======
+from core.getpass import getpass
+>>>>>>> Stashed changes
 from core.registration.connection import forget_psd
 from core.play import Variables as var
 from core.play.map_obstacles import Obstacle
