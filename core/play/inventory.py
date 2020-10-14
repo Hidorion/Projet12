@@ -3,9 +3,9 @@ import pygame
 import math
 import random
 
-from registration.registration_player import create_registration
-from play.object import Object
-from play.map import Map
+from core.registration.registration_player import create_registration
+from core.play.object import Object
+from core.play.map import Map
 
 class Inventory():
 

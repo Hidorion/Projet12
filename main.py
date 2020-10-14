@@ -9,16 +9,15 @@ import pytmx
 import threading
 
 #import fichier
-from play.game import Game
-from registration.requeteSQL import create_registration
-from getpass import getpass
-from registration.connection import forget_psd
-from play import Variables as var
-from play.map_obstacles import Obstacle
-from play.map import Map
-from play.loading_game import start_loading
-from registration.connection_form import run_game
-from play.object import Object
+from core.play.game import Game
+from core.registration.requeteSQL import create_registration
+from core.registration.connection import forget_psd
+from core.play import Variables as var
+from core.play.map_obstacles import Obstacle
+from core.play.map import Map
+from core.play.loading_game import start_loading
+from core.registration.connection_form import run_game
+from core.play.object import Object
 
 
 

@@ -4,10 +4,10 @@
 import math
 import pygame
 
-from play.map import Map
-from play.rect_character import Rect_character
-from play.inventory import Inventory
-from play import Variables as var
+from core.play.map import Map
+from core.play.rect_character import Rect_character
+from core.play.inventory import Inventory
+from core.play import Variables as var
 
 
 

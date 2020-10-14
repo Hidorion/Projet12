@@ -6,16 +6,16 @@ import math
 import time
 
 # Import class 
-from play.map import Map
-from play.player import Player
-from champ_select.champ_select import Avatar
-from play.camera import Camera
-from registration.requeteSQL import create_registration
-from play.object import Object
-from play import client
+from core.play.map import Map
+from core.play.player import Player
+from core.champ_select.champ_select import Avatar
+from core.play.camera import Camera
+from core.registration.requeteSQL import create_registration
+from core.play.object import Object
+from core.play import client
 
 # Import Variable
-from play import Variables as var
+from core.play import Variables as var
 
 
 class Game:

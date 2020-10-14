@@ -4,7 +4,7 @@ import socket
 import marshal
 import pickle
 
-from play import Variables as var
+from core.play import Variables as var
 
 # Le client envoi des informations
 

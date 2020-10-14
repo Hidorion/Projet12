@@ -6,7 +6,7 @@ import threading
 import math
 
 
-from play.map import Map
+from core.play.map import Map
 
 class Loading_bar(threading.Thread):
 
