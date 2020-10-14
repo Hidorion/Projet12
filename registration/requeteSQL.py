@@ -15,8 +15,9 @@ class create_registration():
 
     def __init__(self):
 
-        self.connexion = psycopg2.connect("dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev")
-        self.cursor = self.connexion.cursor()
+        # self.connexion = psycopg2.connect("dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev")
+        self.connection = psycopg2.connect("dbname=Projet12 user=postgres password=group12")
+        self.cursor = self.connection.cursor()
 
         self.name = []
         self.email = []

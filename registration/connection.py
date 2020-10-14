@@ -24,7 +24,8 @@ def forget_psd():
     user_name = (input("Nom d'utilisateur : ").lower(),) # On prend l'user
     user_mail = (input("Adresse e-mail : ").lower(),) # On prend le mail
 
-    connexion = psycopg2.connect("dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev")
+    #connexion = psycopg2.connect("dbname=Team12Corp user=AP2006 password=AP2006p2 port=15002 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev")
+    connexion = psycopg2.connect("dbname=Projet12 user=postgres password=group12")
     cursor = connexion.cursor()
     cursor.execute(f'SELECT * FROM registration WHERE name = %s AND address = %s', (user_name, user_mail))
     connexion.commit()

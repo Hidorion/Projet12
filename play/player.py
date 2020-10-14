@@ -7,6 +7,7 @@ import pygame
 from play.map import Map
 from play.rect_character import Rect_character
 from play.inventory import Inventory
+from play import Variables as var
 
 
 
@@ -49,7 +50,7 @@ class Player (pygame.sprite.Sprite) :
 
         self.group_player = pygame.sprite.Group()
         self.group_player.add(self)
-        
+        var.last_move = f"images/ressources/{self.avatar}/character_down.png"
 
         # Déplace la carte en fonction des touche pressé
     def move_right(self, screen):
@@ -99,15 +100,13 @@ class Player (pygame.sprite.Sprite) :
         self.move += 1
         if (self.move >= 0 and self.move <= 15) or self.move >= 45 : 
             self.image = pygame.image.load(not_move)
+            var.last_move = not_move
+
         else : 
             self.image = pygame.image.load(move)
+            var.last_move = move
         if self.move == 60 :
             self.move = 0 
-
-    # def teleport(self):
-    #     if self.rect_character.rect.colliderect(self.group_teleport[0]):
-    #         self.rect.x = self.group_teleport[1].rect.x
-    #         self.rect.y = self.group_teleport[1].rect.y + 30 
 
 
 

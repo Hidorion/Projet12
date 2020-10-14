@@ -12,6 +12,7 @@ from champ_select.champ_select import Avatar
 from play.camera import Camera
 from registration.requeteSQL import create_registration
 from play.object import Object
+from play import client
 
 # Import Variable
 from play import Variables as var
@@ -29,7 +30,7 @@ class Game:
         # Permet de définir la dernière direction du personnage
         self.last_movement = "up"
         #Calcul le nombre de tour pour changer l'image du personnage
-        self.move = 0
+        self.move = False
 
         # Instance
         self.sql = create_registration()
@@ -99,12 +100,9 @@ class Game:
         """
             Update the game and call the functions necessary for the game
         """
-        
+        self.data_exchange([self.player.rect, var.last_move])
         if self.play and self.full_screen_map == False:
             self.movement(screen)
-            # if self.player.rect.x > 16222 :
-            #     result = self.sql.read_information_object("Banane")
-            #     self.player.inventory.list_object.add(Object(result[0], 0, 0))
             self.camera.update(self.player.rect)
             # screen.blit(self.map_foret_sol, (0, 0))
             self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
@@ -134,7 +132,8 @@ class Game:
             if self.selected_champ :
                 pygame.draw.rect(screen,(0,225,0),(self.list_image_avatar_x[self.avatar_choose], self.list_image_avatar_y[self.avatar_choose], self.champ_select.avatar1_image.get_width(), self.champ_select.avatar1_image.get_height()))
             self.champ_select.update(screen)
-
+            print(var.last_move)
+          
 
 
     def blit_map (self, screen, map, behind, x, y ) :
@@ -151,7 +150,13 @@ class Game:
             screen.blit(image, (self.camera.apply_rect(obj.rect)))
         for obj in self.group_stone:
             screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
-        screen.blit(self.player.image, self.camera.apply(self.player.rect))
+        if var.server_open :
+            for player in var.list_players :
+                image = pygame.image.load(player[1][1])
+                image = pygame.transform.scale(image, (32 , 32))
+                screen.blit(image, (self.camera.apply_rect(player[1][0])))
+        else :
+            screen.blit(self.player.image, self.camera.apply(self.player.rect))
         screen.blit(behind, self.camera.apply_rect(self.map_rect))
         
         
@@ -180,21 +185,19 @@ class Game:
             self.last_movement = "right"
             
 
-        elif self.pressed.get(pygame.K_LEFT) or self.pressed.get(pygame.K_a):
+        elif self.pressed.get(pygame.K_LEFT) or self.pressed.get(pygame.K_a):    
             self.player.move_left(screen)
             self.last_movement = "left"
             
 
-        elif self.pressed.get(pygame.K_UP) or self.pressed.get(pygame.K_w): 
+        elif self.pressed.get(pygame.K_UP) or self.pressed.get(pygame.K_w):  
             self.player.move_up(screen)
             self.last_movement = "up"
             
 
-        elif self.pressed.get(pygame.K_DOWN) or self.pressed.get(pygame.K_s):
+        elif self.pressed.get(pygame.K_DOWN) or self.pressed.get(pygame.K_s):  
             self.player.move_down(screen)
             self.last_movement = "down"
-
-        
 
         
         # for each direction, restart image player 
@@ -260,6 +263,7 @@ class Game:
 
         if self.pressed.get(key) == False and self.last_movement == direction :
             self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_{direction}.png")
+            var.last_move = f"images/ressources/{self.player.avatar}/character_{direction}.png"
             self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
     def message_champ_select(self, screen, message):
@@ -292,6 +296,7 @@ class Game:
         # J'intancie la class player avec les informations récupérées de la BDD
         self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5], id_player[0])
         self.player.group_obstacle = self.group_obstacle
+        print(var.last_move)
 
     def update_player(self):
         """
@@ -307,4 +312,8 @@ class Game:
         # Pour chaque objet dans l'inventaire, je l'ajouet à la BDD
         for obj in self.player.inventory.list_object_inventory :
             self.sql.add_inventory(self.player.id_player, obj.id_object, obj.quantity)
+
+    def data_exchange(self, data):
+        client.execute_client(data)
+
         
