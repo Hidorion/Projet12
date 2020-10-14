@@ -125,7 +125,7 @@ class Inventory():
             obj.image = pygame.transform.rotate(obj.image, 15)
             obj.rect.x -= 23
             obj.rect.y -= 7
-            for fruit in self.player.game.list_object_map :
+            for fruit in self.player.game.fruit_tree :
                 if fruit.rect.colliderect(obj.rect) :
                     fruit.rect.x += -12
                     fruit.rect.y += 3
@@ -134,18 +134,18 @@ class Inventory():
             obj.image = pygame.transform.rotate(obj.image, - 15)
             obj.rect.x += -3
             obj.rect.y += -5
-            for fruit in self.player.game.list_object_map :
+            for fruit in self.player.game.fruit_tree :
                 if fruit.rect.colliderect(obj.rect) :
                     fruit.rect.x += 10
                     fruit.rect.y += 5
 
     def drop_fruit(self, obj) :
         obj.pv -= 1
-        for fruit in self.player.game.list_object_map :
+        for fruit in self.player.game.fruit_tree :
                 if fruit.rect.colliderect(obj.rect) :
                     fruit.rect.y = obj.rect.y + obj.image.get_height() / 1.3
                     self.player.game.group_object.add(fruit)
-                    self.player.game.list_object_map.remove(fruit)
+                    self.player.game.fruit_tree.remove(fruit)
     
     def interaction_tree(self, obj):
         if obj.pv == 3:

@@ -29,8 +29,6 @@ class Game:
         self.pseudo = ""
         # Permet de définir la dernière direction du personnage
         self.last_movement = "up"
-        #Calcul le nombre de tour pour changer l'image du personnage
-        self.move = False
 
         # Instance
         self.sql = create_registration()
@@ -54,7 +52,6 @@ class Game:
         self.full_screen_map = False
         # Permet d'ouvrir l'inventaire ou non
         self.inventory = False
-
         # Permet de blit ou non l'interface du player à chaque changement
         self.interface = True 
         # Permet de lance le chargement des map
@@ -63,66 +60,67 @@ class Game:
     
         # Index de l'avatar choisit
         self.avatar_choose = 0
+        # Compteur pour déplacer le player
+        self.counter_move = 0
 
         # Créer les surfaces des map
         self.map_foret_sol = ""
         self.map_foret_behind = ""
-
-        self.map_cratere_sol = ""
-        self.map_cratere_behind = ""
-
         self.map_desert_sol = ""
         self.map_desert_behind = ""
+        # Rect des map
+        self.map_rect = ""
 
         # Groupe de sprite
-        self.group_obstacle = pygame.sprite.Group()
-        self.group_object = pygame.sprite.Group()
-        self.group_water = pygame.sprite.Group()
-        self.group_tree = pygame.sprite.Group()
-        self.group_stone = pygame.sprite.Group()
-        self.list_object_map = pygame.sprite.Group()
+        self.group_obstacle = pygame.sprite.Group() # Groupe d'obstacles (Tronc, pierre, arbre, eau)
+        self.group_object = pygame.sprite.Group() # Groupe d'objet (fruit, bois, pierre)
+        self.group_water = pygame.sprite.Group() # Groupe de zone d'eau pour remplir la gourde
+        self.group_tree = pygame.sprite.Group() # Groupe d'arbre
+        self.group_stone = pygame.sprite.Group() # Groupe de pierre
+        self.fruit_tree = pygame.sprite.Group() # Groupe de fruit dans les arbres
         
-        self.counter_move = 0
-
+        
+        # Ok c'est moche, mais c'est la liste des rect.x des avatars
         self.list_image_avatar_x = [self.champ_select.avatar1_image_rect.x, self.champ_select.avatar2_image_rect.x, 
         self.champ_select.avatar3_image_rect.x, self.champ_select.avatar4_image_rect.x, self.champ_select.avatar5_image_rect.x, 
         self.champ_select.avatar6_image_rect.x, self.champ_select.avatar7_image_rect.x, self.champ_select.avatar8_image_rect.x]
-
+        # Ok c'est moche, mais c'est la liste des rect.y des avatars
         self.list_image_avatar_y = [self.champ_select.avatar1_image_rect.y, self.champ_select.avatar2_image_rect.y, 
         self.champ_select.avatar3_image_rect.y, self.champ_select.avatar4_image_rect.y, self.champ_select.avatar5_image_rect.y, 
         self.champ_select.avatar6_image_rect.y, self.champ_select.avatar7_image_rect.y, self.champ_select.avatar8_image_rect.y]
 
-        self.map_rect = ""
-        # self.list_avatar = ["avatar1", "avatar2", "avatar3", "avatar4", "avatar5", "avatar6", "avatar7", "avatar8"]
 
     def update(self, screen):
 
         """
             Update the game and call the functions necessary for the game
         """
+        # Fonction qui envoi au server les informations du player
         self.data_exchange([self.player.rect, var.last_move])
-        if self.play and self.full_screen_map == False:
+        # Si le jeu est lancé
+        if self.play :
+            # Fonction qui déplace et gère les images du player
             self.movement(screen)
+            # Fonction qui met à jour la caméra qui suit le player 
             self.camera.update(self.player.rect)
-            # screen.blit(self.map_foret_sol, (0, 0))
+            # Fonction qui affiche qui map, le player, et les objets sur la map
             self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
-            
             for obj in self.group_tree :
                 screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
-            for obj in self.list_object_map :
+            for obj in self.fruit_tree :
                 image = pygame.transform.scale(obj.image,(18, 23))
                 screen.blit(image, (self.camera.apply_rect(obj.rect)))
-            
-            
-            # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
-            # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+            # Fonction qui affiche l'interface du player, ses signes vitaux, sac a dos, mini map, objet selectionné
             self.player.interface_player(screen)
+            # Fonction qui permet de rammasser les objets au sol et les mettre dans la liste d'inventaire
             self.player.inventory.pick_up_object(self)
             
         if self.inventory :
+            # Fonction qui affiche l'interface du player
             self.player.interface_player(screen)
+            # Fonction qui affiche le background de l'inventaire et les objet de l'inventaire du player
             self.player.inventory.print_inventory(screen)
-
+        # Fonction qui gère les commandes clavier
         self.commandes(screen)
 
         if self.validation_champ_select :
@@ -314,6 +312,7 @@ class Game:
             self.sql.add_inventory(self.player.id_player, obj.id_object, obj.quantity)
 
     def data_exchange(self, data):
-        client.execute_client(data)
+        if var.server_open :
+            client.execute_client(data)
 
         

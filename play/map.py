@@ -65,19 +65,19 @@ class Map :
             if tile.name == "pommier" :
                 result = sql.read_information_object("Pomme")
                 self.game.group_tree.add(Tree(tile.name, "Bois", "hachette", 4, tile.x + position_x, tile.y + position_y))
-                self.game.list_object_map.add(Object(result[0], tile.x + position_x + 33, tile.y + position_y + 5))
-                self.game.list_object_map.add(Object(result[0], tile.x + position_x + 18, tile.y + position_y + 47))
-                self.game.list_object_map.add(Object(result[0], tile.x + position_x + 60, tile.y + position_y + 25))
+                self.game.fruit_tree.add(Object(result[0], tile.x + position_x + 33, tile.y + position_y + 5))
+                self.game.fruit_tree.add(Object(result[0], tile.x + position_x + 18, tile.y + position_y + 47))
+                self.game.fruit_tree.add(Object(result[0], tile.x + position_x + 60, tile.y + position_y + 25))
             elif tile.name == "cocotier" :
                 result = sql.read_information_object("Noix de coco")
                 self.game.group_tree.add(Tree(tile.name, "Bois", "hachette", 2, tile.x + position_x -1, tile.y + position_y - 3))
-                self.game.list_object_map.add(Object(result[0], tile.x + position_x + 40, tile.y + position_y + 30))
-                self.game.list_object_map.add(Object(result[0], tile.x + position_x + 5, tile.y + position_y + 40))
+                self.game.fruit_tree.add(Object(result[0], tile.x + position_x + 40, tile.y + position_y + 30))
+                self.game.fruit_tree.add(Object(result[0], tile.x + position_x + 5, tile.y + position_y + 40))
             elif tile.name == "bananier" :
                 result = sql.read_information_object("Banane")
                 self.game.group_tree.add(Tree(tile.name, "Bois", "hachette", 2, tile.x + position_x -1, tile.y + position_y - 7))
-                self.game.list_object_map.add(Object(result[0], tile.x + position_x + 40, tile.y + position_y + 27))
-                self.game.list_object_map.add(Object(result[0], tile.x + position_x + 5, tile.y + position_y + 37))
+                self.game.fruit_tree.add(Object(result[0], tile.x + position_x + 40, tile.y + position_y + 27))
+                self.game.fruit_tree.add(Object(result[0], tile.x + position_x + 5, tile.y + position_y + 37))
             elif tile.name == "pin" :
                 self.game.group_tree.add(Tree(tile.name, "Bois", "hachette", 2, tile.x + position_x, tile.y + position_y))
             elif tile.name == "ananas" :

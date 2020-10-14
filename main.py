@@ -61,51 +61,62 @@ if __name__ == "__main__":
                 running = False
 
             elif event.type == pygame.KEYDOWN :
-                game.move = True 
                 game.pressed[event.key] = True
 
                 if event.key == pygame.K_ESCAPE  :
-                    if game.inventory :
-                        game.inventory = False
+                    running = False
 
             elif event.type == pygame.KEYUP :
-                game.move = False
                 game.pressed[event.key] = False
+                # Permet d'ouvrir l'inventaire 
                 game.not_pressed[event.key] = True
 
 
             if event.type == pygame.MOUSEBUTTONDOWN :
+                # Si le champ select est en cours 
                 if game.validation_champ_select :
+                    # Pour chaque rect d'avatar
                     for index, avatar in enumerate(game.champ_select.list_rect_avatar) :
+                        # Si le clique de la souris est en collision avec un avatar
                         if avatar.collidepoint(event.pos) :
+                            # Envoi la validation qu'un avatar est selectionné, et envoi  l'index de l'avatar
                             game.selected_champ = True
                             game.avatar_choose = index
-                            # game.create_player(screen, index + 1)
-
+                    # Si le champ select est open et que l'utilisateur appui sur valider sans selectionner un avatar
                     if game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == False:
                         game.not_select = True
+                    # Si le champ select est open et que l'utilisateur a selectionné un avatar
                     elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
                         game.validation_champ_select = False
                 elif game.inventory :
+                    # Pour chaque objet dans l'inventaire du player
                     for obj in game.player.inventory.list_object_inventory :
+                        # Si l'utilisateur appui sur E et clique sur un objet
                         if obj.rect.collidepoint(event.pos) and game.pressed.get(pygame.K_e) :
+                            # Delete de l'objet selectionné
                             game.player.inventory.delete_inventory(obj)
+                        
                         elif obj.rect.collidepoint(event.pos) and obj.category == "Outils":
                             game.player.inventory.last_obj = obj
+                        # Si l'utilisateur clic sur un objet qui est dans la categorie "ressources"
                         elif obj.rect.collidepoint(event.pos) and obj.category != "Ressource":
+                            # Fonction qui met à jour les signes vitaux du player avec les catéristiques de l'objet
                             game.player.inventory.update_vital_sign(obj)
+                            # Delete de l'objet
                             game.player.inventory.list_object_inventory.remove(obj)
+                    # Si l'utilisateur clic sur le tri dans l'inventaire
                     if game.player.inventory.button_tri_inventory_rect.collidepoint(event.pos) :
+                        # Fonction qui envoi les objets dans la BDD pour les récupérer triés
                         game.player.inventory.sort_inventory(game.pseudo)
 
                 elif game.play :
+                    # Si l'utilisateur clic sur le sac à dos de l'inventaire
                     if game.player.inventory.rect.collidepoint(event.pos) :
                         game.inventory = True
                         game.play = False
 
 
 
-
+        # Fonction qui met à jour tout le jeu
         game.update(screen)
-        # clock.tick(10)
         pygame.display.flip()
