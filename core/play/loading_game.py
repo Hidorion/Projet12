@@ -65,10 +65,10 @@ class Loading_map(threading.Thread):
         self.game.map_foret_sol = self.game.create_map("assets/backgrounds/Foret.tmx")
         self.game.map_foret_behind = self.game.create_map("assets/backgrounds/Foret_behind.tmx")
 
-        # self.game.map_desert_sol = self.game.create_map("assets/backgrounds/Desert.tmx")
-        # Map("assets/backgrounds/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
-        # self.game.map_desert_behind = self.game.create_map("assets/backgrounds/Desert_behind.tmx")      
-        # 
+        self.game.map_desert_sol = self.game.create_map("assets/backgrounds/Desert.tmx")
+        Map("assets/backgrounds/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
+        self.game.map_desert_behind = self.game.create_map("assets/backgrounds/Desert_behind.tmx")      
+        
 class Loading_interaction(threading.Thread):
 
     """
