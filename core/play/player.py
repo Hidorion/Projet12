@@ -26,9 +26,6 @@ class Player (pygame.sprite.Sprite) :
         self.stamina = stamina
         self.food = food 
         self.hydratation = hydratation
-        
-
-        self.game.group_obstacle = ""
 
         self.health = 10
         self.velocity = 3
@@ -49,7 +46,6 @@ class Player (pygame.sprite.Sprite) :
         self.rect.x += self.velocity
         self.change_image(f"assets/avatars/{self.avatar}/character_right.png", f"assets/avatars/{self.avatar}/character_right_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        print(self.game.group_obstacle)
         if pygame.sprite.spritecollideany(self.character_rect, self.game.group_obstacle):
             self.rect.x -= self.velocity
             self.character_rect.rect.x -= self.velocity
