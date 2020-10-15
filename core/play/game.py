@@ -53,7 +53,7 @@ class Game:
         self.full_screen_map = False
         # Permet d'ouvrir l'inventaire ou non
         self.inventory = False
-
+        self.crafting = False
         # Permet de blit ou non l'interface du player à chaque changement
         self.interface = True 
         # Permet de lance le chargement des map
@@ -113,12 +113,16 @@ class Game:
             
             
             # self.blit_map(screen, self.map_cratere_sol, self.map_cratere_behind, 6400, 0)
-            # self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 6400)
+            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 0)
             self.player.interface_player(screen)
             self.player.inventory.pick_up_object(self)
         if self.inventory :
             self.player.interface_player(screen)
             self.player.inventory.print_inventory(screen)
+        # show crafting station
+        if self.crafting :
+            self.player.interface_player(screen)
+            self.player.craft.show_crafting(screen)
 
         self.commandes(screen)
 
@@ -198,17 +202,36 @@ class Game:
             self.update_image(key[0], key[1])
 
     def commandes(self,screen):
-        # if inventory is open, press i for close inventory
+        # if inventory is open, press i to close inventory
         if self.not_pressed.get(pygame.K_i) and self.inventory == False and self.play == True :
             self.inventory = True
             self.play = False
             self.not_pressed[pygame.K_i] = False
-        # if inventory is close, press i for open inventory
+        # if inventory is close, press i to open inventory
         elif self.not_pressed.get(pygame.K_i) and self.inventory == True and self.play == False :
             self.inventory = False
             self.play = True
             self.not_pressed[pygame.K_i] = False
 
+        # # try :
+        # if self.not_pressed.get(pygame.K_c) and self.player.inventory.last_obj.name == "hachette" :
+        #     for obj in self.player.group_environment :
+        #         if self.player.rect_character.rect.colliderect(obj.rect) :
+        #             self.player.inventory.interaction_environment(obj, screen)
+        #             self.not_pressed[pygame.K_c] = False
+        # # except :
+        # #      self.message_champ_select(screen, "Equipez vous de la hache")
+        
+        # if crafting is open, press k to close crafting
+        if self.not_pressed.get(pygame.K_k) and self.crafting == False and self.play == True :
+            self.crafting = True
+            self.play = False
+            self.not_pressed[pygame.K_k] = False
+        # if crafting is close, press k to open crafting
+        elif self.not_pressed.get(pygame.K_k) and self.crafting == True and self.play == False :
+            self.crafting = False
+            self.play = True
+            self.not_pressed[pygame.K_k] = False
         # Utiliser la hache
         if self.not_pressed.get(pygame.K_u) and self.player.inventory.last_obj != "":
             if self.player.inventory.last_obj.name == "hachette" :
