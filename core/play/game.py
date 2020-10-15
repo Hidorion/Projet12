@@ -151,12 +151,10 @@ class Game:
         screen.blit(map, (self.camera.apply_rect(self.map_rect)))
         # Pour chaque objet (fruit, bois pierre) dans la liste
         for obj in self.group_object:
-            print("ok arbre")
             image = pygame.transform.scale(obj.image,(18, 23))
             screen.blit(image, (self.camera.apply_rect(obj.rect)))
         # pour chaque objet (pierre)
         for obj in self.group_stone:
-            print("ok pierre")
             screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
         # Si le serveur est ouvert
         if var.server_open :
@@ -240,7 +238,7 @@ class Game:
                 # Pour chaque arbre dans le group d'arbre
                 for obj in self.group_tree :
                     # Si le rect du player est sur le rect de l'arbre
-                    if self.player.rect_character.rect.colliderect(obj.rect) :
+                    if self.player.character_rect.rect.colliderect(obj.rect) :
                         # Fonction qui intéragis avec l'arbre suivant son nombre de pv
                         self.player.inventory.interaction_tree(obj)
                         self.not_pressed[pygame.K_u] = False
@@ -251,7 +249,7 @@ class Game:
                 # Pour chaque pierre dans le groupe de pierre
                 for obj in self.group_stone :
                     # Si le rect du player est sur le rect du rocher
-                    if self.player.rect_character.rect.colliderect(obj.rect) :
+                    if self.player.character_rect.rect.colliderect(obj.rect) :
                         # Fonction qui intéragis avec le rocher suivant son nombre de pv
                         self.player.inventory.interaction_stone(obj)
                         self.not_pressed[pygame.K_u] = False
@@ -260,7 +258,7 @@ class Game:
             # Si le dernier objet selectionné est une gourde
             elif self.player.inventory.last_obj.name == "eau":
                 # Si le rect du player est a coté de l'eau
-                if pygame.sprite.spritecollideany(self.player.rect_character, self.group_water):
+                if pygame.sprite.spritecollideany(self.player.character_rect, self.group_water):
                     # Pour chaque objet dans l'inventaire
                     for obj in self.player.inventory.list_object_inventory :
                         # Si l'objet a pour nom "eau" ca quantité passe a 100

@@ -100,7 +100,7 @@ class Inventory():
         """
         if len(self.list_object_inventory) < 69 :
             for obj in self.player.game.group_object :
-                if self.player.rect_character.rect.colliderect(obj.rect) and self.player.game.pressed.get(pygame.K_q):
+                if self.player.character_rect.rect.colliderect(obj.rect) and self.player.game.pressed.get(pygame.K_q):
                     self.list_object_inventory.add(obj)
                     self.player.game.group_object.remove(obj)
 
@@ -109,8 +109,8 @@ class Inventory():
             Supprime les objets de l'inventaire pour les ajouter aux objets sur la map
         """
         self.player.game.group_object.add(obj)
-        obj.rect.x = self.player.rect_character.rect.x + random.randint(-30, 30)
-        obj.rect.y = self.player.rect_character.rect.y + random.randint(-30, 30)
+        obj.rect.x = self.player.character_rect.rect.x + random.randint(-30, 30)
+        obj.rect.y = self.player.character_rect.rect.y + random.randint(-30, 30)
         self.list_object_inventory.remove(obj)
 
     def sort_inventory(self, pseudo):
@@ -156,7 +156,7 @@ class Inventory():
         #Enlève 1 pv à l'objet arbre
         obj.pv -= 1
         # Si le player est à gauche de l'arbre, l'arbre tomber a droite
-        if self.player.rect_character.rect.x  > obj.rect.x + obj.image.get_width() / 2:
+        if self.player.character_rect.rect.x  > obj.rect.x + obj.image.get_width() / 2:
             obj.image = pygame.transform.rotate(obj.image, 15)
             obj.rect.x -= 23
             obj.rect.y -= 7
