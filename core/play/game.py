@@ -218,9 +218,8 @@ class Game:
     def commandes(self,screen):
 
         # if crafting is open, press k to close crafting
-        if self.not_pressed.get(pygame.K_k) :
-            Crafting.show_crafting(self)
-            self.not_pressed[pygame.K_k] = False
+        if self.pressed.get(pygame.K_k) :
+            self.pressed[pygame.K_k] = Crafting.show_crafting(self)
         # if inventory is open, press i for close inventory
         if self.not_pressed.get(pygame.K_i) and self.inventory == False and self.play == True :
             self.inventory = True

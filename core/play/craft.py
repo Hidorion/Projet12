@@ -62,6 +62,7 @@ class Crafting():
                 if event.type==pygame.KEYDOWN:
                     if event.key==pygame.K_k:
                         crafting = False
+                        return False
                         # Crafting.ExitGame(self)
                     
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
