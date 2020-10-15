@@ -5,7 +5,6 @@
  <tileset firstgid="1508" source="tileset/decors_foret.tsx"/>
  <tileset firstgid="3004" source="tileset/decors.tsx"/>
  <tileset firstgid="3260" source="tileset/cabane.tsx"/>
- <!-- <tileset firstgid="3350" source="tileset/bloc_arbre.tsx"/> -->
  <tileset firstgid="3350" source="tileset/giga_arbre.tsx"/>
  <layer id="1" name="sol1" width="200" height="200" visible="0">
   <data encoding="csv">
@@ -2160,7 +2159,7 @@
   <object id="2444" name="cailloux" x="2656.67" y="4192.67" width="32" height="31.3333"/>
   <object id="2449" name="pommier" x="3199.33" y="3424" width="96.6667" height="96.6667"/>
   <object id="2450" name="pommier" x="3039" y="4191.67" width="96.6667" height="96.6667"/>
-  <object id="2451" name="pommier" x="3714.33" y="4129" width="96.6667" height="96.6667"/>
+  <object id="2451" name="pommier" x="3712.33" y="4159.33" width="96.6667" height="96.6667"/>
   <object id="2452" name="pommier" x="4160.67" y="4575.17" width="96.6667" height="96.6667"/>
   <object id="2453" name="eau" x="2290.67" y="2687.33" width="287.333" height="51.3333"/>
   <object id="2454" name="eau" x="2316.67" y="2741.33" width="165.333" height="32"/>

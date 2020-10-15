@@ -151,10 +151,12 @@ class Game:
         screen.blit(map, (self.camera.apply_rect(self.map_rect)))
         # Pour chaque objet (fruit, bois pierre) dans la liste
         for obj in self.group_object:
+            print("ok arbre")
             image = pygame.transform.scale(obj.image,(18, 23))
             screen.blit(image, (self.camera.apply_rect(obj.rect)))
         # pour chaque objet (pierre)
         for obj in self.group_stone:
+            print("ok pierre")
             screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
         # Si le serveur est ouvert
         if var.server_open :
@@ -325,8 +327,6 @@ class Game:
         id_player = self.sql.id_player(id_connection[0])
         # J'intancie la class player avec les informations récupérées de la BDD
         self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5], id_player[0])
-        self.player.group_obstacle = self.group_obstacle
-        print(var.last_move)
 
     def update_player(self):
         """

@@ -16,7 +16,6 @@ class Inventory():
         self.rect.x = 1060
         self.rect.y = 390
         
-
         # load le boutton pour trier l'inventaire
         self.button_tri_inventory = pygame.image.load("assets/pics/buttons_pics/button_tri_inventory.png")
         self.button_tri_inventory_rect = self.button_tri_inventory.get_rect()
@@ -94,8 +93,6 @@ class Inventory():
         self.player.food = 100 if self.player.food > 100 else self.player.food
         self.player.hydratation += obj.hydratation
         self.player.hydratation = 100 if self.player.hydratation > 100 else self.player.hydratation
-
-        
 
     def pick_up_object(self, game):
         """

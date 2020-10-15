@@ -27,7 +27,8 @@ class Player (pygame.sprite.Sprite) :
         self.food = food 
         self.hydratation = hydratation
         
-        self.group_obstacle = ""
+
+        self.game.group_obstacle = ""
 
         self.health = 10
         self.velocity = 3
@@ -48,7 +49,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect.x += self.velocity
         self.change_image(f"assets/avatars/{self.avatar}/character_right.png", f"assets/avatars/{self.avatar}/character_right_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.game.group_obstacle):
             self.rect.x -= self.velocity
             self.character_rect.rect.x -= self.velocity
  
@@ -59,7 +60,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect.x -= self.velocity
         self.change_image(f"assets/avatars/{self.avatar}/character_left.png", f"assets/avatars/{self.avatar}/character_left_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.game.group_obstacle):
             self.rect.x += self.velocity
             self.character_rect.rect.x += self.velocity
 
@@ -69,7 +70,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect.y -= self.velocity
         self.change_image(f"assets/avatars/{self.avatar}/character_up.png", f"assets/avatars/{self.avatar}/character_up_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.game.group_obstacle):
             self.rect.y += self.velocity
             self.character_rect.rect.y += self.velocity
 
@@ -79,7 +80,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect.y += self.velocity
         self.change_image(f"assets/avatars/{self.avatar}/character_down.png", f"assets/avatars/{self.avatar}/character_down_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.game.group_obstacle):
             self.rect.y -= self.velocity
             self.character_rect.rect.y -= self.velocity
 
