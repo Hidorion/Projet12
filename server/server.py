@@ -48,7 +48,6 @@ class Send_back():
     
     def send_back(self, received, conn):
         self.append_list(received)
-        print(self.list_players)
         send = pickle.dumps(self.list_players)
         conn.sendall(send)
 
@@ -68,7 +67,7 @@ def accept_client():
 # instancier socket (famille qu'on va utiliser, type de socket)
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Associer socket a une adresse
-socket.bind(('192.168.1.18', 5566))
+socket.bind(('localhost', 5566))
 number_player = 1
 send_back = Send_back()
 
