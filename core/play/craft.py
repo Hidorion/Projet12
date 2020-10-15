@@ -57,7 +57,7 @@ class Crafting():
     def update(self, screen):
         # This variable simulate the result of the list of recipes's sql request
         resultrecipelist = [("Hache",),("Concococteur",),("Potion nutritive",)]
-        resultingredientlist = [("Pierre","Bois","Liane"),("Noix de coco","Bois","Eau"),("Champignon marron", "Fleur Violette", "Banane")]
+        resultingredientlist = [("Pierre","Bois","Liane"),("Coco","Bois","Eau"),("Champignon marron", "Fleur Violette", "Banane")]
         list_of_recipe = [n[0] for n in resultrecipelist]
         list_of_ingredient = [n for n in resultingredientlist]
         
