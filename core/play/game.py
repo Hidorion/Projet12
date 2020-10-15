@@ -105,7 +105,8 @@ class Game:
             # Fonction qui met à jour la caméra qui suit le player 
             self.camera.update(self.player.rect)
             # Fonction qui affiche qui map, le player, et les objets sur la map
-            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
+            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 6400, 0)
+            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 0)
             for obj in self.group_tree :
                 screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
             for obj in self.fruit_tree :
