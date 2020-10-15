@@ -12,7 +12,7 @@ from getpass import getpass
 # connection_infos = "dbname=Projet12 user=postgres password=douzetrentedeux"
 
 # Shared DB
-connection_infos = "dbname=Team12Corp user=AP2006 password=AP2006p2 host=ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev port=15002"
+connection_infos = "dbname=Team12Corp user=PG2006 password=PG2006p2 port=15003 host = ale-pyt-2006-pjt-p2-db.pythonrover.wilders.dev"
 
 # def lenght_input(entry, mot, max = 16, min = 3) :
 #         while len(entry) >= max or len(entry) <= min :

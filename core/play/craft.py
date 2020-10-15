@@ -20,7 +20,14 @@ class Crafting():
         self.connection = psycopg2.connect(connection_infos)
         self.cursor = self.connection.cursor()
 
+<<<<<<< Updated upstream
     def read_inventory(self, pseudo): #Get, through the player inventory, the ressources
+=======
+    def show_crafting(self, screen) :
+        screen.blit(self.crafting_interface, (self.crafting_interface_rect.x, self.crafting_interface_rect.y))
+
+    def read_inventory(self, pseudo): #Get, through the player inventory, to the ressources
+>>>>>>> Stashed changes
         requete_sql = f"""
                     SELECT object.name, amount, action.name, category.name, inventaire.id_object
                     FROM inventaire
