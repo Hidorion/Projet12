@@ -20,7 +20,14 @@ class Crafting():
         self.connection = psycopg2.connect(connection_infos)
         self.cursor = self.connection.cursor()
 
+<<<<<<< Updated upstream
+    def read_inventory(self, pseudo): #Get, through the player inventory, the ressources
+=======
+    def show_crafting(self, screen) :
+        screen.blit(self.crafting_interface, (self.crafting_interface_rect.x, self.crafting_interface_rect.y))
+
     def read_inventory(self, pseudo): #Get, through the player inventory, to the ressources
+>>>>>>> Stashed changes
         requete_sql = f"""
                     SELECT object.name, amount, action.name, category.name, inventaire.id_object
                     FROM inventaire
@@ -60,19 +67,19 @@ class Crafting():
         self.cursor.execute(request)
         return self.cursor.fetchall()
 
-    def get_ingredients (list_of_recipe,recipe): #Get the ingredients of a chosen recipe
+    def get_ingredients (self,list_of_recipe,recipe): #Get the ingredients of a chosen recipe
         for recipe in range(len(list_of_recipe)):
             ingredient = list_of_recipe[recipe]
             list_of_ingredient = Crafting.read_ingredients(ingredient)
             return list_of_ingredient
 
-    def browse_interface ():
+    def browse_interface (self):
         next = pygame.image.load("assets/backgrounds/next.png")
         previous = pygame.image.load("assets/backgrounds/previous.png")
         next_rect = next.get_rect()
         previous_rect = previous.get_rect()
 
-GoClass = Crafting(2)
-resultrecipelist = GoClass.list_of_recipes()
-list_of_recipe = [n[0] for n in resultrecipelist]
+# GoClass = Crafting(2)
+# resultrecipelist = GoClass.list_of_recipes()
+# list_of_recipe = [n[0] for n in resultrecipelist]
 

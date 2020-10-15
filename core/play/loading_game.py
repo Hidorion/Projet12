@@ -62,23 +62,14 @@ class Loading_map(threading.Thread):
         self.game = game
 
     def run(self) :
-<<<<<<< HEAD:play/loading_game.py
-        # self.game.map_foret_sol = self.game.create_map("images/Bg/Foret.tmx")
-        # Map("images/Bg/Foret_obstacle.tmx", self.game).obstacle(12800, 0)
-        # self.game.map_foret_behind = self.game.create_map("images/Bg/Foret_behind.tmx")
-        self.game.map_foret_sol = self.game.create_map("images/Bg/Foret.tmx")
-        self.game.map_foret_behind = self.game.create_map("images/Bg/Foret_behind.tmx")
-=======
         self.game.map_foret_sol = self.game.create_map("assets/backgrounds/Foret.tmx")
         Map("assets/backgrounds/Foret_obstacle.tmx", self.game).obstacle(12800, 0)
         self.game.map_foret_behind = self.game.create_map("assets/backgrounds/Foret_behind.tmx")
->>>>>>> master:core/play/loading_game.py
 
         # self.game.map_cratere_sol = self.game.create_map("assets/backgrounds/Cratere.tmx")
         # Map("assets/backgrounds/Cratere_obstacle.tmx", self.game).obstacle(6400, 0)
         # self.game.map_cratere_behind = self.game.create_map("assets/backgrounds/Cratere_behind.tmx")
 
-<<<<<<< HEAD:play/loading_game.py
         self.game.map_desert_sol = self.game.create_map("images/Bg/Desert.tmx")
         Map("images/Bg/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
         self.game.map_desert_behind = self.game.create_map("images/Bg/Desert_behind.tmx")        
@@ -100,11 +91,6 @@ class Loading_interaction(threading.Thread):
     def run(self) :
         Map("images/Bg/Foret_obstacle.tmx", self.game).obstacle(12800, 0)
         Map("images/Bg/Foret_interaction.tmx", self.game).interaction(12800, 0) 
-=======
-        # self.game.map_desert_sol = self.game.create_map("assets/backgrounds/Desert.tmx")
-        # Map("assets/backgrounds/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
-        # self.game.map_desert_behind = self.game.create_map("assets/backgrounds/Desert_behind.tmx")        
->>>>>>> master:core/play/loading_game.py
 
 def start_loading(screen, game, map_loading) :
 

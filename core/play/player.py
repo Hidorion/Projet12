@@ -4,16 +4,10 @@
 import math
 import pygame
 
-<<<<<<< HEAD:play/player.py
-from play.map import Map
-from play.rect_character import Rect_character
-from play.inventory import Inventory
-from play.craft import Crafting
-=======
 from core.play.map import Map
 from core.play.character_rect import Character_rect
 from core.play.inventory import Inventory
->>>>>>> master:core/play/player.py
+from core.play.craft import Crafting
 
 
 
