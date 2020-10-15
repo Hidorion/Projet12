@@ -123,7 +123,7 @@ class Game:
         # show crafting station
         if self.crafting :
             self.player.interface_player(screen)
-            Crafting.show_crafting()
+            Crafting.show_crafting(self)
 
         self.commandes(screen)
 

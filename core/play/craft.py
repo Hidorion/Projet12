@@ -44,7 +44,7 @@ class Crafting():
         resultinventory = [("Pierre","Bois","Liane","Pierre","Coco","Bois","Eau","Fleur Violette","Banane")] 
         self.inventory_list = [n for n in resultinventory[0]]
     
-    def show_crafting() :
+    def show_crafting(self) :
         """
             This method will "blit" the crafting interface
         """
@@ -59,11 +59,11 @@ class Crafting():
             screen.blit(GoClass.button_craft, GoClass.button_craft_rect)
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
-                    Crafting.ExitGame()
+                    Crafting.ExitGame(self)
                 if event.type==pygame.KEYDOWN:
                     if event.key==pygame.K_ESCAPE:
-                        # Crafting.ExitGame()
                         running = False
+                        Crafting.ExitGame(self)
                     return running
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # collisions on sign up text fields
@@ -83,7 +83,7 @@ class Crafting():
 
             pygame.display.flip()
 
-    def ExitGame():
+    def ExitGame(self):
         """
             Function that stops the game
         """
@@ -146,7 +146,7 @@ class Crafting():
             inventory_list.append(list_of_recipe[counter])
         else :
             print("Vous regardez dans votre sac mais vous ne parvenez pas à rassembler tout les ingrédients nécessaires")
-        print(inventory_list)
+        
     
 
 
