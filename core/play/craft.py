@@ -6,7 +6,7 @@ import pygame
 #from registration.requeteSQL import create_registration
 #from play.object import Object
 #from play.map import Map
-import variables as var
+import core.play.variables as var
 
 pygame.init()
 pygame.display.set_caption("New Horizon: Crafting")
@@ -44,17 +44,19 @@ class Crafting():
         resultinventory = [("Pierre","Bois","Liane","Pierre","Coco","Bois","Eau","Fleur Violette","Banane")] 
         self.inventory_list = [n for n in resultinventory[0]]
     
-    def show_crafting(self,screen) :
+    def show_crafting() :
         """
             This method will "blit" the crafting interface
         """
+        GoClass = Crafting()
+        screen = GoClass.screen
         running = True
         counter = 0
         while running is True :
-            screen.blit(self.crafting_interface, (self.crafting_interface_rect.x, self.crafting_interface_rect.y))
-            screen.blit(self.button_next, self.button_next_rect)
-            screen.blit(self.button_previous, self.button_previous_rect)
-            screen.blit(self.button_craft, self.button_craft_rect)
+            screen.blit(GoClass.crafting_interface, (GoClass.crafting_interface_rect.x, GoClass.crafting_interface_rect.y))
+            screen.blit(GoClass.button_next, GoClass.button_next_rect)
+            screen.blit(GoClass.button_previous, GoClass.button_previous_rect)
+            screen.blit(GoClass.button_craft, GoClass.button_craft_rect)
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     Crafting.ExitGame()
@@ -66,14 +68,14 @@ class Crafting():
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # collisions on sign up text fields
                     
-                    if self.button_next_rect.collidepoint(event.pos):
+                    if GoClass.button_next_rect.collidepoint(event.pos):
                         counter = Crafting.counter_addition(counter)
-                    if self.button_previous_rect.collidepoint(event.pos):
+                    if GoClass.button_previous_rect.collidepoint(event.pos):
                         counter = Crafting.counter_soustraction(counter)
-                    if self.button_craft_rect.collidepoint(event.pos):
-                        Crafting.check_inventory(counter,self.list_of_ingredient,self.list_of_recipe,self.inventory_list)
+                    if GoClass.button_craft_rect.collidepoint(event.pos):
+                        Crafting.check_inventory(counter,GoClass.list_of_ingredient,GoClass.list_of_recipe,GoClass.inventory_list)
                         
-            item, item_rect, ing_one, ing_one_rect, ing_two, ing_two_rect, ing_three, ing_three_rect = Crafting.print_object(screen,counter,self.list_of_recipe,self.list_of_ingredient)
+            item, item_rect, ing_one, ing_one_rect, ing_two, ing_two_rect, ing_three, ing_three_rect = Crafting.print_object(screen,counter,GoClass.list_of_recipe,GoClass.list_of_ingredient)
             screen.blit(item, item_rect)
             screen.blit(ing_one, ing_one_rect)
             screen.blit(ing_two, ing_two_rect)
@@ -207,8 +209,5 @@ class Crafting():
 
 # # resultrecipelist = GoClass.list_of_recipes()
 
-
-
-
-GoClass = Crafting()
-GoClass.show_crafting(GoClass.screen)
+# GoClass = Crafting()
+# GoClass.show_crafting(GoClass.screen)

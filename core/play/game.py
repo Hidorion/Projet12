@@ -12,9 +12,10 @@ from core.avatar_selection.avatar_selection import Avatar
 from core.play.camera import Camera
 from core.registration.sql_queries import create_registration
 from core.play.object import Object
+from core.play.craft import Crafting
 
 # Import Variable
-from core.play import variables as var
+import core.play.variables as var
 
 
 class Game:
@@ -122,7 +123,7 @@ class Game:
         # show crafting station
         if self.crafting :
             self.player.interface_player(screen)
-            self.player.craft.show_crafting(screen)
+            Crafting.show_crafting()
 
         self.commandes(screen)
 

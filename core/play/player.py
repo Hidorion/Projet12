@@ -40,7 +40,6 @@ class Player (pygame.sprite.Sprite) :
         self.rect_character = Character_rect(self.rect.x, self.rect.y)
 
         self.inventory = Inventory(screen, self)
-        self.craft = Crafting(screen,self)
 
         self.group_tree = pygame.sprite.Group()
         self.group_stone = pygame.sprite.Group()

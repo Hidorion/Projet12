@@ -70,9 +70,9 @@ class Loading_map(threading.Thread):
         # Map("assets/backgrounds/Cratere_obstacle.tmx", self.game).obstacle(6400, 0)
         # self.game.map_cratere_behind = self.game.create_map("assets/backgrounds/Cratere_behind.tmx")
 
-        self.game.map_desert_sol = self.game.create_map("images/Bg/Desert.tmx")
-        Map("images/Bg/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
-        self.game.map_desert_behind = self.game.create_map("images/Bg/Desert_behind.tmx")        
+        self.game.map_desert_sol = self.game.create_map("assets/backgrounds/Desert.tmx")
+        Map("assets/backgrounds/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
+        self.game.map_desert_behind = self.game.create_map("assets/backgrounds/Desert_behind.tmx")        
         # self.game.map_desert_sol = self.game.create_map("images/Bg/Desert.tmx")
         # Map("images/Bg/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
         # self.game.map_desert_behind = self.game.create_map("images/Bg/Desert_behind.tmx")      

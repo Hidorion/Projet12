@@ -184,7 +184,7 @@ def run_game():
             
             if event.type==pygame.KEYDOWN:
                     if event.key==pygame.K_TAB:
-                        print("oiuiuuioihjk")
+                        print("La touche 'TAB' est désactivée")
             # Test condition if a rect has been clicked
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # collisions on sign up text fields
