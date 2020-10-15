@@ -20,7 +20,7 @@ class Crafting():
         self.connection = psycopg2.connect(connection_infos)
         self.cursor = self.connection.cursor()
 
-    def read_inventory(self, pseudo): #Get, through the player inventory, to the ressources
+    def read_inventory(self, pseudo): #Get, through the player inventory, the ressources
         requete_sql = f"""
                     SELECT object.name, amount, action.name, category.name, inventaire.id_object
                     FROM inventaire
