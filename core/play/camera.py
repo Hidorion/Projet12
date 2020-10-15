@@ -1,6 +1,6 @@
 import math
 import pygame as pyg
-from core.play import variables as var
+from core.play import Variables as var
 
 class Camera:
     """

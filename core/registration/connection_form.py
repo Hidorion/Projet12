@@ -1,12 +1,11 @@
 # coding: utf-8
 
 # Imports
-import core.registration.text_input_mod
+import core.registration.pygame_textinput
 import pygame
-import sys
 
-from core.registration.check_connection import check_logs
-from core.registration.player_registration import sign_up 
+from core.registration.connection import check_logs
+from core.registration.registration_player import sign_up 
 
 # Code
 
@@ -15,7 +14,7 @@ data = {}
 data = { 
     "username" : {
             "init" : {
-                "object" : core.registration.text_input_mod.TextInput,
+                "object" : core.registration.pygame_textinput.TextInput,
                 "settings" : ("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35),
                 "rect" : (300, 300, 250, 35), 
                 "title" : ("Username:", True, (0, 0, 0))
@@ -26,7 +25,7 @@ data = {
     },
     "email" : {
             "init" : {
-                "object" : core.registration.text_input_mod.TextInput,
+                "object" : core.registration.pygame_textinput.TextInput,
                 "settings" : ("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35),
                 "rect" : (300, 350, 250, 35),
                 "title" : ("Email:", True, (0, 0, 0))
@@ -37,7 +36,7 @@ data = {
     }, 
     "password" : {
             "init" : {
-                "object" : core.registration.text_input_mod.TextInput,
+                "object" : core.registration.pygame_textinput.TextInput,
                 "settings" : ("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True),
                 "rect" : (300, 400, 250, 35), 
                 "title" : ("Password:", True, (0, 0, 0))
@@ -48,7 +47,7 @@ data = {
     },
     "password_confirm" : {
             "init" : {
-                "object" : core.registration.text_input_mod.TextInput,
+                "object" : core.registration.pygame_textinput.TextInput,
                 "settings" : ("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True),
                 "rect" : (300, 450, 250, 35),
                 "title" : ("Password confirm:", True, (0, 0, 0))
@@ -74,33 +73,6 @@ class Fields:
 #     setattr(objects, str(objects)+ "_title", objects.font_object.render(font_data))
 
 #field_init()
-def tab_type():
-    events = pygame.event.get()
-    for event in events:
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_TAB:
-                print("oiuiuuioihjk")
-            
-
-# def tab_do(wait):
-#     list_pos = (pygame.Rect(300, 300, 250, 35),
-#                 pygame.Rect(300, 370, 250, 35),
-#                 pygame.Rect(300, 440, 250, 35),
-#                 pygame.Rect(300, 510, 250, 35),
-#                 pygame.Rect(750, 300, 250, 35),
-#                 pygame.Rect(750, 370, 250, 35))
-#     if wait:
-#         ok = "ok"
-#     pass
-
-
-
-def ExitGame():
-    """
-        Function that stops the game
-    """
-    pygame.quit()
-    sys.exit()
 
 def run_game():
     # Initialize pygame and set up screen
@@ -109,41 +81,42 @@ def run_game():
     pygame.display.set_caption("New Horizon: Island")
     screen = pygame.display.set_mode((1200, 720))
     clock = pygame.time.Clock()
-    
+
+
     # Create TextInput-object with a rect and title 
-    sign_up_username = core.registration.text_input_mod.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
+    sign_up_username = core.registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
     sign_up_username_rect = pygame.Rect(300, 300, 250, 35)
     sign_up_username_title = sign_up_username.font_object.render("Username:", True, (0, 0, 0))
 
-    email = core.registration.text_input_mod.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
+    email = core.registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
     email_rect = pygame.Rect(300, 370, 250, 35)
     email_title = email.font_object.render("Email:", True, (0, 0, 0))
 
-    sign_up_password = core.registration.text_input_mod.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
+    sign_up_password = core.registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
     sign_up_password_rect = pygame.Rect(300, 440, 250, 35)
     sign_up_password_title = sign_up_password.font_object.render("Password:", True, (0, 0, 0))
 
-    password_confirm = core.registration.text_input_mod.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
+    password_confirm = core.registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
     password_confirm_rect = pygame.Rect(300, 510, 250, 35)
     password_confirm_title = password_confirm.font_object.render("Confirm password:", True, (0, 0, 0))
 
-    sign_in_username = core.registration.text_input_mod.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
+    sign_in_username = core.registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
     sign_in_username_rect = pygame.Rect(750, 300, 250, 35)
     sign_in_username_title = sign_in_username.font_object.render("Username:", True, (0, 0, 0))
 
-    sign_in_password = core.registration.text_input_mod.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
+    sign_in_password = core.registration.pygame_textinput.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35, -1, True)
     sign_in_password_rect = pygame.Rect(750, 370, 250, 35)
     sign_in_password_title = sign_in_password.font_object.render("Password:", True, (0, 0, 0))
 
     # Create form buttons
     # Sign up button
-    sign_up_button_pict = pygame.image.load('assets/pics/buttons_pics/sign_up.png')
+    sign_up_button_pict = pygame.image.load('core/registration/pics/sign_up.png')
     sign_up_button_pict = pygame.transform.scale(sign_up_button_pict, (100, 30))
     sign_up_button_rect = sign_up_button_pict.get_rect()
     sign_up_button_rect.x = 370
     sign_up_button_rect.y = 560
     # Sign up button
-    sign_in_button_pict = pygame.image.load('assets/pics/buttons_pics/sign_in.png')
+    sign_in_button_pict = pygame.image.load('core/registration/pics/sign_in.png')
     sign_in_button_pict = pygame.transform.scale(sign_in_button_pict, (100, 30))
     sign_in_button_rect = sign_in_button_pict.get_rect()
     sign_in_button_rect.x = 820
@@ -153,7 +126,7 @@ def run_game():
 
     # for key in data.keys():
     #     for init_values in key["init"]:
-    #             text_input_mod.TextInput(data[key])
+    #             pygame_textinput.TextInput(data[key])
     #             pygame.Rect(data[key]["init"]["rect"])
     #             key.font_object.render(data[key]["init"]["title"])
 
@@ -176,15 +149,8 @@ def run_game():
         for event in events:
             if event.type == pygame.QUIT:
                 running = False
-                ExitGame()
-            if event.type==pygame.KEYDOWN:
-                if event.key==pygame.K_ESCAPE:
-                    running = False
-                    ExitGame()
-            
-            if event.type==pygame.KEYDOWN:
-                    if event.key==pygame.K_TAB:
-                        print("oiuiuuioihjk")
+                pygame.quit()
+
             # Test condition if a rect has been clicked
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # collisions on sign up text fields
@@ -197,7 +163,7 @@ def run_game():
                     f = Fields()
                     f.email = True
                     update_text = True
-                    
+
                 elif sign_up_password_rect.collidepoint(event.pos):
                     f = Fields()
                     f.sign_up_password = True
@@ -252,7 +218,7 @@ def run_game():
                     list_var[num].update(events)
 
         # Main menu background
-        banner = pygame.image.load('assets/pics/backgrounds_pics/game_banner_named.png')
+        banner = pygame.image.load('core/registration/pics/game_banner_named.png')
         banner = pygame.transform.scale(banner, (1200, 720))
         screen.blit(banner, (0, 0))
         # Create and show sign up rect, all text fields in there
