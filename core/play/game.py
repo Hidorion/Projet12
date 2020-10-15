@@ -123,7 +123,7 @@ class Game:
         # show crafting station
         if self.crafting :
             self.player.interface_player(screen)
-            Crafting.show_crafting(self)
+            
 
         self.commandes(screen)
 
@@ -226,11 +226,13 @@ class Game:
         # if crafting is open, press k to close crafting
         if self.not_pressed.get(pygame.K_k) and self.crafting == False and self.play == True :
             self.crafting = True
+            Crafting.show_crafting(self,self.crafting)
             self.play = False
             self.not_pressed[pygame.K_k] = False
         # if crafting is close, press k to open crafting
         elif self.not_pressed.get(pygame.K_k) and self.crafting == True and self.play == False :
             self.crafting = False
+            Crafting.show_crafting(self,self.crafting)
             self.play = True
             self.not_pressed[pygame.K_k] = False
         # Utiliser la hache
