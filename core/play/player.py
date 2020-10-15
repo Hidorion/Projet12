@@ -5,9 +5,9 @@ import math
 import pygame
 
 from core.play.map import Map
-from core.play.rect_character import Rect_character
+from core.play.character_rect import Character_rect
 from core.play.inventory import Inventory
-from core.play import Variables as var
+from core.play import variables as var
 
 
 
@@ -17,7 +17,7 @@ class Player (pygame.sprite.Sprite) :
         pygame.sprite.Sprite.__init__(self)
         self.game = game
         self.avatar = avatar
-        self.image = pygame.image.load(f"images/ressources/{self.avatar}/character_up.png")
+        self.image = pygame.image.load(f"assets/avatars/{self.avatar}/character_up.png")
         self.image = pygame.transform.scale(self.image, (32 , 32))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -33,55 +33,55 @@ class Player (pygame.sprite.Sprite) :
         self.velocity = 3
         self.move = 0
 
-        self.rect_character = Rect_character(self.rect.x, self.rect.y)
+        self.character_rect = Character_rect(self.rect.x, self.rect.y)
 
         self.inventory = Inventory(screen, self)
 
         self.group_player = pygame.sprite.Group()
         self.group_player.add(self)
-        var.last_move = f"images/ressources/{self.avatar}/character_down.png"
+        var.last_move = f"assets/avatars/{self.avatar}/character_down.png"
 
         # Déplace la carte en fonction des touche pressé
     def move_right(self, screen):
         
-        self.rect_character.rect.x += self.velocity
+        self.character_rect.rect.x += self.velocity
         self.rect.x += self.velocity
-        self.change_image(f"images/ressources/{self.avatar}/character_right.png", f"images/ressources/{self.avatar}/character_right_move.png" )
+        self.change_image(f"assets/avatars/{self.avatar}/character_right.png", f"assets/avatars/{self.avatar}/character_right_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.rect_character, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
             self.rect.x -= self.velocity
-            self.rect_character.rect.x -= self.velocity
+            self.character_rect.rect.x -= self.velocity
  
 
     def move_left(self, screen): 
 
-        self.rect_character.rect.x -= self.velocity
+        self.character_rect.rect.x -= self.velocity
         self.rect.x -= self.velocity
-        self.change_image(f"images/ressources/{self.avatar}/character_left.png", f"images/ressources/{self.avatar}/character_left_move.png" )
+        self.change_image(f"assets/avatars/{self.avatar}/character_left.png", f"assets/avatars/{self.avatar}/character_left_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.rect_character, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
             self.rect.x += self.velocity
-            self.rect_character.rect.x += self.velocity
+            self.character_rect.rect.x += self.velocity
 
     def move_up(self, screen):
 
-        self.rect_character.rect.y -= self.velocity
+        self.character_rect.rect.y -= self.velocity
         self.rect.y -= self.velocity
-        self.change_image(f"images/ressources/{self.avatar}/character_up.png", f"images/ressources/{self.avatar}/character_up_move.png" )
+        self.change_image(f"assets/avatars/{self.avatar}/character_up.png", f"assets/avatars/{self.avatar}/character_up_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.rect_character, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
             self.rect.y += self.velocity
-            self.rect_character.rect.y += self.velocity
+            self.character_rect.rect.y += self.velocity
 
     def move_down(self, screen):
         
-        self.rect_character.rect.y += self.velocity
+        self.character_rect.rect.y += self.velocity
         self.rect.y += self.velocity
-        self.change_image(f"images/ressources/{self.avatar}/character_down.png", f"images/ressources/{self.avatar}/character_down_move.png" )
+        self.change_image(f"assets/avatars/{self.avatar}/character_down.png", f"assets/avatars/{self.avatar}/character_down_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.rect_character, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
             self.rect.y -= self.velocity
-            self.rect_character.rect.y -= self.velocity
+            self.character_rect.rect.y -= self.velocity
 
 
     def change_image(self, not_move, move):
@@ -100,10 +100,10 @@ class Player (pygame.sprite.Sprite) :
 
 
     def interface_player(self, screen):
-        food = pygame.image.load("images/ressources/interface/food.png")
-        stamina = pygame.image.load("images/ressources/interface/stamina.png")
-        hydratation = pygame.image.load("images/ressources/interface/hydratation.png")
-        support_map =pygame.image.load("images/ressources/interface/support_map.png")
+        food = pygame.image.load("assets/pics/interface_pics/food.png")
+        stamina = pygame.image.load("assets/pics/interface_pics/stamina.png")
+        hydratation = pygame.image.load("assets/pics/interface_pics/hydratation.png")
+        support_map =pygame.image.load("assets/pics/interface_pics/support_map.png")
         
         # x, y, largeur, hauteur
         # Dessiner le rectangle noir derrière les barres de vie
@@ -125,8 +125,8 @@ class Player (pygame.sprite.Sprite) :
         math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)])
         if self.inventory.last_obj != "" :
             if self.inventory.last_obj.name == "eau" and self.inventory.last_obj.quantity == 0 :
-                self.inventory.last_obj.image = pygame.image.load(f"images/ressources/Objets/eau_vide.png")
+                self.inventory.last_obj.image = pygame.image.load(f"assets/pics/items_pics/eau_vide.png")
             elif self.inventory.last_obj.name == "eau" and self.inventory.last_obj.quantity == 100 :
-                self.inventory.last_obj.image = pygame.image.load(f"images/ressources/Objets/eau.png")
+                self.inventory.last_obj.image = pygame.image.load(f"assets/pics/items_pics/eau.png")
             self.inventory.last_obj.image = pygame.transform.scale(self.inventory.last_obj.image, (math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)))
             screen.blit(self.inventory.last_obj.image, (0, (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10)))))

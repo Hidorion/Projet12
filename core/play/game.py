@@ -8,14 +8,14 @@ import time
 # Import class 
 from core.play.map import Map
 from core.play.player import Player
-from core.champ_select.champ_select import Avatar
+from core.avatar_selection.avatar_selection import Avatar
 from core.play.camera import Camera
-from core.registration.requeteSQL import create_registration
+from core.registration.sql_queries import create_registration
 from core.play.object import Object
 from core.play import client
 
 # Import Variable
-from core.play import Variables as var
+from core.play import variables as var
 
 
 class Game:
@@ -260,7 +260,7 @@ class Game:
                         obj.quantity = 100 if obj.name == "eau" else 1
                         self.not_pressed[pygame.K_u] = False
                     self.not_pressed[pygame.K_u] = False
-                    pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau.png"), (50, 42))
+                    pygame.transform.scale(pygame.image.load(f"assets/pics/items_pics/eau.png"), (50, 42))
                 else : 
                     # Si le player n'est pas a coté de l'eau, mettre a jour les signes vitaux du player avec la gourde
                     self.player.inventory.update_vital_sign(self.player.inventory.last_obj)
@@ -268,7 +268,7 @@ class Game:
                     for obj in self.player.inventory.list_object_inventory :
                         # La quantité de l'eau est à zéro si l'objet a le nom "eau"
                         obj.quantity = 0 if obj.name == "eau" else 1
-                        self.player.inventory.last_obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau_vide.png"), (50, 42))
+                        self.player.inventory.last_obj.image = pygame.transform.scale(pygame.image.load(f"assets/pics/items_pics/eau_vide.png"), (50, 42))
                         self.not_pressed[pygame.K_u] = False
                     self.not_pressed[pygame.K_u] = False
 
@@ -287,8 +287,8 @@ class Game:
         # Si le player a une tel direction et qu'il est arrêté
         if self.pressed.get(key) == False and self.last_movement == direction :
             # L'image se met en position arrêt
-            self.player.image = pygame.image.load(f"images/ressources/{self.player.avatar}/character_{direction}.png")
-            var.last_move = f"images/ressources/{self.player.avatar}/character_{direction}.png"
+            self.player.image = pygame.image.load(f"assets/avatars/{self.player.avatar}/character_{direction}.png")
+            var.last_move = f"assets/avatars/{self.player.avatar}/character_{direction}.png"
             self.player.image = pygame.transform.scale(self.player.image, (32, 32))
 
     def message_champ_select(self, screen, message):

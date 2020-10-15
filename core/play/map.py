@@ -10,7 +10,7 @@ from core.play.map_obstacles import Obstacle
 from core.play.object import Object
 from core.play.object import Tree
 from core.play.object import Object_water
-from core.registration.registration_player import create_registration
+from core.registration.player_registration import create_registration
 
 
 

@@ -6,11 +6,7 @@ import psycopg2
 from getpass import getpass
 
 
-<<<<<<< HEAD:core/registration/player_registration.py
 from core.registration.sql_queries import create_registration
-=======
-from core.registration.requeteSQL import create_registration
->>>>>>> origin/Laura:core/registration/registration_player.py
 from validate_email import validate_email
 
 import pygame

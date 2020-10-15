@@ -10,9 +10,9 @@ import threading
 
 #import fichier
 from core.play.game import Game
-from core.registration.requeteSQL import create_registration
-from core.registration.connection import forget_psd
-from core.play import Variables as var
+from core.registration.sql_queries import create_registration
+from core.registration.check_connection import forget_psd
+from core.play import variables as var
 from core.play.map_obstacles import Obstacle
 from core.play.map import Map
 from core.play.loading_game import start_loading
@@ -27,7 +27,7 @@ pygame.display.set_caption("Projet 2")
 screen = pygame.display.set_mode((var.x_screen, var.y_screen))
 
 # loading l'image de chargement
-map_loading = pygame.image.load("images/Bg/chargement.png")
+map_loading = pygame.image.load("assets/pics/backgrounds_pics/chargement.png")
 map_loading = pygame.transform.scale(map_loading, (var.x_screen, var.y_screen))
 
 # Instancier la class game 

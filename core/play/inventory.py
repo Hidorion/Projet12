@@ -3,7 +3,7 @@ import pygame
 import math
 import random
 
-from core.registration.registration_player import create_registration
+from core.registration.player_registration import create_registration
 from core.play.object import Object
 from core.play.map import Map
 
@@ -11,20 +11,20 @@ class Inventory():
 
     def __init__(self, screen, player):
         self.player = player
-        self.image = pygame.image.load("images/ressources/interface/bag.png")
+        self.image = pygame.image.load("assets/pics/interface_pics/bag.png")
         self.rect = self.image.get_rect()
         self.rect.x = 1060
         self.rect.y = 390
         
 
         # load le boutton pour trier l'inventaire
-        self.button_tri_inventory = pygame.image.load("images/button/button_tri_inventory.png")
+        self.button_tri_inventory = pygame.image.load("assets/pics/buttons_pics/button_tri_inventory.png")
         self.button_tri_inventory_rect = self.button_tri_inventory.get_rect()
         self.button_tri_inventory_rect.x = 990
         self.button_tri_inventory_rect.y = 555
 
         # Background de l'inventaire
-        self.interface_inventory = pygame.image.load("images/Bg/inventory.png")
+        self.interface_inventory = pygame.image.load("assets/pics/backgrounds_pics/inventory.png")
         self.interface_inventory = pygame.transform.scale(self.interface_inventory,( 960 , 576 ))
         self.interface_inventory_rect = self.interface_inventory.get_rect()
         self.interface_inventory_rect.x = screen.get_width() / 10
@@ -48,11 +48,11 @@ class Inventory():
         for obj in self.list_object_inventory:
             # Si l'objet a le nom "eau", modification de l'image
             if obj.name == "eau" and obj.quantity == 100:
-                obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau.png"), (50, 42))
+                obj.image = pygame.transform.scale(pygame.image.load(f"assets/pics/items_pics/eau.png"), (50, 42))
             elif obj.name == "eau" and obj.quantity == 0: 
-                obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/eau_vide.png"), (50, 42))
+                obj.image = pygame.transform.scale(pygame.image.load(f"assets/pics/items_pics/eau_vide.png"), (50, 42))
             else : 
-                obj.image = pygame.transform.scale(pygame.image.load(f"images/ressources/Objets/{obj.name}.png"), (50, 42))
+                obj.image = pygame.transform.scale(pygame.image.load(f"assets/pics/items_pics/{obj.name}.png"), (50, 42))
             obj.rect.x = x
             obj.rect.y = y
             screen.blit(obj.image, obj.rect)
@@ -211,7 +211,7 @@ class Inventory():
         """
         #Enlève 1 pv à l'objet pierre
         obj.pv -= 1
-        obj.image = pygame.image.load(f"images/ressources/environment/{obj.name}2.png")
+        obj.image = pygame.image.load(f"assets/pics/environment_pics/{obj.name}2.png")
         # Instancie les requêtes SQL
         sql = create_registration()
         # récupère les informations de l'objet
