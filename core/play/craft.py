@@ -44,7 +44,7 @@ class Crafting():
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # collisions on sign up text fields
                     if self.button_next_rect.collidepoint(event.pos):
-                        Crafting.update(self.screen)
+                        Crafting.update()
             pygame.display.flip()
     
     def ExitGame():
@@ -54,13 +54,17 @@ class Crafting():
         pygame.quit()
         sys.exit()
 
-    def update(self, screen):
+    def update():
         # This variable simulate the result of the list of recipes's sql request
         resultrecipelist = [("Hache",),("Concococteur",),("Potion nutritive",)]
         resultingredientlist = [("Pierre","Bois","Liane"),("Coco","Bois","Eau"),("Champignon marron", "Fleur Violette", "Banane")]
         list_of_recipe = [n[0] for n in resultrecipelist]
         list_of_ingredient = [n for n in resultingredientlist]
-        
+        item = list_of_recipe[0]
+        ing_one = list_of_ingredient[0][0]
+        ing_two = list_of_ingredient[0][1]
+        ing_three = list_of_ingredient[0][2]
+        print(item , ing_one , ing_two , ing_three)
     
     # def read_inventory(self, pseudo): #Get, through the player inventory, to the ressources
     #     requete_sql = f"""
@@ -122,4 +126,4 @@ GoClass = Crafting()
 
 
 
-# GoClass.show_crafting(GoClass.screen)
+GoClass.show_crafting(GoClass.screen)
