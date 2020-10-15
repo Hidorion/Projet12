@@ -10,7 +10,7 @@ from core.play import Variables as var
 
 
 
-host, port = ('localhost', 5566)
+host, port = ('192.168.1.18', 5566)
 # instancier socket (famille qu'on va utiliser, type de socket)
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try :
