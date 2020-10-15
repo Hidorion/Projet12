@@ -13,6 +13,7 @@ from core.play.camera import Camera
 from core.registration.sql_queries import create_registration
 from core.play.object import Object
 from core.play import client
+from core.play.craft import Crafting
 
 # Import Variable
 from core.play import variables as var
@@ -215,6 +216,11 @@ class Game:
             self.update_image(key[0], key[1])
 
     def commandes(self,screen):
+
+        # if crafting is open, press k to close crafting
+        if self.not_pressed.get(pygame.K_k) :
+            Crafting.show_crafting(self)
+            self.not_pressed[pygame.K_k] = False
         # if inventory is open, press i for close inventory
         if self.not_pressed.get(pygame.K_i) and self.inventory == False and self.play == True :
             self.inventory = True
