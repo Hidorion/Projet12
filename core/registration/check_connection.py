@@ -78,6 +78,7 @@ def check_logs(inputs_tuple):
         return True
         print("ok")
     else : #A Sinon..."é&"
+        print("pas ok")
         return False
 
 
