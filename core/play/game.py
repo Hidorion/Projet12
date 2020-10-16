@@ -106,8 +106,7 @@ class Game:
             # Fonction qui met à jour la caméra qui suit le player 
             self.camera.update(self.player.rect)
             # Fonction qui affiche qui map, le player, et les objets sur la map
-            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 6400, 0)
-            self.blit_map(screen, self.map_desert_sol, self.map_desert_behind, 0, 0)
+            self.blit_map(screen)
             for obj in self.group_tree :
                 screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
             for obj in self.fruit_tree :
@@ -142,15 +141,17 @@ class Game:
           
 
 
-    def blit_map (self, screen, map, behind, x, y ) :
+    def blit_map (self, screen) :
 
         """
             fatorization of map blits
         """
         # Definir le rect de la map
-        self.map_rect.x = x
-        self.map_rect.y = y
-        screen.blit(map, (self.camera.apply_rect(self.map_rect)))
+        self.map_rect.x = 0
+        self.map_rect.y = 0
+        screen.blit(self.map_desert_sol, (self.camera.apply_rect(self.map_rect)))
+        self.map_rect.x = 6400
+        screen.blit(self.map_foret_sol, (self.camera.apply_rect(self.map_rect)))
         # Pour chaque objet (fruit, bois pierre) dans la liste
         for obj in self.group_object:
             image = pygame.transform.scale(obj.image,(18, 23))
@@ -167,7 +168,10 @@ class Game:
                 screen.blit(image, (self.camera.apply_rect(player[1][0])))
         else :
             screen.blit(self.player.image, self.camera.apply(self.player.rect))
-        screen.blit(behind, self.camera.apply_rect(self.map_rect))
+
+        screen.blit(self.map_foret_behind, (self.camera.apply_rect(self.map_rect)))
+        self.map_rect.y = 0
+        screen.blit(self.map_desert_behind, (self.camera.apply_rect(self.map_rect)))
         
         
     def create_map(self, file):
@@ -356,5 +360,4 @@ class Game:
         if var.server_open :
             # Fonction qui envoi et récupère les informations du serveur
             client.execute_client(data)
-
         

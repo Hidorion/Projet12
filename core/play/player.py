@@ -111,6 +111,9 @@ class Player (pygame.sprite.Sprite) :
 
 
     def interface_player(self, screen):
+        """
+            Print l'interface du player
+        """
         food = pygame.image.load("assets/pics/interface_pics/food.png")
         stamina = pygame.image.load("assets/pics/interface_pics/stamina.png")
         hydratation = pygame.image.load("assets/pics/interface_pics/hydratation.png")
