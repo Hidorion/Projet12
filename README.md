@@ -1,6 +1,6 @@
 <!-- # Projet12 -->
 
-![New Horizon: Island banner](https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/game_banner.png) "New Horizon: Island"
+![New Horizon: Island banner](https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/game_banner.png "New Horizon: Island")
 
 ---
 
