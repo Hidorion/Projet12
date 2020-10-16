@@ -43,7 +43,8 @@ You will need to have the minimum config + an IDE, if you want to see more code,
 
 ### Brief overview of the game:
 After landing on the edge of the island following a shipwreck, you had to fight for survival and solve three daunting challenges!
-In this sequel, you managed to make your way to the heart of the island thanks to a passage in the rock of a mountain and 
+In this sequel, you managed to make your way to the heart of the island thanks to a passage in the rock of a mountain.
+...
 
 
 
@@ -53,6 +54,6 @@ Moves | Interactions
 ------------ | -------------
 Z: Forward walk | U: Use an item
 Q: Go left | I: Open inventory
-S: Backward walk (not like moonwalk !) |
+S: Backward walk (not like moonwalk !) | A: Pick up an item
 D: Go right |
 
