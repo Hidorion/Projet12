@@ -6,6 +6,17 @@
 
 ## Context
 This project was conducted by a group of three students following a Python training. 
+It is build using differents Python lib and few other things, such as:
+
+Pygame for the GUI
+![Pygame](https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/ "Pygame Logo")
+Tiled was used for create maps
+![Tiled](https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/ "Tiled Logo")
+Postgres for the DB
+![Postgres](https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/ "Postgres Logo")
+PyTMX as map loader for python/pygame
+
+
 *Second project for us, first as a team!*
 
 ## Pre-requisite
