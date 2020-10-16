@@ -56,7 +56,7 @@ class Game:
         # Permet de blit ou non l'interface du player à chaque changement
         self.interface = True 
         # Permet de lance le chargement des map
-        self.loading = True
+        self.loading = False
 
     
         # Index de l'avatar choisit
@@ -97,9 +97,10 @@ class Game:
             Update the game and call the functions necessary for the game
         """
         # Fonction qui envoi au server les informations du player
-        self.data_exchange([self.player.rect, var.last_move, self.pseudo])
+        
         # Si le jeu est lancé
         if self.play :
+            self.data_exchange([self.player.rect, var.last_move, self.pseudo])
             # Fonction qui déplace et gère les images du player
             self.movement(screen)
             # Fonction qui met à jour la caméra qui suit le player 
@@ -326,6 +327,7 @@ class Game:
             self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 1500, 2000, 100, 100, 100])
             result = self.sql.read_table_player(self.pseudo)
             create = True
+            self.loading = False
         # Je récupère les infromation de la class player
         id_player = self.sql.id_player(id_connection[0])
         # J'intancie la class player avec les informations récupérées de la BDD

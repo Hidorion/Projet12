@@ -37,6 +37,8 @@ game = Game(screen)
 if __name__ == "__main__":
     # Fonction qui lance le login, récupération de True si inscription, False si connexion. Récupération du nom du pseudo
     game.validation_champ_select, game.pseudo = run_game()
+    if game.validation_champ_select == False :
+        game.loading = True
     running = True
     while running :
         # Lancement du chargement des map avec la barre de chargement
@@ -87,6 +89,7 @@ if __name__ == "__main__":
                     # Si le champ select est open et que l'utilisateur a selectionné un avatar
                     elif game.champ_select.button_rect.collidepoint(event.pos) and game.selected_champ == True :
                         game.validation_champ_select = False
+                        game.loading = True
                 elif game.inventory :
                     # Pour chaque objet dans l'inventaire du player
                     for obj in game.player.inventory.list_object_inventory :
