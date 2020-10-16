@@ -321,20 +321,19 @@ class Game:
         # Je regarde si le player un champ dans la table player
         result = self.sql.read_table_player(self.pseudo)
         # Si il a pas de champ dans la table player j'en créé un
-        create = False 
+        create = False
         if result == [] :
-            self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 13000, 9000, 100, 100, 100])
+            self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 1500, 2000, 100, 100, 100])
             result = self.sql.read_table_player(self.pseudo)
             create = True
         # Je récupère les infromation de la class player
         id_player = self.sql.id_player(id_connection[0])
         # J'intancie la class player avec les informations récupérées de la BDD
-        if create : 
-            self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5], id_player[0])
-            self.player.rect.x = 1500
-            self.player.rect.y = 2000
-        else:
-            self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5], id_player[0])
+        self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5], id_player[0])
+        if create :
+            self.sql.add_inventory(self.player.id_player, 17, 1)
+            self.sql.add_inventory(self.player.id_player, 3, 1)
+            self.sql.add_inventory(self.player.id_player, 1, 1)
     def update_player(self):
         """
             Save player information
