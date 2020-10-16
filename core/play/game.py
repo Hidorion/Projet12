@@ -320,7 +320,8 @@ class Game:
         id_connection = self.sql.id_connection(self.pseudo)
         # Je regarde si le player un champ dans la table player
         result = self.sql.read_table_player(self.pseudo)
-        # Si il a pas de champ dans la table player j'en créé un 
+        # Si il a pas de champ dans la table player j'en créé un
+        create = False 
         if result == [] :
             self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 13000, 9000, 100, 100, 100])
             result = self.sql.read_table_player(self.pseudo)
