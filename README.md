@@ -1,6 +1,6 @@
 <!-- # Projet12 -->
 
-[logo]: https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/game_banner.png "New Horizon: Island"
+![New Horizon: Island banner](https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/game_banner.png) "New Horizon: Island"
 
 ---
 
@@ -10,7 +10,7 @@ This project was conducted by a group of three students following a Python train
 
 ## Pre-requisite
 To execute correctly our program, you will need the following:
-#### Minimum (let's go and just run it!):
+### Minimum (let's go and just run it!):
 You will need to have Python installed on your machine, a powershell (on Windows) or any terminal emulator. 
 
 After that, the program is packaged in a virtual environment, so you just need to:
@@ -25,26 +25,26 @@ pip install -r requirements.txt
 ```
 
 
-#### Complete (let's go for just doing what you want!):
+### Complete (let's go for just doing what you want!):
 You will need to have the minimum config + an IDE, if you want to see more code, debug it or modify it!
 
 ## General game infos
 
-#### Brief overview of the game:
+### Brief overview of the game:
 After landing on the edge of the island following a shipwreck, you had to fight for survival and solve three daunting challenges!
 In this sequel, you managed to make your way to the heart of the island thanks to a passage in the rock of a mountain and 
 
 
 
-#### Main controls:
-###### Moves:
+### Main controls:
+##### Moves:
 
 Z: Forward walk
 Q: Go left
 S: Backward walk (not like moonwalk !)
 D: Go right
 
-###### Interactions:
+##### Interactions:
 
 U: Use an item
 I: Open inventory
