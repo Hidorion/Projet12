@@ -73,9 +73,9 @@ class Loading_map(threading.Thread):
         self.game.map_desert_sol = self.game.create_map("assets/backgrounds/Desert.tmx")
         Map("assets/backgrounds/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
         self.game.map_desert_behind = self.game.create_map("assets/backgrounds/Desert_behind.tmx")        
-        # self.game.map_desert_sol = self.game.create_map("images/Bg/Desert.tmx")
-        # Map("images/Bg/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
-        # self.game.map_desert_behind = self.game.create_map("images/Bg/Desert_behind.tmx")      
+        # self.game.map_desert_sol = self.game.create_map("assets/backgrounds/Desert.tmx")
+        # Map("assets/backgrounds/Desert_obstacle.tmx", self.game).obstacle(0, 6400)
+        # self.game.map_desert_behind = self.game.create_map("assets/backgrounds/Desert_behind.tmx")      
         # 
 class Loading_interaction(threading.Thread):
 
@@ -89,8 +89,8 @@ class Loading_interaction(threading.Thread):
         self.game = game
 
     def run(self) :
-        Map("images/Bg/Foret_obstacle.tmx", self.game).obstacle(12800, 0)
-        Map("images/Bg/Foret_interaction.tmx", self.game).interaction(12800, 0) 
+        Map("assets/backgrounds/Foret_obstacle.tmx", self.game).obstacle(12800, 0)
+        Map("assets/backgrounds/Foret_interaction.tmx", self.game).interaction(12800, 0) 
 
 def start_loading(screen, game, map_loading) :
 

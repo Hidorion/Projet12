@@ -2,6 +2,9 @@
 import pygame
 
 class Character_rect():
+    """
+        Créé un objet qui remplace le rect du player
+    """
 
     def __init__(self, x, y):
         self.image = pygame.Surface((28, 15))

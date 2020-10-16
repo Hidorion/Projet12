@@ -3,7 +3,6 @@
 # Imports
 import core.registration.text_input_mod
 import pygame
-import sys
 
 from core.registration.check_connection import check_logs
 from core.registration.player_registration import sign_up 
@@ -74,33 +73,6 @@ class Fields:
 #     setattr(objects, str(objects)+ "_title", objects.font_object.render(font_data))
 
 #field_init()
-def tab_type():
-    events = pygame.event.get()
-    for event in events:
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_TAB:
-                print("oiuiuuioihjk")
-            
-
-# def tab_do(wait):
-#     list_pos = (pygame.Rect(300, 300, 250, 35),
-#                 pygame.Rect(300, 370, 250, 35),
-#                 pygame.Rect(300, 440, 250, 35),
-#                 pygame.Rect(300, 510, 250, 35),
-#                 pygame.Rect(750, 300, 250, 35),
-#                 pygame.Rect(750, 370, 250, 35))
-#     if wait:
-#         ok = "ok"
-#     pass
-
-
-
-def ExitGame():
-    """
-        Function that stops the game
-    """
-    pygame.quit()
-    sys.exit()
 
 def run_game():
     # Initialize pygame and set up screen
@@ -109,7 +81,8 @@ def run_game():
     pygame.display.set_caption("New Horizon: Island")
     screen = pygame.display.set_mode((1200, 720))
     clock = pygame.time.Clock()
-    
+
+
     # Create TextInput-object with a rect and title 
     sign_up_username = core.registration.text_input_mod.TextInput("", "", 35, True, (0, 0, 0), (0, 0, 0), 400, 35)
     sign_up_username_rect = pygame.Rect(300, 300, 250, 35)
@@ -153,7 +126,7 @@ def run_game():
 
     # for key in data.keys():
     #     for init_values in key["init"]:
-    #             text_input_mod.TextInput(data[key])
+    #             pygame_textinput.TextInput(data[key])
     #             pygame.Rect(data[key]["init"]["rect"])
     #             key.font_object.render(data[key]["init"]["title"])
 
@@ -176,15 +149,8 @@ def run_game():
         for event in events:
             if event.type == pygame.QUIT:
                 running = False
-                ExitGame()
-            if event.type==pygame.KEYDOWN:
-                if event.key==pygame.K_ESCAPE:
-                    running = False
-                    ExitGame()
-            
-            if event.type==pygame.KEYDOWN:
-                    if event.key==pygame.K_TAB:
-                        print("La touche 'TAB' est désactivée")
+                pygame.quit()
+
             # Test condition if a rect has been clicked
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # collisions on sign up text fields
@@ -197,7 +163,7 @@ def run_game():
                     f = Fields()
                     f.email = True
                     update_text = True
-                    
+
                 elif sign_up_password_rect.collidepoint(event.pos):
                     f = Fields()
                     f.sign_up_password = True
