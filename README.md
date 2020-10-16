@@ -1,6 +1,6 @@
 <!-- # Projet12 -->
 
-[Game banner](./docs/read me_extras/game_banner.png "New Horizon: Island")
+[Game banner](docs/readme_extras/game_banner.png "New Horizon: Island")
 
 ---
 
@@ -39,8 +39,12 @@ In this sequel, you managed to make your way to the heart of the island thanks t
 #### Main controls:
 ###### Moves:
 
-ZQSD 
+Z: Forward walk
+Q: Go left
+S: Backward walk (not like moonwalk !)
+D: Go right
+
 ###### Interactions:
 
-U 
-I
+U: Use an item
+I: Open inventory
