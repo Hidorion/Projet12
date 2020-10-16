@@ -37,14 +37,11 @@ In this sequel, you managed to make your way to the heart of the island thanks t
 
 
 ### Main controls:
-##### Moves:
 
-Z: Forward walk
-Q: Go left
-S: Backward walk (not like moonwalk !)
-D: Go right
+Moves | Interactions
+------------ | -------------
+Z: Forward walk | U: Use an item
+Q: Go left | I: Open inventory
+S: Backward walk (not like moonwalk !) |
+D: Go right |
 
-##### Interactions:
-
-U: Use an item
-I: Open inventory
