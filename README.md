@@ -5,7 +5,8 @@
 ---
 
 ## Context
-This project was conducted by a group of three students following a Python training. *Second project for us, first as a team!*
+This project was conducted by a group of three students following a Python training. 
+*Second project for us, first as a team!*
 
 ## Pre-requisite
 To execute correctly our program, you will need the following:
