@@ -95,6 +95,19 @@ class Player (pygame.sprite.Sprite) :
         if self.move == 60 :
             self.move = 0 
 
+    def message(self, screen, message, x, y):
+
+        """
+            print message in interface pygame
+        """
+
+        font = pygame.font.SysFont("Gabriola", 20,20)
+        text = font.render(message, 1, (0,0,0))
+        text_rect = text.get_rect()
+        text_rect.x = x
+        text_rect.y = y
+        screen.blit(text,text_rect)
+
 
 
     def interface_player(self, screen):
@@ -128,3 +141,7 @@ class Player (pygame.sprite.Sprite) :
                 self.inventory.last_obj.image = pygame.image.load(f"assets/pics/items_pics/eau.png")
             self.inventory.last_obj.image = pygame.transform.scale(self.inventory.last_obj.image, (math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)))
             screen.blit(self.inventory.last_obj.image, (0, (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10)))))
+        y = 520
+        for player in var.list_players :
+            self.message(screen,(f"{player[1][2]} -> x:{player[1][0][0]} y:{player[1][0][1]}"), 1005,  y)
+            y += 28

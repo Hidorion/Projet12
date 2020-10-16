@@ -97,7 +97,7 @@ class Game:
             Update the game and call the functions necessary for the game
         """
         # Fonction qui envoi au server les informations du player
-        self.data_exchange([self.player.rect, var.last_move])
+        self.data_exchange([self.player.rect, var.last_move, self.pseudo])
         # Si le jeu est lancé
         if self.play :
             # Fonction qui déplace et gère les images du player
