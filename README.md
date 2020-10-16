@@ -9,11 +9,11 @@ This project was conducted by a group of three students following a Python train
 It is build using differents Python lib and few other things, such as:
 
 Pygame for the GUI
-[Pygame]: https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/pygame-logo.e78e57db3000.png "Pygame Logo"
+<!-- [Pygame]: https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/pygame-logo.e78e57db3000.png "Pygame Logo" -->
 Tiled was used for create maps
-[Tiled]: https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/tiled-logo-white.png "Tiled Logo"
+<!-- [Tiled]: https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/tiled-logo-white.png "Tiled Logo" -->
 Postgres for the DB
-[Postgres]: https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/PostgreSQL.png "Postgres Logo"
+<!-- [Postgres]: https://github.com/Hidorion/Projet12/blob/master/docs/readme_extras/PostgreSQL.png "Postgres Logo" -->
 PyTMX as map loader for python/pygame
 
 
