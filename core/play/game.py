@@ -13,6 +13,7 @@ from core.play.camera import Camera
 from core.registration.sql_queries import create_registration
 from core.play.object import Object
 from core.play import client
+from core.play.craft import Crafting
 
 # Import Variable
 from core.play import variables as var
@@ -55,7 +56,7 @@ class Game:
         # Permet de blit ou non l'interface du player à chaque changement
         self.interface = True 
         # Permet de lance le chargement des map
-        self.loading = True
+        self.loading = False
 
     
         # Index de l'avatar choisit
@@ -96,15 +97,16 @@ class Game:
             Update the game and call the functions necessary for the game
         """
         # Fonction qui envoi au server les informations du player
-        self.data_exchange([self.player.rect, var.last_move])
+        
         # Si le jeu est lancé
         if self.play :
+            self.data_exchange([self.player.rect, var.last_move, self.pseudo])
             # Fonction qui déplace et gère les images du player
             self.movement(screen)
             # Fonction qui met à jour la caméra qui suit le player 
             self.camera.update(self.player.rect)
             # Fonction qui affiche qui map, le player, et les objets sur la map
-            self.blit_map(screen, self.map_foret_sol, self.map_foret_behind, 12800, 0)
+            self.blit_map(screen)
             for obj in self.group_tree :
                 screen.blit(obj.image, (self.camera.apply_rect(obj.rect)))
             for obj in self.fruit_tree :
@@ -139,15 +141,17 @@ class Game:
           
 
 
-    def blit_map (self, screen, map, behind, x, y ) :
+    def blit_map (self, screen) :
 
         """
             fatorization of map blits
         """
         # Definir le rect de la map
-        self.map_rect.x = x
-        self.map_rect.y = y
-        screen.blit(map, (self.camera.apply_rect(self.map_rect)))
+        self.map_rect.x = 0
+        self.map_rect.y = 0
+        screen.blit(self.map_desert_sol, (self.camera.apply_rect(self.map_rect)))
+        self.map_rect.x = 6400
+        screen.blit(self.map_foret_sol, (self.camera.apply_rect(self.map_rect)))
         # Pour chaque objet (fruit, bois pierre) dans la liste
         for obj in self.group_object:
             image = pygame.transform.scale(obj.image,(18, 23))
@@ -164,7 +168,10 @@ class Game:
                 screen.blit(image, (self.camera.apply_rect(player[1][0])))
         else :
             screen.blit(self.player.image, self.camera.apply(self.player.rect))
-        screen.blit(behind, self.camera.apply_rect(self.map_rect))
+
+        screen.blit(self.map_foret_behind, (self.camera.apply_rect(self.map_rect)))
+        self.map_rect.y = 0
+        screen.blit(self.map_desert_behind, (self.camera.apply_rect(self.map_rect)))
         
         
     def create_map(self, file):
@@ -215,6 +222,12 @@ class Game:
             self.update_image(key[0], key[1])
 
     def commandes(self,screen):
+
+        # if crafting is open, press k to close crafting
+        if self.pressed.get(pygame.K_k) :
+            crafting = True
+            self.pressed[pygame.K_k] = Crafting.show_crafting(self,crafting)
+
         # if inventory is open, press i for close inventory
         if self.not_pressed.get(pygame.K_i) and self.inventory == False and self.play == True :
             self.inventory = True
@@ -233,7 +246,7 @@ class Game:
                 # Pour chaque arbre dans le group d'arbre
                 for obj in self.group_tree :
                     # Si le rect du player est sur le rect de l'arbre
-                    if self.player.rect_character.rect.colliderect(obj.rect) :
+                    if self.player.character_rect.rect.colliderect(obj.rect) :
                         # Fonction qui intéragis avec l'arbre suivant son nombre de pv
                         self.player.inventory.interaction_tree(obj)
                         self.not_pressed[pygame.K_u] = False
@@ -244,7 +257,7 @@ class Game:
                 # Pour chaque pierre dans le groupe de pierre
                 for obj in self.group_stone :
                     # Si le rect du player est sur le rect du rocher
-                    if self.player.rect_character.rect.colliderect(obj.rect) :
+                    if self.player.character_rect.rect.colliderect(obj.rect) :
                         # Fonction qui intéragis avec le rocher suivant son nombre de pv
                         self.player.inventory.interaction_stone(obj)
                         self.not_pressed[pygame.K_u] = False
@@ -253,7 +266,7 @@ class Game:
             # Si le dernier objet selectionné est une gourde
             elif self.player.inventory.last_obj.name == "eau":
                 # Si le rect du player est a coté de l'eau
-                if pygame.sprite.spritecollideany(self.player.rect_character, self.group_water):
+                if pygame.sprite.spritecollideany(self.player.character_rect, self.group_water):
                     # Pour chaque objet dans l'inventaire
                     for obj in self.player.inventory.list_object_inventory :
                         # Si l'objet a pour nom "eau" ca quantité passe a 100
@@ -312,17 +325,21 @@ class Game:
         id_connection = self.sql.id_connection(self.pseudo)
         # Je regarde si le player un champ dans la table player
         result = self.sql.read_table_player(self.pseudo)
-        # Si il a pas de champ dans la table player j'en créé un 
+        # Si il a pas de champ dans la table player j'en créé un
+        create = False
         if result == [] :
-            self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 13000, 9000, 100, 100, 100])
+            self.sql.create_player([id_connection[0], f'avatar{self.avatar_choose +1}', 1500, 2000, 100, 100, 100])
+            result = self.sql.read_table_player(self.pseudo)
+            create = True
+            self.loading = False
         # Je récupère les infromation de la class player
-        result = self.sql.read_table_player(self.pseudo)
         id_player = self.sql.id_player(id_connection[0])
         # J'intancie la class player avec les informations récupérées de la BDD
         self.player = Player(screen, self, result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5], id_player[0])
-        self.player.group_obstacle = self.group_obstacle
-        print(var.last_move)
-
+        if create :
+            self.sql.add_inventory(self.player.id_player, 17, 1)
+            self.sql.add_inventory(self.player.id_player, 3, 1)
+            self.sql.add_inventory(self.player.id_player, 1, 1)
     def update_player(self):
         """
             Save player information
@@ -343,5 +360,4 @@ class Game:
         if var.server_open :
             # Fonction qui envoi et récupère les informations du serveur
             client.execute_client(data)
-
         

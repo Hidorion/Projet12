@@ -5,7 +5,6 @@
  <tileset firstgid="1508" source="tileset/decors_foret.tsx"/>
  <tileset firstgid="3004" source="tileset/decors.tsx"/>
  <tileset firstgid="3260" source="tileset/cabane.tsx"/>
- <!-- <tileset firstgid="3350" source="tileset/bloc_arbre.tsx"/> -->
  <tileset firstgid="3350" source="tileset/giga_arbre.tsx"/>
  <layer id="1" name="sol1" width="200" height="200" visible="0">
   <data encoding="csv">

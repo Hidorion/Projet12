@@ -44,13 +44,17 @@ class Crafting():
         resultinventory = [("Pierre","Bois","Liane","Pierre","Coco","Bois","Eau","Fleur Violette","Banane")] 
         self.inventory_list = [n for n in resultinventory[0]]
     
+
     def show_crafting(self,crafting) :
+
         """
             This method will "blit" the crafting interface
         """
         GoClass = Crafting()
         screen = GoClass.screen
+
         running = True
+
         counter = 0
         while crafting :
             screen.blit(GoClass.crafting_interface, (GoClass.crafting_interface_rect.x, GoClass.crafting_interface_rect.y))
@@ -63,6 +67,8 @@ class Crafting():
                 if event.type==pygame.KEYDOWN:
                     if event.key==pygame.K_k:
                         crafting = False
+
+
                         # Crafting.ExitGame(self)
                     
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -167,6 +173,7 @@ class Crafting():
     #     self.cursor.execute(requete_sql)
     #     return self.cursor.fetchall()
         
+
     # def get_object_name(self,list_of_recipe): #Get the object name via the recipe name
     #     requete_sql = f"""
     #                 SELECT object.name

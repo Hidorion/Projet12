@@ -26,8 +26,6 @@ class Player (pygame.sprite.Sprite) :
         self.stamina = stamina
         self.food = food 
         self.hydratation = hydratation
-        
-        self.group_obstacle = ""
 
         self.health = 10
         self.velocity = 3
@@ -48,7 +46,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect.x += self.velocity
         self.change_image(f"assets/avatars/{self.avatar}/character_right.png", f"assets/avatars/{self.avatar}/character_right_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.game.group_obstacle):
             self.rect.x -= self.velocity
             self.character_rect.rect.x -= self.velocity
  
@@ -59,7 +57,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect.x -= self.velocity
         self.change_image(f"assets/avatars/{self.avatar}/character_left.png", f"assets/avatars/{self.avatar}/character_left_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.game.group_obstacle):
             self.rect.x += self.velocity
             self.character_rect.rect.x += self.velocity
 
@@ -69,7 +67,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect.y -= self.velocity
         self.change_image(f"assets/avatars/{self.avatar}/character_up.png", f"assets/avatars/{self.avatar}/character_up_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.game.group_obstacle):
             self.rect.y += self.velocity
             self.character_rect.rect.y += self.velocity
 
@@ -79,7 +77,7 @@ class Player (pygame.sprite.Sprite) :
         self.rect.y += self.velocity
         self.change_image(f"assets/avatars/{self.avatar}/character_down.png", f"assets/avatars/{self.avatar}/character_down_move.png" )
         self.image = pygame.transform.scale(self.image, (32, 32 ))
-        if pygame.sprite.spritecollideany(self.character_rect, self.group_obstacle):
+        if pygame.sprite.spritecollideany(self.character_rect, self.game.group_obstacle):
             self.rect.y -= self.velocity
             self.character_rect.rect.y -= self.velocity
 
@@ -97,9 +95,25 @@ class Player (pygame.sprite.Sprite) :
         if self.move == 60 :
             self.move = 0 
 
+    def message(self, screen, message, x, y):
+
+        """
+            print message in interface pygame
+        """
+
+        font = pygame.font.SysFont("Gabriola", 20,20)
+        text = font.render(message, 1, (0,0,0))
+        text_rect = text.get_rect()
+        text_rect.x = x
+        text_rect.y = y
+        screen.blit(text,text_rect)
+
 
 
     def interface_player(self, screen):
+        """
+            Print l'interface du player
+        """
         food = pygame.image.load("assets/pics/interface_pics/food.png")
         stamina = pygame.image.load("assets/pics/interface_pics/stamina.png")
         hydratation = pygame.image.load("assets/pics/interface_pics/hydratation.png")
@@ -130,3 +144,7 @@ class Player (pygame.sprite.Sprite) :
                 self.inventory.last_obj.image = pygame.image.load(f"assets/pics/items_pics/eau.png")
             self.inventory.last_obj.image = pygame.transform.scale(self.inventory.last_obj.image, (math.ceil(screen.get_width() / 10), math.ceil(screen.get_height() / 6)))
             screen.blit(self.inventory.last_obj.image, (0, (math.ceil(screen.get_height() - (screen.get_height() / 6.54 + screen.get_width() / 10)))))
+        y = 520
+        for player in var.list_players :
+            self.message(screen,(f"{player[1][2]} -> x:{player[1][0][0]} y:{player[1][0][1]}"), 1005,  y)
+            y += 28

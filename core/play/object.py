@@ -62,10 +62,10 @@ class Object_water(pygame.sprite.Sprite):
         Créé un objet eau pour remplir la gourde
     """
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)
          
-        self.image = pygame.Surface((28, 15))
+        self.image = pygame.Surface((width, height))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
